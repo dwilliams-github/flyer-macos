@@ -50,90 +50,112 @@ class FoldingSprite: NSObject {
         }
         
         // We'll need the size of the scene, so we can fold.
-        // Assume this doesn't change.
+        // We assume this doesn't change.
         self.sceneSize = scene.size
     }
     
-    private func foldedValue( value: CGFloat, span: CGFloat ) -> CGFloat {
-        let halfSpan = span/2;
-        if value > halfSpan {
-            return (value + halfSpan).truncatingRemainder(dividingBy: span) - halfSpan
+    func run(_ action: SKAction ) {
+        primary.run(action)
+        for r in reflections {
+            r.run(action)
         }
-        else if value < -halfSpan {
-            return (value - halfSpan).truncatingRemainder(dividingBy: span) + halfSpan
-        }
-        return value
     }
     
-    func Hide() {
-        self.primary.isHidden = true
+    func hide() {
+        primary.isHidden = true
         for r in reflections {
             r.isHidden = true
+        }
+    }
+    
+    func fadeIn( duration: TimeInterval ) {
+        primary.alpha = 0
+        for r in reflections {r.alpha = 0}
+
+        run(SKAction.fadeIn(withDuration: 1))
+    }
+    
+    var alpha: CGFloat {
+        get {
+            primary.alpha
+        }
+        set {
+            primary.alpha = newValue
+            for r in reflections {r.alpha = newValue}
         }
     }
 
     private func wakeUpReflection( which: Int, dx: CGFloat = 0, dy: CGFloat = 0 ) {
         let current = self.reflections[which]
-        current.zRotation  = self.primary.zRotation
-        current.texture    = self.primary.texture
-        current.position.x = self.primary.position.x + dx
-        current.position.y = self.primary.position.y + dy
+        current.zRotation  = primary.zRotation
+        current.texture    = primary.texture
+        current.position.x = primary.position.x + dx
+        current.position.y = primary.position.y + dy
         current.isHidden   = false
     }
     
     private func wakeUpDoubleReflection( which: Int, base: Int, dx: CGFloat = 0, dy: CGFloat = 0 ) {
         let current = self.reflections[which]
-        current.zRotation  = self.primary.zRotation
-        current.texture    = self.primary.texture
-        current.position.x = self.reflections[base].position.x + dx
-        current.position.y = self.reflections[base].position.y + dy
+        current.zRotation  = primary.zRotation
+        current.texture    = primary.texture
+        current.position.x = reflections[base].position.x + dx
+        current.position.y = reflections[base].position.y + dy
         current.isHidden   = false
     }
+    
+    
+    func closestLine( target: CGPoint ) -> CGPoint {
+        return FoldingPoint( value: primary.position, bounds: sceneSize ).closestLine(target: target)
+    }
+    
+    func foldedPosition() -> FoldingPoint {
+        return FoldingPoint( value: primary.position, bounds: sceneSize )
+    }
+    
 
     /// The position of the object, which will be folded into the scene
     var position: CGPoint {
         get {
-            self.primary.position
+            primary.position
         }
         set {
-            self.primary.position = CGPoint(
-                x: foldedValue(value: newValue.x, span: sceneSize.width),
-                y: foldedValue(value: newValue.y, span: sceneSize.height)
-            )
-            self.primary.isHidden = false
+            primary.position = FoldingPoint( value: newValue, bounds: sceneSize ).position
+            if primary.isHidden {
+                primary.isHidden = false
+            }
             
             var nextRef = 0
             
-            let halfWidth = self.sceneSize.width/2
-            if self.primary.position.x > halfWidth - self.primary.size.width {
-                wakeUpReflection( which: nextRef, dx: -self.sceneSize.width)
+            let halfWidth = sceneSize.width/2
+            if primary.position.x > halfWidth - primary.size.width {
+                wakeUpReflection( which: nextRef, dx: -sceneSize.width)
                 nextRef += 1
             }
-            else if self.primary.position.x < -halfWidth + self.primary.size.width {
-                wakeUpReflection( which: nextRef, dx: +self.sceneSize.width)
+            else if primary.position.x < -halfWidth + primary.size.width {
+                wakeUpReflection( which: nextRef, dx: +sceneSize.width)
                 nextRef += 1
             }
             
-            let halfHeight = self.sceneSize.height/2
-            if self.primary.position.y > halfHeight - self.primary.size.height {
-                wakeUpReflection( which: nextRef, dy: -self.sceneSize.height)
+            let halfHeight = sceneSize.height/2
+            if primary.position.y > halfHeight - primary.size.height {
+                wakeUpReflection( which: nextRef, dy: -sceneSize.height)
                 nextRef += 1
                 if nextRef > 1 {
-                    wakeUpDoubleReflection( which: nextRef, base: 0, dy: -self.sceneSize.height)
+                    wakeUpDoubleReflection( which: nextRef, base: 0, dy: -sceneSize.height)
                     nextRef += 1
                 }
             }
-            else if self.primary.position.y < -halfHeight + self.primary.size.height {
-                wakeUpReflection( which: nextRef, dy: +self.sceneSize.height)
+            else if primary.position.y < -halfHeight + primary.size.height {
+                wakeUpReflection( which: nextRef, dy: +sceneSize.height)
                 nextRef += 1
                 if nextRef > 1 {
-                    wakeUpDoubleReflection( which: nextRef, base: 0, dy: +self.sceneSize.height)
+                    wakeUpDoubleReflection( which: nextRef, base: 0, dy: +sceneSize.height)
                     nextRef += 1
                 }
             }
 
             while nextRef < 4 {
-                self.reflections[nextRef].isHidden = true
+                reflections[nextRef].isHidden = true
                 nextRef += 1
             }
         }
@@ -141,19 +163,19 @@ class FoldingSprite: NSObject {
     
     var zRotation: CGFloat {
         get {
-            self.primary.zRotation
+            primary.zRotation
         }
         set {
-            self.primary.zRotation = newValue
+            primary.zRotation = newValue
         }
     }
     
     var texture: SKTexture? {
         get {
-            self.primary.texture
+            primary.texture
         }
         set {
-            self.primary.texture = newValue
+            primary.texture = newValue
         }
     }
 }

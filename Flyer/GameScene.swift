@@ -14,32 +14,47 @@ class GameScene: SKScene {
     private var label : SKLabelNode?
     private var player: Player?
     private var pews: [PewPew]?
+    private var foes: [FoeSlot]?
     private var nextPew: Int = 0
         
     override func didMove(to view: SKView) {
         backgroundColor = SKColor.white
 
         // Get label node from scene and store it for use later
-        label = self.childNode(withName: "//scoreLabel") as? SKLabelNode
+        self.label = self.childNode(withName: "//scoreLabel") as? SKLabelNode
         if let label = self.label {
             label.alpha = 0.0
             label.run(SKAction.fadeIn(withDuration: 2.0))
         }
 
-        player = Player(scene: self)
+        //
+        // Our hero!
+        //
+        self.player = Player(scene: self)
         
-        pews = []
-        for _ in 0...8 {
-            pews!.append(PewPew(scene: self))
+        //
+        // Our missles
+        //
+        self.pews = []
+        for _ in 0..<8 {
+            self.pews!.append(PewPew(scene: self))
+        }
+        
+        //
+        // The baddies
+        //
+        self.foes = []
+        for i in 0..<4 {
+            self.foes!.append( FoeSlot(scene: self, player: self.player!, delay: TimeInterval(i)*0.5) )
         }
     }
     
     private func Fire(currentTime: TimeInterval) {
-        if let livePlayer = player, let pews = self.pews {
+        if let player = self.player, let pews = self.pews {
             if pews[nextPew].available() {
                 pews[nextPew].launch(
-                    start: livePlayer.launchPosition(),
-                    velocity: livePlayer.launchVelocity(),
+                    start: player.launchPosition(),
+                    velocity: player.launchVelocity(),
                     expires: currentTime + 2.0
                 )
                 nextPew = (nextPew + 1) % pews.count
@@ -48,14 +63,14 @@ class GameScene: SKScene {
     }
     
     override func keyDown(with event: NSEvent) {
-        if let livePlayer = player {
+        if let player = self.player {
             switch event.keyCode {
             case 0x7b:
-                livePlayer.startLeft(currentTime: event.timestamp)
+                player.startLeft(currentTime: event.timestamp)
             case 0x7c:
-                livePlayer.startRight(currentTime: event.timestamp)
+                player.startRight(currentTime: event.timestamp)
             case 0x7e:
-                livePlayer.startThrust(currentTime: event.timestamp)
+                player.startThrust(currentTime: event.timestamp)
             case 0x06:
                 Fire(currentTime: event.timestamp)
             default:
@@ -65,12 +80,12 @@ class GameScene: SKScene {
     }
     
     override func keyUp(with event: NSEvent) {
-        if let livePlayer = player {
+        if let player = self.player {
             switch event.keyCode {
             case 0x7b, 0x7c:
-                livePlayer.stopTurn(currentTime: event.timestamp)
+                player.stopTurn(currentTime: event.timestamp)
             case 0x7e:
-                livePlayer.stopThrust(currentTime: event.timestamp)
+                player.stopThrust(currentTime: event.timestamp)
             default:
                 break
             }
@@ -79,12 +94,31 @@ class GameScene: SKScene {
     
     
     override func update(_ currentTime: TimeInterval) {
-        if let livePlayer = player {
-            livePlayer.update(currentTime: currentTime)
+        if let pews = self.pews, let foes = self.foes {
+            //
+            // Check for missle and foe collision
+            //
+            for p in pews {
+                if p.available() { continue }
+                for f in foes {
+                    if f.checkHit( missle: p.position, currentTime: currentTime ) {
+                        p.halt()
+                        break
+                    }
+                }
+            }
+        }
+        if let player = self.player {
+            player.update(currentTime: currentTime)
         }
         if let pews = self.pews {
             for p in pews {
                 p.update(currentTime: currentTime)
+            }
+        }
+        if let foes = self.foes {
+            for f in foes {
+                f.update(currentTime: currentTime)
             }
         }
     }

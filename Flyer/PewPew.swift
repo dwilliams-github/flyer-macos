@@ -12,7 +12,6 @@ class PewPew: NSObject {
     private var sprite: FoldingSprite
     
     let spinRate: CGFloat = 4
-    let speed: CGFloat = 50
     
     private var lastUpdate: TimeInterval?
     
@@ -37,11 +36,22 @@ class PewPew: NSObject {
         return self.velocity == nil
     }
     
+    var position: CGPoint? {
+        get {
+            self.velocity == nil ? nil : self.sprite.position
+        }
+    }
+    
+    func halt() {
+        self.velocity = nil
+        self.sprite.hide()
+    }
+    
     func update( currentTime: TimeInterval ) {
         if let last = self.lastUpdate, let vel = velocity, let expir = expiration {
             if currentTime > expir {
                 self.velocity = nil
-                self.sprite.Hide()
+                self.sprite.hide()
                 return
             }
             

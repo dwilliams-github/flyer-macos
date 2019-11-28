@@ -47,6 +47,22 @@ class Player: NSObject {
         thrusting = false
     }
     
+    var position : CGPoint {
+        get {
+            sprite.position
+        }
+    }
+    
+    /**
+     Position in which a foe should not appear.
+     
+     Nominally the player position, unless the player is dying or waiting to be reborn,
+     in which case, the spawn location is return.
+     */
+    func safePosition() -> FoldingPoint {
+        return sprite.foldedPosition()
+    }
+    
     func launchPosition() -> CGPoint {
         return CGPoint(
             x: sprite.position.x - 10*sin(sprite.zRotation),
