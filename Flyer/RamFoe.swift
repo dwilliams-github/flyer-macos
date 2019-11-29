@@ -23,6 +23,10 @@ class RamFoe: Foe {
         self.sprite.fadeIn( duration: 1 )
     }
     
+    override func hitsPlayer( target: CGPoint ) -> Bool {
+        return sprite.foldedPosition().smallestSquareDistance(target: target) < 15*15
+    }
+    
     override func hide( currentTime: TimeInterval ) {
         self.sprite.hide()
         self.velocity = nil
@@ -58,7 +62,7 @@ class RamFoe: Foe {
     }
     
     override func update( currentTime: TimeInterval, player: Player? ) {
-        if let p = player, let last = self.lastUpdate {
+        if let p = player, let last = self.lastUpdate, player!.active() {
             aim( target: p.position, max_turn: turn_speed*CGFloat(currentTime - last) )
         }
 

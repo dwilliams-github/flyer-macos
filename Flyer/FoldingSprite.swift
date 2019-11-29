@@ -68,13 +68,22 @@ class FoldingSprite: NSObject {
         }
     }
     
-    func fadeIn( duration: TimeInterval ) {
-        primary.alpha = 0
-        for r in reflections {r.alpha = 0}
-
-        run(SKAction.fadeIn(withDuration: 1))
+    /**
+     Fade from nothing
+     - Parameter duration Time to fade in
+     - Parameter to Target alpha at end of fade
+     
+     Alpha is set to zero immediately.
+     */
+    func fadeIn( duration: TimeInterval, to: CGFloat = 1 ) {
+        alpha = 0
+        run(SKAction.fadeAlpha(to: to, duration: duration))
     }
     
+    func fadeAlpha( to: CGFloat, duration: TimeInterval ) {
+        run(SKAction.fadeAlpha(to: to, duration: duration))
+    }
+
     var alpha: CGFloat {
         get {
             primary.alpha

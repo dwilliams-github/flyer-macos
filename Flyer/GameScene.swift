@@ -53,8 +53,8 @@ class GameScene: SKScene {
         if let player = self.player, let pews = self.pews {
             if pews[nextPew].available() {
                 pews[nextPew].launch(
-                    start: player.launchPosition(),
-                    velocity: player.launchVelocity(),
+                    start: player.missleLaunchPosition(),
+                    velocity: player.missleLaunchVelocity(),
                     expires: currentTime + 2.0
                 )
                 nextPew = (nextPew + 1) % pews.count
@@ -108,7 +108,20 @@ class GameScene: SKScene {
                 }
             }
         }
+        
+        if let foes = self.foes, let player = self.player {
+            for f in foes {
+                if f.hitsPlayer(player: player) {
+                    player.oops(when: currentTime)
+                    player.spawn(when: currentTime+3)
+                }
+            }
+        }
+        
         if let player = self.player {
+            if player.dead() {
+                player.spawn(when: currentTime+1)
+            }
             player.update(currentTime: currentTime)
         }
         if let pews = self.pews {

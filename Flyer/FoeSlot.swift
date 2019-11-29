@@ -39,8 +39,8 @@ class FoeSlot: NSObject {
         meanie = Meanie( scene: scene )
         box = Box( scene: scene )
         
-        boom = Boom( scene: scene )
-        
+        boom = Boom( scene: scene, name: "Boom", number: 4, size: 18 )
+
         //
         // We'll need to keep track of the player and scene
         //
@@ -53,30 +53,6 @@ class FoeSlot: NSObject {
         state = .DORMANT
         startDelay = delay
     }
-    
-    
-    func smallestSquareDistance( p1: CGPoint, p2: CGPoint ) -> CGFloat {
-        let xbound = scene.size.width/2
-        let ybound = scene.size.height/2
-
-        var dx = p1.x - p2.x
-        var dy = p1.y - p2.y
-        
-        if dx > xbound {
-            dx -= 2*xbound
-        } else if dx < -xbound {
-            dx += 2*xbound
-        }
-        
-        if dy > ybound {
-            dy -= 2*ybound
-        } else if dx < -ybound {
-            dy += 2*ybound
-        }
-        
-        return dx*dx + dy*dy
-    }
-    
     
     func wakeUpPoint() -> CGPoint {
         //
@@ -122,6 +98,15 @@ class FoeSlot: NSObject {
         active!.spawn( start: wakeUpPoint(), direction: wakeUpDirection() )
     }
     
+    func hitsPlayer( player: Player ) -> Bool {
+        if let active = self.active, state == State.ACTIVE {
+            return active.hitsPlayer(target: player.position)
+        }
+        else {
+            return false
+        }
+    }
+    
     private func changeState( newState: State, currentTime: TimeInterval ) {
         state = newState
         lastState = currentTime
@@ -132,7 +117,7 @@ class FoeSlot: NSObject {
             if active.position.smallestSquareDistance(target: mis) < 400 {
                 changeState( newState: .DYING, currentTime: currentTime )
                 active.fade( currentTime: currentTime )
-                boom.overlay( foe: active, currentTime: currentTime )
+                boom.overlay( at: active.position, velocity: active.velocity!, currentTime: currentTime )
                 return true
             }
         }
@@ -142,13 +127,13 @@ class FoeSlot: NSObject {
     func update( currentTime: TimeInterval ) {
         if lastUpdate == nil {
             //
-            // First update. Set beginning of current state.
+            // First update. Set beginning of current state, and do nothing else
             //
             lastState = currentTime + startDelay
         }
         else if (state == .DORMANT) {
             //
-            // Ready to wake up?
+            // Innocent sleep. Sleep that soothes away all our worries.
             //
             if currentTime - lastState! > FoeSlot.DORMANT_DURATION {
                 wakeUp()
@@ -157,7 +142,7 @@ class FoeSlot: NSObject {
         }
         else if (state == .APPEARING) {
             //
-            // All woken up
+            // Methought I heard a voice cry 'Sleep no more!'
             //
             if let active = self.active {
                 active.update( currentTime: currentTime, player: self.player )
@@ -168,11 +153,17 @@ class FoeSlot: NSObject {
             }
         }
         else if (state == .ACTIVE) {
+            //
+            // Suit the action to the word, the word to the action
+            //
             if let active = self.active {
                 active.update( currentTime: currentTime, player: self.player )
             }
         }
         else if (state == .DYING) {
+            //
+            // Alas, poor Yorick! I knew him
+            //
             if let active = self.active {
                 active.update( currentTime: currentTime, player: self.player )
                 

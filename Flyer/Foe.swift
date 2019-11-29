@@ -18,6 +18,10 @@ class Foe: NSObject {
     
     func spawn( start: CGPoint, direction: CGPoint ) {}
     
+    func hitsPlayer( target: CGPoint ) -> Bool {
+        return false
+    }
+    
     func launch( start: CGPoint, velocity: CGPoint ) {
         self.position.position = start
         self.velocity = velocity
