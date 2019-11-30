@@ -45,7 +45,7 @@ class Player: NSObject {
     private var turning: Turning
     private var thrusting: Bool
 
-    private var velocity: CGPoint = CGPoint(x:0, y:0)
+    private(set) var velocity: CGPoint = CGPoint(x:0, y:0)
     
     init( scene: SKScene ) {
         coastTexture = SKTexture(imageNamed: "player coast")
@@ -146,6 +146,15 @@ class Player: NSObject {
             x: velocity.x - 250*sin(sprite.zRotation),
             y: velocity.y + 250*cos(sprite.zRotation)
         )
+    }
+    
+    /**
+     Decide if we are going too fast
+     
+     This is just to prevent the user from constantly accelerating willy nilly
+     */
+    func tooFast() -> Bool {
+        return state == State.ACTIVE && velocity.magnitude() > 1000
     }
     
     func startLeft( currentTime: TimeInterval ) {

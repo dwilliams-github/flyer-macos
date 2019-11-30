@@ -120,7 +120,11 @@ class GameScene: SKScene {
         
         if let player = self.player {
             if player.dead() {
-                player.spawn(when: currentTime+1)
+                player.spawn(when: currentTime+1)   // initial spawn
+            }
+            else if player.tooFast() {
+                player.oops(when: currentTime)
+                player.spawn(when: currentTime+3)
             }
             player.update(currentTime: currentTime)
         }

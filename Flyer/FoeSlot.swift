@@ -13,6 +13,8 @@ class FoeSlot: NSObject {
     
     private var meanie: Meanie
     private var box: Box
+    private var mine: Mine
+    private var smartMine: SmartMine;
     private var player: Player
     private var boom: Boom
     private var scene: SKScene
@@ -38,6 +40,8 @@ class FoeSlot: NSObject {
         //
         meanie = Meanie( scene: scene )
         box = Box( scene: scene )
+        mine = Mine( scene: scene)
+        smartMine = SmartMine( scene: scene )
         
         boom = Boom( scene: scene, name: "Boom", number: 4, size: 18 )
 
@@ -64,7 +68,7 @@ class FoeSlot: NSObject {
         
         let safePlace = player.safePosition()
         
-        for _ in 0...1000 {
+        for _ in 0...10000 {
             let answer = CGPoint(
                 x: CGFloat.random(in: -xbound ... xbound),
                 y: CGFloat.random(in: -ybound ... ybound)
@@ -89,12 +93,15 @@ class FoeSlot: NSObject {
     }
     
     func wakeUp() {
-        let toss = CGFloat.random(in: 0 ..< 1)
-        if toss < 0.75 {
-            active = box
-        } else {
-            active = meanie
+        let badder = CGFloat.random(in: 0 ..< 1) > 0.75
+
+        if CGFloat.random(in: 0 ..< 1) < 0.25 {
+            active = badder ? smartMine : mine
         }
+        else {
+            active = badder ? meanie : box
+        }
+
         active!.spawn( start: wakeUpPoint(), direction: wakeUpDirection() )
     }
     
