@@ -192,7 +192,7 @@ class Player: NSObject {
             // until an action is received, to avoid untimely
             // death in case we are spawned in a bad place.
             //
-            // Our held state is faded with a "spawn" animation.
+            // Our held state is faded and overlaid with a "spawn" animation.
             //
             if currentTime > spawnTime! {
                 state = State.HOLDING

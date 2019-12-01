@@ -11,10 +11,11 @@ class FoeSlot: NSObject {
     static private let APPEAR_DURATION  = 1.0
     static private let DYING_DURATION   = 1.0
     
+    private var difficulty: Difficulty
     private var meanie: Meanie
     private var box: Box
     private var mine: Mine
-    private var smartMine: SmartMine;
+    private var smartMine: SmartMine
     private var player: Player
     private var boom: Boom
     private var scene: SKScene
@@ -34,7 +35,9 @@ class FoeSlot: NSObject {
     private var lastState: TimeInterval?
     private var startDelay: TimeInterval
     
-    init( scene: SKScene, player: Player, delay: TimeInterval ) {
+    init( scene: SKScene, difficulty: Difficulty, player: Player, delay: TimeInterval ) {
+        self.difficulty = difficulty
+        
         //
         // Preallocate potential animations
         //
@@ -93,6 +96,9 @@ class FoeSlot: NSObject {
     }
     
     func wakeUp() {
+        //
+        // Select foe from our four foe types
+        //
         let badder = CGFloat.random(in: 0 ..< 1) > 0.75
 
         if CGFloat.random(in: 0 ..< 1) < 0.25 {
@@ -118,17 +124,38 @@ class FoeSlot: NSObject {
         state = newState
         lastState = currentTime
     }
+    
+    private func currentValue() -> Int? {
+        switch active {
+        case _ as Box:
+            return difficulty.boxAward
+        case _ as Mine:
+            return difficulty.mineAward
+        case _ as Meanie:
+            return difficulty.meanieAward
+        case _ as SmartMine:
+            return difficulty.smartMineAward
+        default:
+            return nil
+        }
+    }
 
-    func checkHit( missle: CGPoint?, currentTime: TimeInterval) -> Bool {
+    /**
+     Check if a foe has been destroyed
+     - Parameter missle The missle being used
+     - Parameter currentTime Current game time
+     - Returns: nil if nothing hit, otherwise the award for the foe dispatched
+     */
+    func checkHit( missle: CGPoint?, currentTime: TimeInterval) -> Int? {
         if let active = self.active, let mis = missle, state == .ACTIVE {
             if active.position.smallestSquareDistance(target: mis) < 400 {
                 changeState( newState: .DYING, currentTime: currentTime )
                 active.fade( currentTime: currentTime )
                 boom.overlay( at: active.position, velocity: active.velocity!, currentTime: currentTime )
-                return true
+                return currentValue()
             }
         }
-        return false
+        return nil
     }
 
     func update( currentTime: TimeInterval ) {

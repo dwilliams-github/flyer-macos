@@ -11,6 +11,8 @@ import GameplayKit
 
 class GameScene: SKScene {
     
+    private var difficulty: Difficulty?
+    private var score: Score?
     private var label : SKLabelNode?
     private var player: Player?
     private var pews: [PewPew]?
@@ -20,12 +22,8 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         backgroundColor = SKColor.white
 
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//scoreLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
+        self.difficulty = Hacker()
+        self.score = Score(scene: self)
 
         //
         // Our hero!
@@ -45,7 +43,12 @@ class GameScene: SKScene {
         //
         self.foes = []
         for i in 0..<4 {
-            self.foes!.append( FoeSlot(scene: self, player: self.player!, delay: TimeInterval(i)*0.5) )
+            self.foes!.append(FoeSlot(
+                scene: self,
+                difficulty: self.difficulty!,
+                player: self.player!,
+                delay: TimeInterval(i)*0.5
+            ))
         }
     }
     
@@ -101,8 +104,9 @@ class GameScene: SKScene {
             for p in pews {
                 if p.available() { continue }
                 for f in foes {
-                    if f.checkHit( missle: p.position, currentTime: currentTime ) {
+                    if let award = f.checkHit( missle: p.position, currentTime: currentTime ), let score = self.score {
                         p.halt()
+                        score.increment(amount: award)
                         break
                     }
                 }
@@ -110,6 +114,9 @@ class GameScene: SKScene {
         }
         
         if let foes = self.foes, let player = self.player {
+            //
+            // Check for foe and player collision
+            //
             for f in foes {
                 if f.hitsPlayer(player: player) {
                     player.oops(when: currentTime)
@@ -119,6 +126,9 @@ class GameScene: SKScene {
         }
         
         if let player = self.player {
+            //
+            // Animate the player
+            //
             if player.dead() {
                 player.spawn(when: currentTime+1)   // initial spawn
             }
@@ -129,11 +139,17 @@ class GameScene: SKScene {
             player.update(currentTime: currentTime)
         }
         if let pews = self.pews {
+            //
+            // Animate missles
+            //
             for p in pews {
                 p.update(currentTime: currentTime)
             }
         }
         if let foes = self.foes {
+            //
+            // Animate foes
+            //
             for f in foes {
                 f.update(currentTime: currentTime)
             }

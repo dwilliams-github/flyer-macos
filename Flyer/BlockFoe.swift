@@ -43,7 +43,6 @@ class BlockFoe: Foe {
     }
 
     private func aim( targetPosition: CGPoint, targetVelocity: CGPoint, delta: TimeInterval ) -> CGPoint {
-   
         //
         // Get target path direction
         //
