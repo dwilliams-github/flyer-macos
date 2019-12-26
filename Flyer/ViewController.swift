@@ -10,18 +10,23 @@ import Cocoa
 import SpriteKit
 import GameplayKit
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, GameSceneWatcher {
 
     @IBOutlet var skView: SKView!
+    @IBOutlet weak var gameOverView: NSView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         if let view = self.skView {
             // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
+            if let scene = GameScene(fileNamed: "GameScene") {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFit
+                
+                // Watch
+                scene.watcher = self
                 
                 // Present the scene
                 view.presentScene(scene)
@@ -33,5 +38,13 @@ class ViewController: NSViewController {
             view.showsNodeCount = true
         }
     }
+    
+    func gameOver( score: Int ) {
+        print("Game over...")
+        if let gameOverView = self.gameOverView {
+            gameOverView.isHidden = false
+        }
+    }
+    
 }
 

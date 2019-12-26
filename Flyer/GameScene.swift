@@ -9,21 +9,28 @@
 import SpriteKit
 import GameplayKit
 
+protocol GameSceneWatcher {
+    func gameOver( score: Int );
+}
+
 class GameScene: SKScene {
     
-    private var difficulty: Difficulty?
+    private var settings: GameSettings?
     private var score: Score?
-    private var label : SKLabelNode?
+    private var lives: Lives?
     private var player: Player?
     private var pews: [PewPew]?
     private var foes: [FoeSlot]?
     private var nextPew: Int = 0
-        
+    
+    var watcher: GameSceneWatcher?
+    
     override func didMove(to view: SKView) {
         backgroundColor = SKColor.white
 
-        self.difficulty = Hacker()
+        self.settings = GameSettings()
         self.score = Score(scene: self)
+        self.lives = Lives(scene: self, startAt: 6, max: 8)
 
         //
         // Our hero!
@@ -45,14 +52,13 @@ class GameScene: SKScene {
         for i in 0..<4 {
             self.foes!.append(FoeSlot(
                 scene: self,
-                difficulty: self.difficulty!,
                 player: self.player!,
                 delay: TimeInterval(i)*0.5
             ))
         }
     }
     
-    private func Fire(currentTime: TimeInterval) {
+    private func fire(currentTime: TimeInterval) {
         if let player = self.player, let pews = self.pews {
             if pews[nextPew].available() {
                 pews[nextPew].launch(
@@ -66,16 +72,16 @@ class GameScene: SKScene {
     }
     
     override func keyDown(with event: NSEvent) {
-        if let player = self.player {
+        if let player = self.player, let settings = self.settings {
             switch event.keyCode {
-            case 0x7b:
+            case settings.keyLeft:
                 player.startLeft(currentTime: event.timestamp)
-            case 0x7c:
+            case settings.keyRight:
                 player.startRight(currentTime: event.timestamp)
-            case 0x7e:
+            case settings.keyThrust:
                 player.startThrust(currentTime: event.timestamp)
-            case 0x06:
-                Fire(currentTime: event.timestamp)
+            case settings.keyFire:
+                fire(currentTime: event.timestamp)
             default:
                 break
             }
@@ -83,11 +89,11 @@ class GameScene: SKScene {
     }
     
     override func keyUp(with event: NSEvent) {
-        if let player = self.player {
+        if let player = self.player, let settings = self.settings {
             switch event.keyCode {
-            case 0x7b, 0x7c:
+            case settings.keyLeft, settings.keyRight:
                 player.stopTurn(currentTime: event.timestamp)
-            case 0x7e:
+            case settings.keyThrust:
                 player.stopThrust(currentTime: event.timestamp)
             default:
                 break
@@ -97,14 +103,18 @@ class GameScene: SKScene {
     
     
     override func update(_ currentTime: TimeInterval) {
-        if let pews = self.pews, let foes = self.foes {
+        if let pews = self.pews, let foes = self.foes, let settings = self.settings {
             //
             // Check for missle and foe collision
             //
             for p in pews {
                 if p.available() { continue }
                 for f in foes {
-                    if let award = f.checkHit( missle: p.position, currentTime: currentTime ), let score = self.score {
+                    if let award = f.checkHit(
+                        missle: p.position,
+                        currentTime: currentTime,
+                        difficulty: settings.difficulty
+                    ), let score = self.score {
                         p.halt()
                         score.increment(amount: award)
                         break
@@ -118,9 +128,15 @@ class GameScene: SKScene {
             // Check for foe and player collision
             //
             for f in foes {
-                if f.hitsPlayer(player: player) {
+                if player.active() && f.hitsPlayer(player: player) {
                     player.oops(when: currentTime)
-                    player.spawn(when: currentTime+3)
+                    if lives!.decrement() > 0 {
+                        player.spawn(when: currentTime+3)
+                    }
+                    
+                    if let watcher = self.watcher, let score = self.score {
+                        watcher.gameOver(score: score.currentValue)
+                    }
                 }
             }
         }
@@ -134,7 +150,9 @@ class GameScene: SKScene {
             }
             else if player.tooFast() {
                 player.oops(when: currentTime)
-                player.spawn(when: currentTime+3)
+                if lives!.decrement() > 0 {
+                    player.spawn(when: currentTime+3)
+                }
             }
             player.update(currentTime: currentTime)
         }
@@ -146,12 +164,12 @@ class GameScene: SKScene {
                 p.update(currentTime: currentTime)
             }
         }
-        if let foes = self.foes {
+        if let foes = self.foes, let settings = self.settings {
             //
             // Animate foes
             //
             for f in foes {
-                f.update(currentTime: currentTime)
+                f.update(currentTime: currentTime, difficulty: settings.difficulty)
             }
         }
     }

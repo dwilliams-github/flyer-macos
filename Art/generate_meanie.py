@@ -7,8 +7,10 @@ import math
 #
 
 def make_one(theta):
-    doc = et.Element('svg', width='64', height='64', version='1.1', xmlns='http://www.w3.org/2000/svg')
-    et.SubElement(doc, 'circle', cx='32', cy='32', r='20', fill='none', stroke='blue', style="stroke-width:4")
+    doc = et.Element('svg', width='64', height='64', \
+        version='1.1', xmlns='http://www.w3.org/2000/svg')
+    et.SubElement(doc, 'circle', cx='32', cy='32', r='20', \
+        fill='none', stroke='blue', style="stroke-width:4")
     
     cost = math.cos(theta)
     

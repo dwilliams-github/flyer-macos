@@ -67,9 +67,28 @@ class BlockFoe: Foe {
         // but cushioned a bit to avoid oscillations, and within the
         // given speed limit
         //
-        var v = sensitivity * speed * cross / (cross*cross + dampenSquared)
-        v = min(v,speed)
-        v = max(v,-speed)
+        //var v = sensitivity * speed * cross / (cross*cross + dampenSquared)
+        //v = min(v,speed)
+        //v = max(v,-speed)
+        
+        var v = sensitivity * speed / cross
+        
+        if cross > 2 {
+            if v > cross {
+                v = cross
+            }
+            else if v < speed {
+                v = speed
+            }
+        }
+        else if cross < -2 {
+            if v < cross {
+                v = cross
+            }
+            else if v > -speed {
+                v = -speed
+            }
+        }
         
         let lineDistance = line.magnitude()
         

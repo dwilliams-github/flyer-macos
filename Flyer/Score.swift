@@ -10,7 +10,7 @@ import SpriteKit
 
 class Score: NSObject {
     private var label : SKLabelNode?
-    private var currentValue : Int
+    private(set) var currentValue : Int
     
     init( scene: SKScene ) {
         currentValue = 0

@@ -11,7 +11,6 @@ class FoeSlot: NSObject {
     static private let APPEAR_DURATION  = 1.0
     static private let DYING_DURATION   = 1.0
     
-    private var difficulty: Difficulty
     private var meanie: Meanie
     private var box: Box
     private var mine: Mine
@@ -35,8 +34,7 @@ class FoeSlot: NSObject {
     private var lastState: TimeInterval?
     private var startDelay: TimeInterval
     
-    init( scene: SKScene, difficulty: Difficulty, player: Player, delay: TimeInterval ) {
-        self.difficulty = difficulty
+    init( scene: SKScene, player: Player, delay: TimeInterval ) {
         
         //
         // Preallocate potential animations
@@ -95,7 +93,7 @@ class FoeSlot: NSObject {
         )
     }
     
-    func wakeUp() {
+    func wakeUp(difficulty: Difficulty) {
         //
         // Select foe from our four foe types
         //
@@ -125,7 +123,7 @@ class FoeSlot: NSObject {
         lastState = currentTime
     }
     
-    private func currentValue() -> Int? {
+    private func currentValue(difficulty: Difficulty) -> Int? {
         switch active {
         case _ as Box:
             return difficulty.boxAward
@@ -146,19 +144,19 @@ class FoeSlot: NSObject {
      - Parameter currentTime Current game time
      - Returns: nil if nothing hit, otherwise the award for the foe dispatched
      */
-    func checkHit( missle: CGPoint?, currentTime: TimeInterval) -> Int? {
+    func checkHit( missle: CGPoint?, currentTime: TimeInterval, difficulty: Difficulty ) -> Int? {
         if let active = self.active, let mis = missle, state == .ACTIVE {
-            if active.position.smallestSquareDistance(target: mis) < 400 {
+            if active.position.smallestSquareDistance(target: mis) < 300 {
                 changeState( newState: .DYING, currentTime: currentTime )
                 active.fade( currentTime: currentTime )
                 boom.overlay( at: active.position, velocity: active.velocity!, currentTime: currentTime )
-                return currentValue()
+                return currentValue(difficulty: difficulty)
             }
         }
         return nil
     }
 
-    func update( currentTime: TimeInterval ) {
+    func update( currentTime: TimeInterval, difficulty: Difficulty ) {
         if lastUpdate == nil {
             //
             // First update. Set beginning of current state, and do nothing else
@@ -170,7 +168,7 @@ class FoeSlot: NSObject {
             // Innocent sleep. Sleep that soothes away all our worries.
             //
             if currentTime - lastState! > FoeSlot.DORMANT_DURATION {
-                wakeUp()
+                wakeUp(difficulty: difficulty)
                 changeState( newState: .APPEARING, currentTime: currentTime )
             }
         }
