@@ -41,7 +41,7 @@ class GameSettings: NSObject {
         case Expert
     }
     
-    let defaultValues: [String:Any] = [
+    static private var defaultValues: [String:Any] = [
         GameSettings.Keys.difficulty.rawValue: DifficultyKeys.Hacker.rawValue,
         GameSettings.Keys.keyLeft.rawValue:    0x7b as UInt16,
         GameSettings.Keys.keyRight.rawValue:   0x7c as UInt16,
@@ -53,7 +53,7 @@ class GameSettings: NSObject {
     // Keep a preallocated dictionary of difficulty settings,
     // to avoid overhead of creation/deletion
     //
-    let difficultyStore: [Int: Difficulty] = [
+    static private var difficultyStore: [Int: Difficulty] = [
         DifficultyKeys.Beginner.rawValue: Beginner(),
         DifficultyKeys.Hacker.rawValue: Hacker(),
         DifficultyKeys.Expert.rawValue: Expert()
@@ -63,12 +63,12 @@ class GameSettings: NSObject {
     
     override init() {
         self.defaults = UserDefaults.standard
-        self.defaults.register(defaults: defaultValues)
+        self.defaults.register(defaults: GameSettings.defaultValues)
     }
     
     var difficulty: Difficulty {
         get {
-            return difficultyStore[UserDefaults.standard.object(forKey: GameSettings.Keys.difficulty.rawValue) as! Int]!
+            return GameSettings.difficultyStore[UserDefaults.standard.object(forKey: GameSettings.Keys.difficulty.rawValue) as! Int]!
         }
     }
     

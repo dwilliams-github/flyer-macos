@@ -33,10 +33,11 @@ class Player: NSObject {
     }
     
     enum State {
-        case WAITING    // Waiting to spawn
-        case HOLDING    // Waiting to start
-        case ACTIVE     // Reacts to controls
-        case DEAD       // Coasting after death
+        case INITIALIZED // Yet to appear
+        case WAITING     // Waiting to spawn
+        case HOLDING     // Waiting to start
+        case ACTIVE      // Reacts to controls
+        case DEAD        // Coasting after death
     }
     
     private var spawnTime: TimeInterval?
@@ -78,7 +79,7 @@ class Player: NSObject {
         
         turning = Turning.COAST
         thrusting = false
-        state = State.DEAD
+        state = State.INITIALIZED
         sprite.alpha = 0
         sprite.hide()
     }
@@ -185,6 +186,10 @@ class Player: NSObject {
     }
 
     func update( currentTime: TimeInterval ) {
+        if state == State.INITIALIZED {
+            spawn( when: currentTime )
+        }
+        
         if state == State.WAITING {
             //
             // We are between lives, waiting to respawn
@@ -196,6 +201,7 @@ class Player: NSObject {
             //
             if currentTime > spawnTime! {
                 state = State.HOLDING
+                spawnTime = nil
                 holdingSprite.alpha = 0
                 holdingSprite.run(SKAction.fadeIn(withDuration: 0.5))
                 holdingSprite.isHidden = false

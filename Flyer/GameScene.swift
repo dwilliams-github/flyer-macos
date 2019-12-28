@@ -9,8 +9,9 @@
 import SpriteKit
 import GameplayKit
 
-protocol GameSceneWatcher {
-    func gameOver( score: Int );
+protocol GameSceneDelegate {
+    func gameOver( score: Int )
+    func newGame()
 }
 
 class GameScene: SKScene {
@@ -22,15 +23,15 @@ class GameScene: SKScene {
     private var pews: [PewPew]?
     private var foes: [FoeSlot]?
     private var nextPew: Int = 0
+    private var finalDeath: TimeInterval?
+    private var curtains: SKShapeNode?
     
-    var watcher: GameSceneWatcher?
+    var gameDelegate: GameSceneDelegate?
     
     override func didMove(to view: SKView) {
-        backgroundColor = SKColor.white
-
         self.settings = GameSettings()
         self.score = Score(scene: self)
-        self.lives = Lives(scene: self, startAt: 6, max: 8)
+        self.lives = Lives(scene: self, startAt: 1, max: 8)
 
         //
         // Our hero!
@@ -56,6 +57,19 @@ class GameScene: SKScene {
                 delay: TimeInterval(i)*0.5
             ))
         }
+        
+        //
+        // A shape created just to shade the whole play field
+        // when the game finishes
+        //
+        self.curtains = SKShapeNode(rectOf: self.size)
+        self.curtains!.position = CGPoint(x:0, y:0)
+        self.curtains!.fillColor = self.backgroundColor
+        self.curtains!.strokeColor = NSColor.clear
+        self.curtains!.alpha = 0
+        self.curtains!.zPosition = +10
+        self.curtains!.isHidden = true
+        self.addChild(self.curtains!)
     }
     
     private func fire(currentTime: TimeInterval) {
@@ -71,7 +85,29 @@ class GameScene: SKScene {
         }
     }
     
+    private func gameOver(currentTime: TimeInterval) {
+        self.finalDeath = currentTime
+        if let curtains = self.curtains {
+            curtains.isHidden = false
+            curtains.run(SKAction.fadeAlpha(to: 0.4, duration: 0.25))
+        }
+        if let gameDelegate = self.gameDelegate, let score = self.score {
+            gameDelegate.gameOver(score: score.currentValue)
+        }
+    }
+    
     override func keyDown(with event: NSEvent) {
+        if let finalDeath = self.finalDeath {
+            //
+            // Any keypress means a new game, but do wait a second to avoid
+            // starting a game by accident
+            //
+            if let gameDelegate = self.gameDelegate, event.timestamp-finalDeath > 1 {
+                gameDelegate.newGame()
+            }
+            return
+        }
+        
         if let player = self.player, let settings = self.settings {
             switch event.keyCode {
             case settings.keyLeft:
@@ -133,9 +169,8 @@ class GameScene: SKScene {
                     if lives!.decrement() > 0 {
                         player.spawn(when: currentTime+3)
                     }
-                    
-                    if let watcher = self.watcher, let score = self.score {
-                        watcher.gameOver(score: score.currentValue)
+                    else {
+                        gameOver(currentTime: currentTime)
                     }
                 }
             }
@@ -145,17 +180,18 @@ class GameScene: SKScene {
             //
             // Animate the player
             //
-            if player.dead() {
-                player.spawn(when: currentTime+1)   // initial spawn
-            }
-            else if player.tooFast() {
+            if player.tooFast() {
                 player.oops(when: currentTime)
                 if lives!.decrement() > 0 {
                     player.spawn(when: currentTime+3)
                 }
+                else {
+                    gameOver(currentTime: currentTime)
+                }
             }
             player.update(currentTime: currentTime)
         }
+        
         if let pews = self.pews {
             //
             // Animate missles
@@ -164,6 +200,7 @@ class GameScene: SKScene {
                 p.update(currentTime: currentTime)
             }
         }
+        
         if let foes = self.foes, let settings = self.settings {
             //
             // Animate foes
