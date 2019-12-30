@@ -66,15 +66,6 @@ class ViewController: NSViewController, GameSceneDelegate, IntroSceneDelegate {
         }
     }
     
-    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-        if segue.identifier == "getInitials" {
-            if let modal = segue.destinationController as? SaveScore, let score = sender as? Int {
-                modal.topScores = self.topScores
-                modal.score = score
-            }
-        }
-    }
-    
     func newGame() {
         if let gameOverView = self.gameOverView {
             //
@@ -112,9 +103,13 @@ class ViewController: NSViewController, GameSceneDelegate, IntroSceneDelegate {
         }
     }
     
-    func fetchInitials() {
-        
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        if segue.identifier == "getInitials" {
+            if let modal = segue.destinationController as? SaveScore, let score = sender as? Int {
+                modal.topScores = self.topScores
+                modal.score = score
+            }
+        }
     }
-    
 }
 
