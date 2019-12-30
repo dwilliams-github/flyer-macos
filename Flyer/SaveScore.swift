@@ -16,9 +16,13 @@ class SaveScore: NSViewController, NSTextFieldDelegate {
     
     @IBOutlet var initialsField: NSTextField!
     @IBOutlet var addButton: NSButton!
+    @IBOutlet var scoreLabel: NSTextField!
     
     override public func viewDidLoad() {
         super.viewDidLoad()
+        if let score = self.score {
+            scoreLabel.stringValue = "\(score) is a new high score"
+        }
         initialsField.delegate = self
     }
 
@@ -38,7 +42,7 @@ class SaveScore: NSViewController, NSTextFieldDelegate {
         }
     }
     
-    @IBAction func okayPressed(_ sender: NSButton) {
+    @IBAction func addPressed(_ sender: NSButton) {
         if let topScores = self.topScores, let score = self.score {
             topScores.registerScore( initials: initialsField.stringValue, score: score )
         }

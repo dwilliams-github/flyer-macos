@@ -51,7 +51,7 @@ class TopScores : NSObject, NSTableViewDataSource {
     }
     
     func scoreInTopFive( score: Int ) -> Bool {
-        return scores.count < 5 || score > scores.last!.score
+        return score > 0 && (scores.count < 5 || score > scores.last!.score)
     }
     
     func registerScore( initials: String, score: Int ) {

@@ -12,13 +12,17 @@ class SmartMine: BlockFoe {
     
     init( scene: SKScene ) {
         //
-        // Our meanie is animated. Pull up the frames.
+        // Our smart mine is animated, but not in sequence
+        // Pull up the frames and arrange manually.
         //
         let atlas = SKTextureAtlas(named: "Sprites")
         var frames: [SKTexture] = []
-        for i in 0..<3 {
+        for i in 0...3 {
             frames.append(atlas.textureNamed(String(format:"SmartMine%03d", arguments:[i])))
         }
+        frames.append(frames[3])
+        frames.append(frames[3])
+        frames.append(frames[3])
         frames.append(frames[2])
         frames.append(frames[1])
         frames.append(frames[0])
@@ -41,7 +45,7 @@ class SmartMine: BlockFoe {
                 SKAction.wait(forDuration: TimeInterval.random(in:0...1)),
                 SKAction.repeatForever(
                     SKAction.group([
-                        SKAction.animate( with: frames, timePerFrame: 0.1 ),
+                        SKAction.animate( with: frames, timePerFrame: 0.03 ),
                         SKAction.rotate( byAngle: CGFloat.pi, duration: 2 )
                     ])
                 )
