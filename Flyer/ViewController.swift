@@ -66,13 +66,21 @@ class ViewController: NSViewController, GameSceneDelegate, IntroSceneDelegate {
         }
     }
     
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        if segue.identifier == "getInitials" {
+            if let modal = segue.destinationController as? SaveScore, let score = sender as? Int {
+                modal.topScores = self.topScores
+                modal.score = score
+            }
+        }
+    }
+    
     func newGame() {
         if let gameOverView = self.gameOverView {
             //
             // Fade out the GameOver view.
             // Note that this runs on top of a scene transition
-            // (invoked by "beginGame") so we don't have independent
-            // freedom over what we show.
+            // (invoked by "beginGame").
             //
             NSAnimationContext.runAnimationGroup({(context) -> Void in
                 context.duration = 1
@@ -87,14 +95,25 @@ class ViewController: NSViewController, GameSceneDelegate, IntroSceneDelegate {
     
     func gameOver( score: Int ) {
         //
-        // Rather than change scenes, overlay a semi-transparent view.
+        // Check top scores
+        //
+        if self.topScores?.scoreInTopFive(score: score) ?? false {
+            performSegue(withIdentifier: "getInitials", sender: score)
+        }
+        
+        //
+        // Rather than change scenes, overlay a title view.
         // This way, the existing game (without a player) continues to
-        // run underneath, but in faded form.
+        // run underneath, and we can use ordinary input controls
         //
         if let gameOverView = self.gameOverView {
             gameOverView.alphaValue = 1
             gameOverView.isHidden = false
         }
+    }
+    
+    func fetchInitials() {
+        
     }
     
 }

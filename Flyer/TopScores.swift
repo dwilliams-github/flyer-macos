@@ -8,6 +8,10 @@
 
 import Cocoa
 
+protocol TopScoreIdentifier {
+    func getInitials() -> String?
+}
+
 class TopScores : NSObject, NSTableViewDataSource {
     static private var defaultsKey = "topScores"
     
@@ -21,16 +25,20 @@ class TopScores : NSObject, NSTableViewDataSource {
         }
     }
     
-    var scores: [Entry]?
-    
+    var scores: [Entry]
+
     var tableView: NSTableView?
-    
+    var identifier: TopScoreIdentifier?
+
     init( table: NSTableView? ) {
+        self.scores = UserDefaults.standard.array(forKey: TopScores.defaultsKey) as? [Entry] ?? []
         super.init()
-        //self.scores = UserDefaults.standard.array(forKey: TopScores.defaultsKey) as? [Entry]
-        
-        let fake = Entry( name: "XYZ", score: 999999 )
-        self.scores = [fake]
+
+        //
+        // The scores are supposed to be stored sorted, but it doesn't
+        // hurt to re-sort them in any case
+        //
+        self.scores.sort{ $0.score > $1.score }
 
         self.tableView = table
         self.tableView?.dataSource = self
@@ -42,29 +50,54 @@ class TopScores : NSObject, NSTableViewDataSource {
         self.tableView?.reloadData()
     }
     
-
+    func scoreInTopFive( score: Int ) -> Bool {
+        return scores.count < 5 || score > scores.last!.score
+    }
+    
+    func registerScore( initials: String, score: Int ) {
+        //
+        // Congrats! append and sort
+        //
+        scores.append(Entry(name: initials, score: score))
+        scores.sort{ $0.score > $1.score }
+        
+        //
+        // Keep to five elements
+        //
+        if scores.count > 5 { scores.removeLast() }
+        
+        //
+        // Save
+        //
+        UserDefaults.standard.set(try? PropertyListEncoder().encode(self.scores), forKey: TopScores.defaultsKey)
+        
+        //
+        // Update the view
+        //
+        updateView()
+    }
+    
+    
     //
-    // Number rows of data, as part of NSTableViewDataSource protocol
+    // Number rows of data (NSTableViewDataSource)
     //
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return scores?.count ?? 0
+        return scores.count
     }
  
     //
-    // Data for given table cell, as part of NSTableViewDataSource protocol
+    // Data for given table cell (NSTableViewDataSource)
     //
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        if let entry = self.scores?[row] {
-            if tableColumn == tableView.tableColumns[0] {
-                return entry.name
-            }
-            else if tableColumn == tableView.tableColumns[1] {
-                //
-                // We can return the integer directly, but then we don't have
-                // control over the formatting
-                //
-                return "\(entry.score)"
-            }
+        if tableColumn == tableView.tableColumns[0] {
+            return self.scores[row].name
+        }
+        else if tableColumn == tableView.tableColumns[1] {
+            //
+            // We can return the integer directly, but then we don't have
+            // control over the formatting
+            //
+            return "\(self.scores[row].score)"
         }
         
         return nil
