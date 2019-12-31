@@ -8,13 +8,18 @@
 
 import Cocoa
 
-protocol TopScoreIdentifier {
-    func getInitials() -> String?
-}
-
+/**
+ Keep track of top scores
+ 
+ This could have been implemented as a subclass of NSTableView.
+ Instead, contains the tableview as a property.
+ */
 class TopScores : NSObject, NSTableViewDataSource {
     static private var defaultsKey = "topScores"
     
+    /**
+     One of the top scores
+     */
     class Entry: Codable {
         var name: String
         var score: Int
@@ -26,10 +31,12 @@ class TopScores : NSObject, NSTableViewDataSource {
     }
     
     var scores: [Entry]
-
     var tableView: NSTableView?
-    var identifier: TopScoreIdentifier?
 
+    /**
+     Initialize
+     -param table Parent table view
+     */
     init( table: NSTableView? ) {
         self.scores = UserDefaults.standard.array(forKey: TopScores.defaultsKey) as? [Entry] ?? []
         super.init()
@@ -46,14 +53,29 @@ class TopScores : NSObject, NSTableViewDataSource {
         updateView()
     }
     
-    func updateView() {
+    //
+    // Update the table
+    //
+    private func updateView() {
         self.tableView?.reloadData()
     }
     
+    /**
+     Check if given score would be in the top five
+     -param score The score to check
+     -returns True if the score would be in the top five
+     */
     func scoreInTopFive( score: Int ) -> Bool {
         return score > 0 && (scores.count < 5 || score > scores.last!.score)
     }
     
+    /**
+     Register a new high score
+     -param initials Player's identification in the top five
+     -param score The score
+     
+     Updates the table view.
+     */
     func registerScore( initials: String, score: Int ) {
         //
         // Congrats! append and sort

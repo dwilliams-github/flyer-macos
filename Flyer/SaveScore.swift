@@ -8,7 +8,9 @@
 
 import Cocoa
 
-
+/**
+ The sheet that allows a user to enter their initials
+ */
 class SaveScore: NSViewController, NSTextFieldDelegate {
     
     var topScores: TopScores?
@@ -21,11 +23,18 @@ class SaveScore: NSViewController, NSTextFieldDelegate {
     override public func viewDidLoad() {
         super.viewDidLoad()
         if let score = self.score {
+            //
+            // Might as well reminder the user of their accomplishment
+            //
             scoreLabel.stringValue = "\(score) is a new high score"
         }
         initialsField.delegate = self
     }
 
+    //
+    // Limit the initials to five characters.
+    // As part of NSTextFieldDelegate.
+    //
     func controlTextDidChange(_ obj: Notification) {
         if let textField = obj.object as? NSTextField, self.initialsField.identifier == textField.identifier {
             //
@@ -36,12 +45,16 @@ class SaveScore: NSViewController, NSTextFieldDelegate {
             }
             
             //
-            // Add is only enabled on non-blank initials
+            // Add button is only enabled with non-blank initials
             //
             addButton.isEnabled = textField.stringValue.count > 0
         }
     }
     
+    //
+    // Handle "okay" button press.
+    // Sends new score to top score list.
+    //
     @IBAction func addPressed(_ sender: NSButton) {
         if let topScores = self.topScores, let score = self.score {
             topScores.registerScore( initials: initialsField.stringValue, score: score )

@@ -10,6 +10,9 @@ import Cocoa
 import SpriteKit
 import GameplayKit
 
+/**
+The main player view
+ */
 class ViewController: NSViewController, GameSceneDelegate, IntroSceneDelegate {
 
     @IBOutlet var skView: SKView!
@@ -18,6 +21,9 @@ class ViewController: NSViewController, GameSceneDelegate, IntroSceneDelegate {
     
     private var topScores: TopScores?
     
+    //
+    // View loads: setup assets, play intro scene
+    //
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,6 +51,10 @@ class ViewController: NSViewController, GameSceneDelegate, IntroSceneDelegate {
         }
     }
     
+    //
+    // Start a new game.
+    // Invoked by intro scene via IntroSceneDelegate
+    //
     func beginGame() {
         if let view = self.skView {
             //
@@ -66,6 +76,10 @@ class ViewController: NSViewController, GameSceneDelegate, IntroSceneDelegate {
         }
     }
     
+    //
+    // Transition to a new game after finishing another.
+    // Invoked by the game over view.
+    //
     func newGame() {
         if let gameOverView = self.gameOverView {
             //
@@ -84,6 +98,10 @@ class ViewController: NSViewController, GameSceneDelegate, IntroSceneDelegate {
         beginGame()
     }
     
+    //
+    // Game over (no more lives).
+    // Invoked by game scene via GameSceneDelegate.
+    //
     func gameOver( score: Int ) {
         //
         // Check top scores
@@ -103,6 +121,9 @@ class ViewController: NSViewController, GameSceneDelegate, IntroSceneDelegate {
         }
     }
     
+    //
+    // Prepare segue for invoking the new high score sheet
+    //
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if segue.identifier == "getInitials" {
             if let modal = segue.destinationController as? SaveScore, let score = sender as? Int {
