@@ -14,7 +14,7 @@ class Lives: NSObject {
 
     init( scene: SKScene, startAt: Int, max: Int ) {
         value = startAt
-        let coastTexture = SKTexture(imageNamed: "player coast")
+        let coastTexture = SKTexture(imageNamed: "Player000")
         
         for i in 0..<max {
             let sprite = SKSpriteNode(texture: coastTexture)

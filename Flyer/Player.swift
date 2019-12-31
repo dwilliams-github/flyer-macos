@@ -10,13 +10,12 @@ import SpriteKit
 
 class Player: NSObject {
     var sprite: FoldingSprite
+    var thrust: FoldingSprite
     var boom: Boom
     var holdingSprite: SKSpriteNode
-    var coastTexture: SKTexture
-    var thrustTexture: SKTexture
     
     private let spinRate: CGFloat = 2
-    private let thrust: CGFloat = 120
+    private let thrustRate: CGFloat = 120
     private let spawnPoint: CGPoint = CGPoint(x:0, y:0)
     
     
@@ -49,20 +48,40 @@ class Player: NSObject {
     private(set) var velocity: CGPoint = CGPoint(x:0, y:0)
     
     init( scene: SKScene ) {
-        coastTexture = SKTexture(imageNamed: "player coast")
-        thrustTexture = SKTexture(imageNamed: "player thrust")
-        let holdingTexture = SKTexture(imageNamed: "Holding")
 
-        let baseSprite = SKSpriteNode(texture: coastTexture)
+        //
+        // Make our player
+        //
+        let playerTextures = [SKTexture(imageNamed: "Player000"),SKTexture(imageNamed: "Player001")]
+
+        let baseSprite = SKSpriteNode(texture: playerTextures[0])
         baseSprite.scale(to: CGSize(width: 20, height: 20))
         baseSprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        baseSprite.run(
+            SKAction.repeatForever(
+                SKAction.animate( with: playerTextures, timePerFrame: 1 )
+            )
+        )
+        
+        sprite = FoldingSprite( scene: scene, sprite: baseSprite )
+        
+        //
+        // We have a separate sprite for the thrust animation
+        //
+        let thrustSprite = SKSpriteNode(texture: SKTexture(imageNamed: "Thrust"))
+        thrustSprite.scale(to: CGSize(width: 20, height: 20))
+        thrustSprite.anchorPoint = CGPoint(x: 0.5, y: 0.9)
+
+        thrust = FoldingSprite( scene: scene, sprite: thrustSprite )
+        thrust.hide()
+
         
         //
         // We are going to assume that the spawn point is not
         // near the edge of a scene and will use an ordinary
         // SKSpriteNode for the holding animation
         //
-        holdingSprite = SKSpriteNode(texture: holdingTexture)
+        holdingSprite = SKSpriteNode(texture: SKTexture(imageNamed: "Holding"))
         holdingSprite.scale(to: CGSize(width: 40, height: 40))
         holdingSprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         holdingSprite.position = spawnPoint
@@ -74,9 +93,14 @@ class Player: NSObject {
         holdingSprite.isHidden = true
         scene.addChild(holdingSprite)
 
-        sprite = FoldingSprite( scene: scene, sprite: baseSprite )
+        //
+        // Boom!
+        //
         boom = Boom( scene: scene, name: "Kapow", number: 7, size: 30 )
         
+        //
+        // Initialize state
+        //
         turning = Turning.COAST
         thrusting = false
         state = State.INITIALIZED
@@ -108,12 +132,14 @@ class Player: NSObject {
     func oops( when: TimeInterval ) {
         if state == State.ACTIVE {
             state = State.DEAD
+            
             //
             // Make sure we turn off any action, in case a key
             // is being held down. This avoids early reactivation.
             //
             turning = Turning.COAST
             thrusting = false
+            thrust.hide()
             
             //
             // Animate death
@@ -159,29 +185,29 @@ class Player: NSObject {
     }
     
     func startLeft( currentTime: TimeInterval ) {
-        update(currentTime: currentTime);
+        update(currentTime: currentTime)
         turning = Turning.LEFT
     }
     
     func startRight( currentTime: TimeInterval ) {
-        update(currentTime: currentTime);
+        update(currentTime: currentTime)
         turning = Turning.RIGHT
     }
     
     func stopTurn( currentTime: TimeInterval ) {
-        update(currentTime: currentTime);
+        update(currentTime: currentTime)
         turning = Turning.COAST
     }
     
     func startThrust( currentTime: TimeInterval ) {
-        update(currentTime: currentTime);
-        sprite.texture = thrustTexture;
-        thrusting = true;
+        update(currentTime: currentTime)
+        thrust.position = sprite.position
+        thrusting = true
     }
     
     func stopThrust( currentTime: TimeInterval ) {
-        update(currentTime: currentTime);
-        sprite.texture = coastTexture;
+        update(currentTime: currentTime)
+        thrust.hide()
         thrusting = false
     }
 
@@ -241,8 +267,8 @@ class Player: NSObject {
                 // Deal with thrusting
                 if thrusting {
                     velocity = CGPoint(
-                        x: velocity.x - thrust*delta*sin(sprite.zRotation),
-                        y: velocity.y + thrust*delta*cos(sprite.zRotation)
+                        x: velocity.x - thrustRate*delta*sin(sprite.zRotation),
+                        y: velocity.y + thrustRate*delta*cos(sprite.zRotation)
                     )
                 }
             }
@@ -250,6 +276,11 @@ class Player: NSObject {
             // Update position
             sprite.position.x += velocity.x * delta
             sprite.position.y += velocity.y * delta
+            
+            if thrusting {
+                thrust.position = sprite.position
+                thrust.zRotation = sprite.zRotation
+            }
         }
         
         boom.update(currentTime: currentTime)

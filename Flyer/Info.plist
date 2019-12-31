@@ -32,5 +32,9 @@
 	<true/>
 	<key>NSSupportsSuddenTermination</key>
 	<true/>
+	<key>CFBundleHelpBookFolder</key>
+	<string>FlyerHelp</string>
+	<key>CFBundleHelpBookName</key>
+	<string>How to play Flyer</string>
 </dict>
 </plist>
