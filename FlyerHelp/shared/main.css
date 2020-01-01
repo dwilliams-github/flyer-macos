@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Futura';
+    src: local('Futura Modern'), url('./Futura.woff') format('woff');
+}
+body {
+    font-family: 'Futura', sans-serif;
+    font-size: 0.8em;
+}
+h1 {
+    font-size: 1.4em;
+}
+h2 {
+    font-size: 1.0em;
+}

@@ -24,7 +24,7 @@ class SaveScore: NSViewController, NSTextFieldDelegate {
         super.viewDidLoad()
         if let score = self.score {
             //
-            // Might as well reminder the user of their accomplishment
+            // Might as well remind the user of their accomplishment
             //
             scoreLabel.stringValue = "\(score) is a new high score"
         }
@@ -33,7 +33,7 @@ class SaveScore: NSViewController, NSTextFieldDelegate {
 
     //
     // Limit the initials to five characters.
-    // As part of NSTextFieldDelegate.
+    // Provided as part of NSTextFieldDelegate.
     //
     func controlTextDidChange(_ obj: Notification) {
         if let textField = obj.object as? NSTextField, self.initialsField.identifier == textField.identifier {
