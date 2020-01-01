@@ -42,6 +42,10 @@ class Boom: NSObject {
         )
     }
     
+    func pausedTime( currentTime: TimeInterval ) {
+        self.lastUpdate = currentTime
+    }
+    
     func update( currentTime: TimeInterval ) {
         if let last = self.lastUpdate, let velocity = self.velocity, let start = self.start {
             

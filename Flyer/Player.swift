@@ -210,6 +210,10 @@ class Player: NSObject {
         thrust.hide()
         thrusting = false
     }
+    
+    func pausedTime( currentTime: TimeInterval ) {
+        lastUpdate = currentTime
+    }
 
     func update( currentTime: TimeInterval ) {
         if state == State.INITIALIZED {

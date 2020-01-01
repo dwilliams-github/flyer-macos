@@ -47,6 +47,10 @@ class PewPew: NSObject {
         self.sprite.hide()
     }
     
+    func pausedTime( currentTime: TimeInterval ) {
+        self.lastUpdate = currentTime
+    }
+    
     func update( currentTime: TimeInterval ) {
         if let last = self.lastUpdate, let vel = velocity, let expir = expiration {
             if currentTime > expir {

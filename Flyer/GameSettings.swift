@@ -32,7 +32,7 @@ class Expert: Difficulty {
 
 class GameSettings: NSObject {
     enum Keys : String {
-        case difficulty, keyLeft, keyRight, keyThrust, keyFire
+        case difficulty, keyLeft, keyRight, keyThrust, keyFire, keyPause
     }
     
     enum DifficultyKeys : Int {
@@ -46,7 +46,8 @@ class GameSettings: NSObject {
         GameSettings.Keys.keyLeft.rawValue:    0x7b as UInt16,
         GameSettings.Keys.keyRight.rawValue:   0x7c as UInt16,
         GameSettings.Keys.keyThrust.rawValue:  0x7e as UInt16,
-        GameSettings.Keys.keyFire.rawValue:    0x06 as UInt16
+        GameSettings.Keys.keyFire.rawValue:    0x06 as UInt16,
+        GameSettings.Keys.keyPause.rawValue:   0x31 as UInt16
     ]
 
     //
@@ -107,4 +108,14 @@ class GameSettings: NSObject {
             UserDefaults.standard.set(newValue, forKey: GameSettings.Keys.keyFire.rawValue)
         }
     }
+    
+    var keyPause: UInt16 {
+        get {
+            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyPause.rawValue) as! UInt16
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: GameSettings.Keys.keyPause.rawValue)
+        }
+    }
+    
 }

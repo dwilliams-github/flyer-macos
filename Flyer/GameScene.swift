@@ -32,6 +32,7 @@ class GameScene: SKScene {
         self.settings = GameSettings()
         self.score = Score(scene: self)
         self.lives = Lives(scene: self, startAt: 1, max: 8)
+        self.isPaused = false
 
         //
         // Our hero!
@@ -60,7 +61,7 @@ class GameScene: SKScene {
         
         //
         // A shape created just to shade the whole play field
-        // when the game finishes
+        // when the game finishes or is paused
         //
         self.curtains = SKShapeNode(rectOf: self.size)
         self.curtains!.position = CGPoint(x:0, y:0)
@@ -85,6 +86,11 @@ class GameScene: SKScene {
         }
     }
     
+    //
+    // Oops.
+    //
+    // Tell our delegate that the game is over.
+    //
     private func gameOver(currentTime: TimeInterval) {
         self.finalDeath = currentTime
         if let curtains = self.curtains {
@@ -96,6 +102,31 @@ class GameScene: SKScene {
         }
     }
     
+    
+    //
+    // To be invoked after a pause.
+    //
+    // Because our explicit animation is based off of delta time,
+    // we need to reset the current time of our sprites.
+    //
+    // I suppose Sprite Kit does something similar under the
+    // scenes (pun intended) since its animations don't need this.
+    //
+    private func unpause( currentTime: TimeInterval ) {
+        curtains?.isHidden = true
+        
+        player?.pausedTime( currentTime: currentTime )
+        
+        foes?.forEach {
+            $0.pausedTime( currentTime: currentTime )
+        }
+        
+        pews?.forEach {
+            $0.pausedTime( currentTime: currentTime )
+        }
+    }
+    
+    
     override func keyDown(with event: NSEvent) {
         if let finalDeath = self.finalDeath {
             //
@@ -104,6 +135,14 @@ class GameScene: SKScene {
             //
             if let gameDelegate = self.gameDelegate, event.timestamp-finalDeath > 1 {
                 gameDelegate.newGame()
+            }
+            return
+        }
+        
+        if self.isPaused {
+            if event.keyCode == settings?.keyPause {
+                unpause( currentTime: event.timestamp )
+                self.isPaused = false
             }
             return
         }
@@ -118,6 +157,10 @@ class GameScene: SKScene {
                 player.startThrust(currentTime: event.timestamp)
             case settings.keyFire:
                 fire(currentTime: event.timestamp)
+            case settings.keyPause:
+                self.isPaused = true
+                curtains?.alpha = 0.4
+                curtains?.isHidden = false
             default:
                 break
             }

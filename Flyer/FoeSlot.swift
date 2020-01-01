@@ -155,6 +155,12 @@ class FoeSlot: NSObject {
         }
         return nil
     }
+    
+    func pausedTime( currentTime: TimeInterval ) {
+        lastUpdate = currentTime
+        active?.pausedTime( currentTime: currentTime )
+        boom.pausedTime( currentTime: currentTime )
+    }
 
     func update( currentTime: TimeInterval, difficulty: Difficulty ) {
         if lastUpdate == nil {

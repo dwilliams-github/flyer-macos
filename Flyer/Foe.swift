@@ -37,6 +37,10 @@ class Foe: NSObject {
     
     func hide( currentTime: TimeInterval ) {}
     
+    func pausedTime( currentTime: TimeInterval ) {
+        self.lastUpdate = currentTime
+    }
+    
     func updatePosition( currentTime: TimeInterval ) {
         if let last = self.lastUpdate, let velocity = self.velocity {
             
