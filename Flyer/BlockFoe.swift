@@ -23,7 +23,7 @@ class BlockFoe: Foe {
         super.init(bounds: scene.size)
     }
     
-    override func spawn( start: CGPoint, direction: CGPoint ) {
+    override func spawn( start: CGPoint, direction: CGPoint, difficulty: Difficulty ) {
         super.launch( start: start, velocity: CGPoint(x: 0, y: 0 ))
         self.active = true
         self.sprite.fadeIn( duration: 1 )

@@ -13,6 +13,8 @@ class Beginner: Difficulty {
     var mineAward: Int = 100
     var meanieAward: Int = 200
     var smartMineAward: Int = 300
+    
+    var foeSpeedFactor: Float = 0.8
 }
 
 class Hacker: Difficulty {
@@ -20,6 +22,8 @@ class Hacker: Difficulty {
     var mineAward: Int = 200
     var meanieAward: Int = 300
     var smartMineAward: Int = 500
+    
+    var foeSpeedFactor: Float = 1.0
 }
 
 class Expert: Difficulty {
@@ -27,6 +31,8 @@ class Expert: Difficulty {
     var mineAward: Int = 400
     var meanieAward: Int = 600
     var smartMineAward: Int = 900
+    
+    var foeSpeedFactor: Float = 2
 }
 
 
@@ -36,9 +42,9 @@ class GameSettings: NSObject {
     }
     
     enum DifficultyKeys : Int {
-        case Beginner
-        case Hacker
-        case Expert
+        case Beginner = 0
+        case Hacker = 1
+        case Expert = 2
     }
     
     static private var defaultValues: [String:Any] = [
@@ -73,49 +79,100 @@ class GameSettings: NSObject {
         }
     }
     
-    var keyLeft: UInt16 {
+    var difficultyKey: Int {
         get {
-            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyLeft.rawValue) as! UInt16
+            return UserDefaults.standard.object(forKey: GameSettings.Keys.difficulty.rawValue) as! Int
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: GameSettings.Keys.difficulty.rawValue)
+        }
+    }
+    
+    var keyLeft: CGKeyCode {
+        get {
+            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyLeft.rawValue) as! CGKeyCode
         }
         set {
             UserDefaults.standard.set(newValue, forKey: GameSettings.Keys.keyLeft.rawValue)
         }
     }
     
-    var keyRight: UInt16 {
+    var keyRight: CGKeyCode {
         get {
-            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyRight.rawValue) as! UInt16
+            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyRight.rawValue) as! CGKeyCode
         }
         set {
             UserDefaults.standard.set(newValue, forKey: GameSettings.Keys.keyRight.rawValue)
         }
     }
     
-    var keyThrust: UInt16 {
+    var keyThrust: CGKeyCode {
         get {
-            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyThrust.rawValue) as! UInt16
+            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyThrust.rawValue) as! CGKeyCode
         }
         set {
             UserDefaults.standard.set(newValue, forKey: GameSettings.Keys.keyThrust.rawValue)
         }
     }
     
-    var keyFire: UInt16 {
+    var keyFire: CGKeyCode {
         get {
-            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyFire.rawValue) as! UInt16
+            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyFire.rawValue) as! CGKeyCode
         }
         set {
             UserDefaults.standard.set(newValue, forKey: GameSettings.Keys.keyFire.rawValue)
         }
     }
     
-    var keyPause: UInt16 {
+    var keyPause: CGKeyCode {
         get {
-            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyPause.rawValue) as! UInt16
+            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyPause.rawValue) as! CGKeyCode
         }
         set {
             UserDefaults.standard.set(newValue, forKey: GameSettings.Keys.keyPause.rawValue)
         }
     }
+    
+    
+    var numberKeyBindings: Int {
+        get {
+            return 5
+        }
+    }
+    
+    func keyDescription( seq: Int ) -> String? {
+        switch seq {
+        case 0:
+            return "Spin counter-clockwise"
+        case 1:
+            return "Spin clockwise"
+        case 2:
+            return "Thrust"
+        case 3:
+            return "Fire"
+        case 4:
+            return "Pause game"
+        default:
+            return nil
+        }
+    }
+    
+    func keyValue( seq: Int ) -> CGKeyCode? {
+        switch seq {
+        case 0:
+            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyLeft.rawValue) as? CGKeyCode
+        case 1:
+            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyRight.rawValue) as? CGKeyCode
+        case 2:
+            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyThrust.rawValue) as? CGKeyCode
+        case 3:
+            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyFire.rawValue) as? CGKeyCode
+        case 4:
+            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyPause.rawValue) as? CGKeyCode
+        default:
+            return nil
+        }
+    }
+    
     
 }

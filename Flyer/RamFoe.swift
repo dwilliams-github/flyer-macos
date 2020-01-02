@@ -7,19 +7,22 @@
 import SpriteKit
 
 class RamFoe: Foe {
-    private var sprite: FoldingSprite
-    private let speed: CGFloat
+    private let sprite: FoldingSprite
+    private var speed: CGFloat
+    private let baseSpeed: CGFloat
     private let turn_speed: CGFloat
     
     init( scene: SKScene, sprite: FoldingSprite, speed: CGFloat, turn_speed: CGFloat ) {
         self.sprite = sprite
         self.speed = speed
+        self.baseSpeed = speed
         self.turn_speed = turn_speed
         super.init(bounds: scene.size)
     }
     
-    override func spawn( start: CGPoint, direction: CGPoint ) {
+    override func spawn( start: CGPoint, direction: CGPoint, difficulty: Difficulty ) {
         super.launch( start: start, velocity: CGPoint(x: speed*direction.x, y: speed*direction.y ))
+        self.speed = CGFloat(difficulty.foeSpeedFactor) * self.baseSpeed
         self.sprite.fadeIn( duration: 1 )
     }
     

@@ -16,7 +16,7 @@ class Foe: NSObject {
         position = FoldingPoint( value: CGPoint(), bounds: bounds )
     }
     
-    func spawn( start: CGPoint, direction: CGPoint ) {}
+    func spawn( start: CGPoint, direction: CGPoint, difficulty: Difficulty ) {}
     
     func hitsPlayer( target: CGPoint ) -> Bool {
         return false

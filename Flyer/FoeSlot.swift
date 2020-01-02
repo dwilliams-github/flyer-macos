@@ -106,7 +106,7 @@ class FoeSlot: NSObject {
             active = badder ? meanie : box
         }
 
-        active!.spawn( start: wakeUpPoint(), direction: wakeUpDirection() )
+        active!.spawn( start: wakeUpPoint(), direction: wakeUpDirection(), difficulty: difficulty )
     }
     
     func hitsPlayer( player: Player ) -> Bool {
