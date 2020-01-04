@@ -174,5 +174,22 @@ class GameSettings: NSObject {
         }
     }
     
+    func setKeyValue( seq: Int, keycode: CGKeyCode? ) {
+        switch seq {
+        case 0:
+            UserDefaults.standard.set(keycode, forKey: GameSettings.Keys.keyLeft.rawValue)
+        case 1:
+            UserDefaults.standard.set(keycode, forKey: GameSettings.Keys.keyRight.rawValue)
+        case 2:
+            UserDefaults.standard.set(keycode, forKey: GameSettings.Keys.keyThrust.rawValue)
+        case 3:
+            UserDefaults.standard.set(keycode, forKey: GameSettings.Keys.keyFire.rawValue)
+        case 4:
+            UserDefaults.standard.set(keycode, forKey: GameSettings.Keys.keyPause.rawValue)
+        default:
+            break
+        }
+    }
+
     
 }

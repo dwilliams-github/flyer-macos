@@ -12,12 +12,10 @@ class Preferences: NSViewController, NSTableViewDelegate, NSTableViewDataSource 
 
     @IBOutlet var difficultyPopup: NSPopUpButton!
     @IBOutlet var keyBindingTable: NSTableView!
-    @IBOutlet var keyDescriptionCell: NSTableCellView!
-    @IBOutlet var keyCodeCell: NSTableCellView!
-    
     
     private var settings: GameSettings?
-    
+    private var keyViewDict: [Int: KeyCodeTextView] = [:]
+
     override public func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,6 +44,11 @@ class Preferences: NSViewController, NSTableViewDelegate, NSTableViewDataSource 
     
     @IBAction func okayPressed(_ sender: Any) {
         settings?.difficultyKey = difficultyPopup.indexOfSelectedItem
+        
+        for (seq, view) in self.keyViewDict {
+            settings?.setKeyValue( seq: seq, keycode: view.keycode )
+        }
+        
         dismiss(self)
     }
 
@@ -57,17 +60,19 @@ class Preferences: NSViewController, NSTableViewDelegate, NSTableViewDataSource 
     }
 
     //
-    // Data for given table cell (NSTableViewDelegate)
+    // View for given table cell (NSTableViewDelegate)
     //
     func tableView(_ tableView: NSTableView, viewFor: NSTableColumn?, row: Int) -> NSView? {
         if viewFor == tableView.tableColumns[0] {
-            let answer = NSTextView()
-            answer.isEditable = false
-            answer.string = settings?.keyDescription(seq: row) ?? ""
-            return answer
+            let view = NSTextView()
+            view.isEditable = false
+            view.string = settings?.keyDescription(seq: row) ?? ""
+            return view
         }
         else if viewFor == tableView.tableColumns[1] {
-            return KeyCodeTextView(keycode: settings?.keyValue(seq: row))
+            let view = KeyCodeTextView(keycode: settings?.keyValue(seq: row))
+            self.keyViewDict[row] = view
+            return view
         }
        
         return nil
