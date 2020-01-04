@@ -62,16 +62,22 @@ class Preferences: NSViewController, NSTableViewDelegate, NSTableViewDataSource 
     func tableView(_ tableView: NSTableView, viewFor: NSTableColumn?, row: Int) -> NSView? {
         if viewFor == tableView.tableColumns[0] {
             let answer = NSTextView()
+            answer.isEditable = false
             answer.string = settings?.keyDescription(seq: row) ?? ""
             return answer
         }
         else if viewFor == tableView.tableColumns[1] {
-            let answer = NSTextView()
-            answer.string = settings?.keyValue(seq: row)?.characters ?? ""
-            return answer
+            return KeyCodeTextView(keycode: settings?.keyValue(seq: row))
         }
        
         return nil
     }
-
+    
+    //
+    // Turn off row selection, which serves no purpose here
+    // and is ugly (NSTableViewDelegate)
+    //
+    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+        return false
+    }
 }
