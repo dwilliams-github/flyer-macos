@@ -85,7 +85,7 @@ class FoldingPoint: NSObject {
         
         if dy > ybound {
             dy -= 2*ybound
-        } else if dx < -ybound {
+        } else if dy < -ybound {
             dy += 2*ybound
         }
         

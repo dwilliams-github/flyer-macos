@@ -91,7 +91,7 @@ class Preferences: NSViewController, NSTableViewDelegate, NSTableViewDataSource 
         else if viewFor == tableView.tableColumns[1] {
             //
             // Create views for the keycode, but also keep
-            // track of it for later reference
+            // track of them for later reference
             //
             let view = KeyCodeTextView(keycode: settings.keyValue(seq: row))
             self.keyViewDict[row] = view
