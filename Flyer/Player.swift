@@ -98,7 +98,7 @@ class Player: NSObject {
         //
         // Boom!
         //
-        boom = Boom( scene: scene, name: "Kapow", number: 7, size: 30 )
+        boom = Boom( scene: scene, name: "Kapow", sound: "oops", number: 7, size: 30 )
         
         //
         // Vrooom!

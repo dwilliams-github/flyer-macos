@@ -45,7 +45,7 @@ class FoeSlot: NSObject {
         mine = Mine( scene: scene)
         smartMine = SmartMine( scene: scene )
         
-        boom = Boom( scene: scene, name: "Boom", number: 4, size: 18 )
+        boom = Boom( scene: scene, name: "Boom", sound: "boom", number: 4, size: 18 )
 
         //
         // We'll need to keep track of the player and scene

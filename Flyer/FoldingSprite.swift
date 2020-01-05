@@ -35,7 +35,7 @@ class FoldingSprite: NSObject {
         scene.addChild(self.primary)
         
         //
-        // We need up to three copies to draw all possible reflections
+        // We need up to three additional copies to draw all possible reflections
         // (to appeciate why three are needed, consider an object in a corner)
         //
         // I assume copies are relatively expensive, so they are

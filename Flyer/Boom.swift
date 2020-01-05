@@ -9,13 +9,15 @@ import SpriteKit
 
 class Boom: NSObject {
     private var boom: FoldingSprite
+    private var sound: SKAudioNode
     private var frames: [SKTexture]
+    private var settings = GameSettings.standard
 
     var start: TimeInterval?
     var lastUpdate: TimeInterval?
     var velocity: CGPoint?
     
-    init( scene: SKScene, name: String, number: Int, size: Int ) {
+    init( scene: SKScene, name: String, sound: String, number: Int, size: Int ) {
         self.frames = []
         let atlas = SKTextureAtlas(named: "Sprites")
         for i in 0..<number {
@@ -26,6 +28,11 @@ class Boom: NSObject {
         boomSprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
         self.boom = FoldingSprite( scene: scene, sprite: boomSprite )
+        
+        self.sound = SKAudioNode(fileNamed: sound+".m4a")
+        self.sound.isPositional = true
+        self.sound.autoplayLooped = false
+        scene.addChild(self.sound)
     }
     
     func overlay( at: FoldingPoint, velocity: CGPoint, currentTime: TimeInterval ) {
@@ -40,6 +47,12 @@ class Boom: NSObject {
                 SKAction.fadeOut( withDuration: 0.2 )
             ])
         )
+        
+        sound.position = at.position
+        sound.run(SKAction.sequence([
+            SKAction.changeVolume( to: 0.2*settings.volume, duration: 0 ),
+            SKAction.play()
+        ]))
     }
     
     func pausedTime( currentTime: TimeInterval ) {

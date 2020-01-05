@@ -45,9 +45,6 @@ class ViewController: NSViewController, GameSceneDelegate, IntroSceneDelegate {
             }
             
             view.ignoresSiblingOrder = true
-            
-            view.showsFPS = true
-            view.showsNodeCount = true
         }
     }
     
@@ -107,7 +104,13 @@ class ViewController: NSViewController, GameSceneDelegate, IntroSceneDelegate {
         // Check top scores
         //
         if self.topScores?.scoreInTopFive(score: score) ?? false {
-            performSegue(withIdentifier: "getInitials", sender: score)
+            //
+            // Dispatch segue, but only after a delay, to let the player
+            // witness the full glory of his last death
+            //
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [unowned self] in
+                self.performSegue(withIdentifier: "getInitials", sender: score)
+            }
         }
         
         //

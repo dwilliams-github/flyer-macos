@@ -30,7 +30,7 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         self.score = Score(scene: self)
-        self.lives = Lives(scene: self, startAt: 1, max: 8)
+        self.lives = Lives(scene: self, startAt: 4, max: 8)
         self.isPaused = false
 
         //

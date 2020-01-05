@@ -37,6 +37,7 @@ class PewPew: NSObject {
         self.sprite.position = start
         self.velocity = velocity
         self.expiration = expires
+        
         launchSound.position = start
         launchSound.run(SKAction.sequence([
             SKAction.changeVolume( to: 0.2*settings.volume, duration: 0 ),
