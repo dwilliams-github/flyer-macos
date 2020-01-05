@@ -35,10 +35,14 @@ class Expert: Difficulty {
     var foeSpeedFactor: Float = 2
 }
 
-
+/**
+ Game settings
+ 
+ A singleton instance is provided for efficiency.
+ */
 class GameSettings: NSObject {
     enum Keys : String {
-        case difficulty, keyLeft, keyRight, keyThrust, keyFire, keyPause
+        case difficulty, keyLeft, keyRight, keyThrust, keyFire, keyPause, volume
     }
     
     enum DifficultyKeys : Int {
@@ -47,13 +51,22 @@ class GameSettings: NSObject {
         case Expert = 2
     }
     
+    /**
+     Our singleton instance
+     
+     Functionally speaking, the singleton isn't needed. It is provided for
+     the sake of efficiency.
+     */
+    static let standard = GameSettings()
+    
     static private var defaultValues: [String:Any] = [
         GameSettings.Keys.difficulty.rawValue: DifficultyKeys.Hacker.rawValue,
         GameSettings.Keys.keyLeft.rawValue:    0x7b as UInt16,
         GameSettings.Keys.keyRight.rawValue:   0x7c as UInt16,
         GameSettings.Keys.keyThrust.rawValue:  0x7e as UInt16,
         GameSettings.Keys.keyFire.rawValue:    0x06 as UInt16,
-        GameSettings.Keys.keyPause.rawValue:   0x31 as UInt16
+        GameSettings.Keys.keyPause.rawValue:   0x31 as UInt16,
+        GameSettings.Keys.volume.rawValue:     0.5 as Float
     ]
 
     //
@@ -66,10 +79,9 @@ class GameSettings: NSObject {
         DifficultyKeys.Expert.rawValue: Expert()
     ]
     
-    let defaults: UserDefaults
+    private var defaults: UserDefaults = UserDefaults.standard
     
     override init() {
-        self.defaults = UserDefaults.standard
         self.defaults.register(defaults: GameSettings.defaultValues)
     }
     
@@ -81,55 +93,55 @@ class GameSettings: NSObject {
     
     var difficultyKey: Int {
         get {
-            return UserDefaults.standard.object(forKey: GameSettings.Keys.difficulty.rawValue) as! Int
+            return defaults.object(forKey: GameSettings.Keys.difficulty.rawValue) as! Int
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: GameSettings.Keys.difficulty.rawValue)
+            defaults.set(newValue, forKey: GameSettings.Keys.difficulty.rawValue)
         }
     }
     
     var keyLeft: CGKeyCode {
         get {
-            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyLeft.rawValue) as! CGKeyCode
+            return defaults.object(forKey: GameSettings.Keys.keyLeft.rawValue) as! CGKeyCode
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: GameSettings.Keys.keyLeft.rawValue)
+            defaults.set(newValue, forKey: GameSettings.Keys.keyLeft.rawValue)
         }
     }
     
     var keyRight: CGKeyCode {
         get {
-            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyRight.rawValue) as! CGKeyCode
+            return defaults.object(forKey: GameSettings.Keys.keyRight.rawValue) as! CGKeyCode
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: GameSettings.Keys.keyRight.rawValue)
+            defaults.set(newValue, forKey: GameSettings.Keys.keyRight.rawValue)
         }
     }
     
     var keyThrust: CGKeyCode {
         get {
-            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyThrust.rawValue) as! CGKeyCode
+            return defaults.object(forKey: GameSettings.Keys.keyThrust.rawValue) as! CGKeyCode
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: GameSettings.Keys.keyThrust.rawValue)
+            defaults.set(newValue, forKey: GameSettings.Keys.keyThrust.rawValue)
         }
     }
     
     var keyFire: CGKeyCode {
         get {
-            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyFire.rawValue) as! CGKeyCode
+            return defaults.object(forKey: GameSettings.Keys.keyFire.rawValue) as! CGKeyCode
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: GameSettings.Keys.keyFire.rawValue)
+            defaults.set(newValue, forKey: GameSettings.Keys.keyFire.rawValue)
         }
     }
     
     var keyPause: CGKeyCode {
         get {
-            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyPause.rawValue) as! CGKeyCode
+            return defaults.object(forKey: GameSettings.Keys.keyPause.rawValue) as! CGKeyCode
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: GameSettings.Keys.keyPause.rawValue)
+            defaults.set(newValue, forKey: GameSettings.Keys.keyPause.rawValue)
         }
     }
     
@@ -160,15 +172,15 @@ class GameSettings: NSObject {
     func keyValue( seq: Int ) -> CGKeyCode? {
         switch seq {
         case 0:
-            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyLeft.rawValue) as? CGKeyCode
+            return defaults.object(forKey: GameSettings.Keys.keyLeft.rawValue) as? CGKeyCode
         case 1:
-            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyRight.rawValue) as? CGKeyCode
+            return defaults.object(forKey: GameSettings.Keys.keyRight.rawValue) as? CGKeyCode
         case 2:
-            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyThrust.rawValue) as? CGKeyCode
+            return defaults.object(forKey: GameSettings.Keys.keyThrust.rawValue) as? CGKeyCode
         case 3:
-            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyFire.rawValue) as? CGKeyCode
+            return defaults.object(forKey: GameSettings.Keys.keyFire.rawValue) as? CGKeyCode
         case 4:
-            return UserDefaults.standard.object(forKey: GameSettings.Keys.keyPause.rawValue) as? CGKeyCode
+            return defaults.object(forKey: GameSettings.Keys.keyPause.rawValue) as? CGKeyCode
         default:
             return nil
         }
@@ -177,19 +189,26 @@ class GameSettings: NSObject {
     func setKeyValue( seq: Int, keycode: CGKeyCode? ) {
         switch seq {
         case 0:
-            UserDefaults.standard.set(keycode, forKey: GameSettings.Keys.keyLeft.rawValue)
+            defaults.set(keycode, forKey: GameSettings.Keys.keyLeft.rawValue)
         case 1:
-            UserDefaults.standard.set(keycode, forKey: GameSettings.Keys.keyRight.rawValue)
+            defaults.set(keycode, forKey: GameSettings.Keys.keyRight.rawValue)
         case 2:
-            UserDefaults.standard.set(keycode, forKey: GameSettings.Keys.keyThrust.rawValue)
+            defaults.set(keycode, forKey: GameSettings.Keys.keyThrust.rawValue)
         case 3:
-            UserDefaults.standard.set(keycode, forKey: GameSettings.Keys.keyFire.rawValue)
+            defaults.set(keycode, forKey: GameSettings.Keys.keyFire.rawValue)
         case 4:
-            UserDefaults.standard.set(keycode, forKey: GameSettings.Keys.keyPause.rawValue)
+            defaults.set(keycode, forKey: GameSettings.Keys.keyPause.rawValue)
         default:
             break
         }
     }
 
-    
+    var volume : Float {
+        get {
+            return defaults.float(forKey: GameSettings.Keys.volume.rawValue)
+        }
+        set {
+            defaults.set(newValue, forKey: GameSettings.Keys.volume.rawValue)
+        }
+    }
 }

@@ -11,6 +11,7 @@ class FoeSlot: NSObject {
     static private let APPEAR_DURATION  = 1.0
     static private let DYING_DURATION   = 1.0
     
+    private let settings: GameSettings = GameSettings.standard
     private var meanie: Meanie
     private var box: Box
     private var mine: Mine
@@ -93,7 +94,7 @@ class FoeSlot: NSObject {
         )
     }
     
-    func wakeUp(difficulty: Difficulty) {
+    func wakeUp() {
         //
         // Select foe from our four foe types
         //
@@ -106,7 +107,7 @@ class FoeSlot: NSObject {
             active = badder ? meanie : box
         }
 
-        active!.spawn( start: wakeUpPoint(), direction: wakeUpDirection(), difficulty: difficulty )
+        active!.spawn( start: wakeUpPoint(), direction: wakeUpDirection(), difficulty: settings.difficulty )
     }
     
     func hitsPlayer( player: Player ) -> Bool {
@@ -162,7 +163,7 @@ class FoeSlot: NSObject {
         boom.pausedTime( currentTime: currentTime )
     }
 
-    func update( currentTime: TimeInterval, difficulty: Difficulty ) {
+    func update( currentTime: TimeInterval ) {
         if lastUpdate == nil {
             //
             // First update. Set beginning of current state, and do nothing else
@@ -174,7 +175,7 @@ class FoeSlot: NSObject {
             // Innocent sleep. Sleep that soothes away all our worries.
             //
             if currentTime - lastState! > FoeSlot.DORMANT_DURATION {
-                wakeUp(difficulty: difficulty)
+                wakeUp()
                 changeState( newState: .APPEARING, currentTime: currentTime )
             }
         }

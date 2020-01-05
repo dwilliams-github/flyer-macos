@@ -16,7 +16,7 @@ protocol GameSceneDelegate {
 
 class GameScene: SKScene {
     
-    private var settings: GameSettings?
+    private var settings: GameSettings = GameSettings.standard
     private var score: Score?
     private var lives: Lives?
     private var player: Player?
@@ -29,7 +29,6 @@ class GameScene: SKScene {
     var gameDelegate: GameSceneDelegate?
     
     override func didMove(to view: SKView) {
-        self.settings = GameSettings()
         self.score = Score(scene: self)
         self.lives = Lives(scene: self, startAt: 1, max: 8)
         self.isPaused = false
@@ -140,14 +139,14 @@ class GameScene: SKScene {
         }
         
         if self.isPaused {
-            if event.keyCode == settings?.keyPause {
+            if event.keyCode == settings.keyPause {
                 unpause( currentTime: event.timestamp )
                 self.isPaused = false
             }
             return
         }
         
-        if let player = self.player, let settings = self.settings {
+        if let player = self.player {
             switch event.keyCode {
             case settings.keyLeft:
                 player.startLeft(currentTime: event.timestamp)
@@ -168,7 +167,7 @@ class GameScene: SKScene {
     }
     
     override func keyUp(with event: NSEvent) {
-        if let player = self.player, let settings = self.settings {
+        if let player = self.player {
             switch event.keyCode {
             case settings.keyLeft, settings.keyRight:
                 player.stopTurn(currentTime: event.timestamp)
@@ -182,7 +181,7 @@ class GameScene: SKScene {
     
     
     override func update(_ currentTime: TimeInterval) {
-        if let pews = self.pews, let foes = self.foes, let settings = self.settings {
+        if let pews = self.pews, let foes = self.foes {
             //
             // Check for missle and foe collision
             //
@@ -244,12 +243,12 @@ class GameScene: SKScene {
             }
         }
         
-        if let foes = self.foes, let settings = self.settings {
+        if let foes = self.foes {
             //
             // Animate foes
             //
             for f in foes {
-                f.update(currentTime: currentTime, difficulty: settings.difficulty)
+                f.update(currentTime: currentTime)
             }
         }
     }

@@ -13,6 +13,8 @@ class Player: NSObject {
     var thrust: FoldingSprite
     var boom: Boom
     var holdingSprite: SKSpriteNode
+    var thrustSound: SKAudioNode
+    private let settings = GameSettings.standard
     
     private let spinRate: CGFloat = 2
     private let thrustRate: CGFloat = 120
@@ -98,6 +100,15 @@ class Player: NSObject {
         //
         boom = Boom( scene: scene, name: "Kapow", number: 7, size: 30 )
         
+        //
+        // Vrooom!
+        //
+        thrustSound = SKAudioNode( fileNamed: "rocket-engine.m4a" )
+        thrustSound.isPositional = true
+        thrustSound.autoplayLooped = false
+        thrustSound.run(SKAction.changeVolume( to: 0, duration: 0 ))
+        scene.addChild(thrustSound)
+
         //
         // Initialize state
         //
@@ -202,12 +213,24 @@ class Player: NSObject {
     func startThrust( currentTime: TimeInterval ) {
         update(currentTime: currentTime)
         thrust.position = sprite.position
+        thrustSound.run(
+            SKAction.sequence([
+                SKAction.play(),
+                SKAction.changeVolume( to: 0.2*settings.volume, duration: 0.1 ),
+            ])
+        )
         thrusting = true
     }
     
     func stopThrust( currentTime: TimeInterval ) {
         update(currentTime: currentTime)
         thrust.hide()
+        thrustSound.run(
+            SKAction.sequence([
+                SKAction.changeVolume( to: 0, duration: 0.1 ),
+                SKAction.stop()
+            ])
+        )
         thrusting = false
     }
     
@@ -280,6 +303,8 @@ class Player: NSObject {
             // Update position
             sprite.position.x += velocity.x * delta
             sprite.position.y += velocity.y * delta
+            
+            thrustSound.position = sprite.position
             
             if thrusting {
                 thrust.position = sprite.position

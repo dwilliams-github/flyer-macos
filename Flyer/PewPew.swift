@@ -10,6 +10,8 @@ import SpriteKit
 
 class PewPew: NSObject {
     private var sprite: FoldingSprite
+    private var launchSound: SKAudioNode
+    private let settings: GameSettings = GameSettings.standard
     
     let spinRate: CGFloat = 4
     
@@ -24,12 +26,22 @@ class PewPew: NSObject {
         baseSprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
         self.sprite = FoldingSprite( scene: scene, sprite: baseSprite )
+        
+        launchSound = SKAudioNode( fileNamed: "pew.m4a" )
+        launchSound.isPositional = true
+        launchSound.autoplayLooped = false
+        scene.addChild(launchSound)
     }
     
     func launch( start: CGPoint, velocity: CGPoint, expires: TimeInterval ) {
         self.sprite.position = start
         self.velocity = velocity
         self.expiration = expires
+        launchSound.position = start
+        launchSound.run(SKAction.sequence([
+            SKAction.changeVolume( to: 0.2*settings.volume, duration: 0 ),
+            SKAction.play()
+        ]))
     }
     
     func available() -> Bool {
