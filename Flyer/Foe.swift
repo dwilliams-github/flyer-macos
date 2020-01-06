@@ -52,4 +52,8 @@ class Foe: NSObject {
         
         self.lastUpdate = currentTime
     }
+    
+    func value( difficulty: Difficulty ) -> Int? {
+        return nil
+    }
 }

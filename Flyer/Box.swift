@@ -36,4 +36,8 @@ class Box: RamFoe {
             turn_speed: 1
         )
     }
+    
+    override func value( difficulty: Difficulty ) -> Int? {
+        return difficulty.boxAward
+    }
 }

@@ -51,7 +51,14 @@ class GameScene: SKScene {
         //
         self.foes = []
         for i in 0..<4 {
-            self.foes!.append(FoeSlot(
+            self.foes!.append(RockFoeSlot(
+                scene: self,
+                player: self.player!,
+                delay: TimeInterval(i)*0.1
+            ))
+        }
+        for i in 0..<4 {
+            self.foes!.append(SmartFoeSlot(
                 scene: self,
                 player: self.player!,
                 delay: TimeInterval(i)*0.5

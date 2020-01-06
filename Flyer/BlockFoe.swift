@@ -8,19 +8,17 @@
 
 import SpriteKit
 
-class BlockFoe: Foe {
-    private var sprite: FoldingSprite
+class BlockFoe: SpriteFoe {
     private let speed: CGFloat
     private let sensitivity: CGFloat
     private let dampenSquared: CGFloat = 20*20
     private var active: Bool
     
     init( scene: SKScene, sprite: FoldingSprite, speed: CGFloat, sensitivity: CGFloat ) {
-        self.sprite = sprite
         self.speed = speed
         self.sensitivity = sensitivity
         self.active = false
-        super.init(bounds: scene.size)
+        super.init(scene: scene, sprite: sprite)
     }
     
     override func spawn( start: CGPoint, direction: CGPoint, difficulty: Difficulty ) {
@@ -29,17 +27,9 @@ class BlockFoe: Foe {
         self.sprite.fadeIn( duration: 1 )
     }
     
-    override func hitsPlayer( target: CGPoint ) -> Bool {
-        return sprite.foldedPosition().smallestSquareDistance(target: target) < 15*15
-    }
-    
     override func hide( currentTime: TimeInterval ) {
-        self.sprite.hide()
         self.active = false
-    }
-    
-    override func fade( currentTime: TimeInterval ) {
-        self.sprite.run(SKAction.fadeOut(withDuration:0.25))
+        super.hide(currentTime: currentTime)
     }
 
     private func aim( targetPosition: CGPoint, targetVelocity: CGPoint, delta: TimeInterval ) -> CGPoint {
@@ -97,7 +87,6 @@ class BlockFoe: Foe {
             y: +v * line.x / lineDistance
         )
     }
-
     
     override func update( currentTime: TimeInterval, player: Player? ) {
         if let p = player, let last = self.lastUpdate, player!.active(), active {

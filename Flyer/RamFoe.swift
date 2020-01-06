@@ -6,35 +6,20 @@
 //
 import SpriteKit
 
-class RamFoe: Foe {
-    private let sprite: FoldingSprite
+class RamFoe: SpriteFoe {
     private let baseSpeed: CGFloat
     private let turn_speed: CGFloat
     
     init( scene: SKScene, sprite: FoldingSprite, speed: CGFloat, turn_speed: CGFloat ) {
-        self.sprite = sprite
         self.baseSpeed = speed
         self.turn_speed = turn_speed
-        super.init(bounds: scene.size)
+        super.init(scene: scene, sprite: sprite)
     }
     
     override func spawn( start: CGPoint, direction: CGPoint, difficulty: Difficulty ) {
         let speed = CGFloat(difficulty.foeSpeedFactor) * self.baseSpeed
         super.launch( start: start, velocity: CGPoint(x: speed*direction.x, y: speed*direction.y ))
         sprite.fadeIn( duration: 1 )
-    }
-    
-    override func hitsPlayer( target: CGPoint ) -> Bool {
-        return sprite.foldedPosition().smallestSquareDistance(target: target) < 15*15
-    }
-    
-    override func hide( currentTime: TimeInterval ) {
-        self.sprite.hide()
-        self.velocity = nil
-    }
-    
-    override func fade( currentTime: TimeInterval ) {
-        self.sprite.run(SKAction.fadeOut(withDuration:0.25))
     }
 
     private func aim( target: CGPoint, max_turn: CGFloat ) {

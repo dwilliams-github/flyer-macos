@@ -45,4 +45,8 @@ class Meanie: RamFoe {
             turn_speed: 2
         )
     }
+    
+    override func value( difficulty: Difficulty ) -> Int? {
+        return difficulty.meanieAward
+    }
 }

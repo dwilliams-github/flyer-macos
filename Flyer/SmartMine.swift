@@ -59,5 +59,8 @@ class SmartMine: BlockFoe {
             sensitivity: 40
         )
     }
-
+    
+    override func value( difficulty: Difficulty ) -> Int? {
+        return difficulty.smartMineAward
+    }
 }

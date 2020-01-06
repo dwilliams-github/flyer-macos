@@ -11,16 +11,12 @@ class FoeSlot: NSObject {
     static private let APPEAR_DURATION  = 1.0
     static private let DYING_DURATION   = 1.0
     
-    private let settings: GameSettings = GameSettings.standard
-    private var meanie: Meanie
-    private var box: Box
-    private var mine: Mine
-    private var smartMine: SmartMine
+    let settings: GameSettings = GameSettings.standard
     private var player: Player
     private var boom: Boom
     private var scene: SKScene
     
-    private var active: Foe?
+    var active: Foe?
     
     enum State {
         case DORMANT
@@ -36,15 +32,9 @@ class FoeSlot: NSObject {
     private var startDelay: TimeInterval
     
     init( scene: SKScene, player: Player, delay: TimeInterval ) {
-        
         //
-        // Preallocate potential animations
+        // Everything blows up
         //
-        meanie = Meanie( scene: scene )
-        box = Box( scene: scene )
-        mine = Mine( scene: scene)
-        smartMine = SmartMine( scene: scene )
-        
         boom = Boom( scene: scene, name: "Boom", sound: "boom", number: 4, size: 18 )
 
         //
@@ -95,19 +85,6 @@ class FoeSlot: NSObject {
     }
     
     func wakeUp() {
-        //
-        // Select foe from our four foe types
-        //
-        let badder = CGFloat.random(in: 0 ..< 1) > 0.75
-
-        if CGFloat.random(in: 0 ..< 1) < 0.25 {
-            active = badder ? smartMine : mine
-        }
-        else {
-            active = badder ? meanie : box
-        }
-
-        active!.spawn( start: wakeUpPoint(), direction: wakeUpDirection(), difficulty: settings.difficulty )
     }
     
     func hitsPlayer( player: Player ) -> Bool {
@@ -123,21 +100,6 @@ class FoeSlot: NSObject {
         state = newState
         lastState = currentTime
     }
-    
-    private func currentValue(difficulty: Difficulty) -> Int? {
-        switch active {
-        case _ as Box:
-            return difficulty.boxAward
-        case _ as Mine:
-            return difficulty.mineAward
-        case _ as Meanie:
-            return difficulty.meanieAward
-        case _ as SmartMine:
-            return difficulty.smartMineAward
-        default:
-            return nil
-        }
-    }
 
     /**
      Check if a foe has been destroyed
@@ -151,7 +113,7 @@ class FoeSlot: NSObject {
                 changeState( newState: .DYING, currentTime: currentTime )
                 active.fade( currentTime: currentTime )
                 boom.overlay( at: active.position, velocity: active.velocity!, currentTime: currentTime )
-                return currentValue(difficulty: difficulty)
+                return active.value(difficulty: difficulty)
             }
         }
         return nil

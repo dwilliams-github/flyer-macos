@@ -47,5 +47,8 @@ class Mine: BlockFoe {
             sensitivity: 20
         )
     }
-
+    
+    override func value( difficulty: Difficulty ) -> Int? {
+        return difficulty.mineAward
+    }
 }

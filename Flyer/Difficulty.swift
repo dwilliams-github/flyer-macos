@@ -14,6 +14,7 @@ protocol Difficulty {
     var meanieAward: Int { get }
     var mineAward: Int { get }
     var smartMineAward: Int { get }
+    var rockAward: Int { get }
     
     var foeSpeedFactor: Float { get }
 }
