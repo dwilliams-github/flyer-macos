@@ -152,6 +152,13 @@ class Player: NSObject {
             thrusting = false
             thrust.hide()
             
+            thrustSound.run(
+                SKAction.sequence([
+                    SKAction.changeVolume( to: 0, duration: 0.1 ),
+                    SKAction.stop()
+                ])
+            )
+            
             //
             // Animate death
             //
@@ -196,46 +203,67 @@ class Player: NSObject {
     }
     
     func startLeft( currentTime: TimeInterval ) {
-        update(currentTime: currentTime)
-        turning = Turning.LEFT
+        if checkActive() {
+            update(currentTime: currentTime)
+            turning = Turning.LEFT
+        }
     }
     
     func startRight( currentTime: TimeInterval ) {
-        update(currentTime: currentTime)
-        turning = Turning.RIGHT
+        if checkActive() {
+            update(currentTime: currentTime)
+            turning = Turning.RIGHT
+        }
     }
     
     func stopTurn( currentTime: TimeInterval ) {
-        update(currentTime: currentTime)
-        turning = Turning.COAST
+        if checkActive() {
+            update(currentTime: currentTime)
+            turning = Turning.COAST
+        }
     }
     
     func startThrust( currentTime: TimeInterval ) {
-        update(currentTime: currentTime)
-        thrust.position = sprite.position
-        thrustSound.run(
-            SKAction.sequence([
-                SKAction.play(),
-                SKAction.changeVolume( to: 0.2*settings.volume, duration: 0.1 ),
-            ])
-        )
-        thrusting = true
+        if checkActive() {
+            update(currentTime: currentTime)
+            thrust.position = sprite.position
+            thrustSound.run(
+                SKAction.sequence([
+                    SKAction.play(),
+                    SKAction.changeVolume( to: 0.2*settings.volume, duration: 0.1 ),
+                ])
+            )
+            thrusting = true
+        }
     }
     
     func stopThrust( currentTime: TimeInterval ) {
-        update(currentTime: currentTime)
-        thrust.hide()
-        thrustSound.run(
-            SKAction.sequence([
-                SKAction.changeVolume( to: 0, duration: 0.1 ),
-                SKAction.stop()
-            ])
-        )
-        thrusting = false
+        if state == State.ACTIVE {
+            update(currentTime: currentTime)
+            thrust.hide()
+            thrustSound.run(
+                SKAction.sequence([
+                    SKAction.changeVolume( to: 0, duration: 0.1 ),
+                    SKAction.stop()
+                ])
+            )
+            thrusting = false
+        }
     }
     
     func pausedTime( currentTime: TimeInterval ) {
         lastUpdate = currentTime
+    }
+    
+    func checkActive() -> Bool {
+        if state == State.HOLDING {
+            state = State.ACTIVE
+            holdingSprite.isHidden = true
+            sprite.fadeAlpha(to: 1, duration: 0.5)
+            return true
+        }
+        
+        return state == State.ACTIVE
     }
 
     func update( currentTime: TimeInterval ) {
@@ -262,17 +290,6 @@ class Player: NSObject {
                 sprite.position = spawnPoint
                 sprite.zRotation = 0
                 velocity = CGPoint(x:0,y:0)
-            }
-        }
-        
-        if state == State.HOLDING {
-            //
-            // Held until an action is received
-            //
-            if thrusting || turning != Turning.COAST {
-                state = State.ACTIVE
-                holdingSprite.isHidden = true
-                sprite.fadeAlpha(to: 1, duration: 0.5)
             }
         }
 

@@ -103,8 +103,14 @@ class GameScene: SKScene {
             curtains.isHidden = false
             curtains.run(SKAction.fadeAlpha(to: 0.4, duration: 0.25))
         }
-        if let gameDelegate = self.gameDelegate, let score = self.score {
-            gameDelegate.gameOver(score: score.currentValue)
+        if let score = self.score {
+            //
+            // Bring up game over, but wait a couple seconds,
+            // so that the player can fully the last fiery death
+            //
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [unowned self] in
+                self.gameDelegate?.gameOver(score: score.currentValue)
+            }
         }
     }
     
