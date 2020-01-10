@@ -55,8 +55,7 @@ class SmartMine: BlockFoe {
         super.init(
             scene: scene,
             sprite: FoldingSprite( scene: scene, sprite: baseSprite ),
-            speed: 80,
-            sensitivity: 40
+            baseThrust: 25
         )
     }
     

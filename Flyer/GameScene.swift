@@ -247,22 +247,18 @@ class GameScene: SKScene {
             player.update(currentTime: currentTime)
         }
         
-        if let pews = self.pews {
-            //
-            // Animate missles
-            //
-            for p in pews {
-                p.update(currentTime: currentTime)
-            }
+        //
+        // Animate missles
+        //
+        self.pews?.forEach { p in
+            p.update(currentTime: currentTime)
         }
         
-        if let foes = self.foes {
-            //
-            // Animate foes
-            //
-            for f in foes {
-                f.update(currentTime: currentTime)
-            }
+        //
+        // Animate foes
+        //
+        self.foes?.forEach { f in
+            f.update(currentTime: currentTime)
         }
     }
 }

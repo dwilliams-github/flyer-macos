@@ -25,6 +25,7 @@ class Foe: NSObject {
     func launch( start: CGPoint, velocity: CGPoint ) {
         self.position.position = start
         self.velocity = velocity
+        self.lastUpdate = nil
     }
     
     func available() -> Bool {

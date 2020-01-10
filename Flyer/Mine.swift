@@ -43,8 +43,7 @@ class Mine: BlockFoe {
         super.init(
             scene: scene,
             sprite: FoldingSprite( scene: scene, sprite: baseSprite ),
-            speed: 40,
-            sensitivity: 20
+            baseThrust: 10
         )
     }
     

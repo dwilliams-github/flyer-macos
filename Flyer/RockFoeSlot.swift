@@ -27,7 +27,7 @@ class RockFoeSlot: FoeSlot {
             rocks.append(DriftFoe(
                 scene: scene,
                 sprite: FoldingSprite( scene: scene, sprite: baseSprite ),
-                speed: 20,
+                speed: 60,
                 rotation: 0.4
             ))
         }

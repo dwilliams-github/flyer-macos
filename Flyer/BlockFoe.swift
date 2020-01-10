@@ -9,14 +9,12 @@
 import SpriteKit
 
 class BlockFoe: SpriteFoe {
-    private let speed: CGFloat
-    private let sensitivity: CGFloat
-    private let dampenSquared: CGFloat = 20*20
+    private let baseThrust: CGFloat
+    private var thrust: CGFloat = 0
     private var active: Bool
     
-    init( scene: SKScene, sprite: FoldingSprite, speed: CGFloat, sensitivity: CGFloat ) {
-        self.speed = speed
-        self.sensitivity = sensitivity
+    init( scene: SKScene, sprite: FoldingSprite, baseThrust: CGFloat ) {
+        self.baseThrust = baseThrust
         self.active = false
         super.init(scene: scene, sprite: sprite)
     }
@@ -24,6 +22,7 @@ class BlockFoe: SpriteFoe {
     override func spawn( start: CGPoint, direction: CGPoint, difficulty: Difficulty ) {
         super.launch( start: start, velocity: CGPoint(x: 0, y: 0 ))
         self.active = true
+        self.thrust = CGFloat(difficulty.foeSpeedFactor) * self.baseThrust
         self.sprite.fadeIn( duration: 1 )
     }
     
@@ -32,12 +31,17 @@ class BlockFoe: SpriteFoe {
         super.hide(currentTime: currentTime)
     }
 
-    private func aim( targetPosition: CGPoint, targetVelocity: CGPoint, delta: TimeInterval ) -> CGPoint {
+    private func aim( targetPosition: CGPoint, targetVelocity: CGPoint ) -> CGPoint {
+        //
+        // Fetch relative velocity
+        //
+        let relative = CGPoint( x: targetVelocity.x - velocity!.x, y: targetVelocity.y - velocity!.y )
+        
         //
         // Get target path direction
         //
-        let targetSpeed = targetVelocity.magnitude()
-        if targetSpeed < 0.0001 {
+        let relativeSpeed = relative.magnitude()
+        if relativeSpeed < 0.000001 {
             //
             // If the target (the player) is not moving, we aren't either
             //
@@ -45,42 +49,14 @@ class BlockFoe: SpriteFoe {
         }
         
         //
-        // Calculate cross product, which will be our direction,
-        // and which also tells us how far we are from the players
-        // current trajectory
+        // Thrust at right angles, for quickest route to a blocking
+        // position, assuming player does not change speed.
         //
         let line = sprite.closestLine( target: targetPosition )
-        let cross = (line.x * targetVelocity.y - line.y * targetVelocity.x) / targetSpeed
-        
-        //
-        // Velocity increases the closest we are to the player's path,
-        // but cushioned a bit to avoid oscillations, and within the
-        // given speed limit
-        //
-        //var v = sensitivity * speed * cross / (cross*cross + dampenSquared)
-        //v = min(v,speed)
-        //v = max(v,-speed)
-        
-        var v = sensitivity * speed / cross
-        
-        if cross > 2 {
-            if v > cross {
-                v = cross
-            }
-            else if v < speed {
-                v = speed
-            }
-        }
-        else if cross < -2 {
-            if v < cross {
-                v = cross
-            }
-            else if v > -speed {
-                v = -speed
-            }
-        }
-        
         let lineDistance = line.magnitude()
+
+        let cross = (line.x * relative.y - line.y * relative.x)
+        let v = cross < 0 ? -thrust : +thrust
         
         return CGPoint(
             x: -v * line.y / lineDistance,
@@ -90,10 +66,11 @@ class BlockFoe: SpriteFoe {
     
     override func update( currentTime: TimeInterval, player: Player? ) {
         if let p = player, let last = self.lastUpdate, player!.active(), active {
-            velocity! = aim( targetPosition: p.position, targetVelocity: p.velocity, delta: currentTime - last )
-        }
-        else if active {
-            velocity! = CGPoint(x:0, y:0)
+            let delta = CGFloat(currentTime - last)
+            let accel = aim( targetPosition: p.position, targetVelocity: p.velocity )
+        
+            velocity!.x += delta * accel.x
+            velocity!.y += delta * accel.y
         }
 
         updatePosition( currentTime: currentTime )
