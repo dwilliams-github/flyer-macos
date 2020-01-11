@@ -7,6 +7,12 @@
 //
 import SpriteKit
 
+/**
+ @class DriftFoe
+ A foe that just drifts and spins in constant motion (not controlled)
+ 
+ This class powers the lifeless "rocks" in our scene
+ */
 class DriftFoe: SpriteFoe {
     private var baseSpeed: CGFloat
     private var baseRotation: CGFloat

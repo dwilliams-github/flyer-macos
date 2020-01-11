@@ -29,7 +29,7 @@ class GameScene: SKScene {
     var gameDelegate: GameSceneDelegate?
     
     override func didMove(to view: SKView) {
-        self.score = Score(scene: self)
+        self.score = Score(scene: self, bonusThreshold: 50000 )
         self.lives = Lives(scene: self, startAt: 4, max: 8)
         self.isPaused = false
 
@@ -214,7 +214,9 @@ class GameScene: SKScene {
                         difficulty: settings.difficulty
                     ), let score = self.score {
                         p.halt()
-                        score.increment(amount: award)
+                        if score.increment(amount: award) {
+                            lives?.increment()
+                        }
                         break
                     }
                 }
