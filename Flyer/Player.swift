@@ -217,7 +217,7 @@ class Player: NSObject {
     }
     
     func stopTurn( currentTime: TimeInterval ) {
-        if checkActive() {
+        if checkActive() && turning != Turning.COAST {
             update(currentTime: currentTime)
             turning = Turning.COAST
         }
@@ -238,7 +238,7 @@ class Player: NSObject {
     }
     
     func stopThrust( currentTime: TimeInterval ) {
-        if state == State.ACTIVE {
+        if state == State.ACTIVE && thrusting {
             update(currentTime: currentTime)
             thrust.hide()
             thrustSound.run(

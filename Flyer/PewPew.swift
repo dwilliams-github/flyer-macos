@@ -18,7 +18,7 @@ class PewPew: NSObject {
     private var lastUpdate: TimeInterval?
     
     private var velocity: CGPoint?
-    private var expiration: TimeInterval?
+    private var remaining: TimeInterval = 0
     
     init( scene: SKScene ) {
         let baseSprite = SKSpriteNode(imageNamed: "pew")
@@ -33,10 +33,10 @@ class PewPew: NSObject {
         scene.addChild(launchSound)
     }
     
-    func launch( start: CGPoint, velocity: CGPoint, expires: TimeInterval ) {
+    func launch( start: CGPoint, velocity: CGPoint, duration: TimeInterval ) {
         self.sprite.position = start
         self.velocity = velocity
-        self.expiration = expires
+        self.remaining = duration
         
         launchSound.position = start
         launchSound.run(SKAction.sequence([
@@ -65,14 +65,20 @@ class PewPew: NSObject {
     }
     
     func update( currentTime: TimeInterval ) {
-        if let last = self.lastUpdate, let vel = velocity, let expir = expiration {
-            if currentTime > expir {
+        if let last = self.lastUpdate, let vel = velocity {
+            let deltaTime = currentTime - last
+
+            if deltaTime > self.remaining {
+                self.remaining = 0
                 self.velocity = nil
                 self.sprite.hide()
                 return
             }
-            
-            let delta = CGFloat(currentTime - last)
+            else {
+                self.remaining -= deltaTime
+            }
+
+            let delta = CGFloat(deltaTime)
 
             self.sprite.zRotation = sprite.zRotation + CGFloat.pi*spinRate*delta
             

@@ -85,7 +85,7 @@ class GameScene: SKScene {
                 pews[nextPew].launch(
                     start: player.missleLaunchPosition(),
                     velocity: player.missleLaunchVelocity(),
-                    expires: currentTime + 2.0
+                    duration: 2.0
                 )
                 nextPew = (nextPew + 1) % pews.count
             }
@@ -101,7 +101,7 @@ class GameScene: SKScene {
         self.finalDeath = currentTime
         if let curtains = self.curtains {
             curtains.isHidden = false
-            curtains.run(SKAction.fadeAlpha(to: 0.4, duration: 0.25))
+            curtains.run(SKAction.fadeAlpha(to: 0.5, duration: 0.25))
         }
         if let score = self.score {
             //
@@ -128,6 +128,13 @@ class GameScene: SKScene {
         curtains?.isHidden = true
         
         player?.pausedTime( currentTime: currentTime )
+        
+        //
+        // We need to stop turning or thrusting, because we've
+        // lost the key up event that started it
+        //
+        player?.stopThrust( currentTime: currentTime )
+        player?.stopTurn( currentTime: currentTime )
         
         foes?.forEach {
             $0.pausedTime( currentTime: currentTime )
@@ -171,7 +178,7 @@ class GameScene: SKScene {
                 fire(currentTime: event.timestamp)
             case settings.keyPause:
                 self.isPaused = true
-                curtains?.alpha = 0.4
+                curtains?.alpha = 0.5
                 curtains?.isHidden = false
             default:
                 break
@@ -180,7 +187,7 @@ class GameScene: SKScene {
     }
     
     override func keyUp(with event: NSEvent) {
-        if let player = self.player {
+        if let player = self.player, !self.isPaused {
             switch event.keyCode {
             case settings.keyLeft, settings.keyRight:
                 player.stopTurn(currentTime: event.timestamp)

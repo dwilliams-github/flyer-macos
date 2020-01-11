@@ -30,7 +30,7 @@ class TopScores : NSObject, NSTableViewDataSource {
         }
     }
     
-    var scores: [Entry]
+    var scores: [Entry] = []
     var tableView: NSTableView?
 
     /**
@@ -38,7 +38,14 @@ class TopScores : NSObject, NSTableViewDataSource {
      -param table Parent table view
      */
     init( table: NSTableView? ) {
-        self.scores = UserDefaults.standard.array(forKey: TopScores.defaultsKey) as? [Entry] ?? []
+        if let encoded = UserDefaults.standard.value(forKey: TopScores.defaultsKey) as? Data {
+            //
+            // Recover encoded list of top scores
+            //
+            if let scores = try? PropertyListDecoder().decode(Array<Entry>.self, from: encoded) {
+                self.scores = scores
+            }
+        }
         super.init()
 
         //
