@@ -5,9 +5,11 @@
 //  Created by David Williams on 11/29/19.
 //  Copyright © 2019 David Williams. All rights reserved.
 //
-
 import SpriteKit
 
+/**
+ Basic type of foe with less reactive blocking-type behavior
+ */
 class Mine: BlockFoe {
     
     init( scene: SKScene ) {

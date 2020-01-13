@@ -9,11 +9,30 @@
 import SpriteKit
 import GameplayKit
 
+/**
+ Game scene delegate
+ 
+ We need a mechanism to tell the higher-level game assets (view controller)
+ of changes in the game state, such as an end of game.
+ */
 protocol GameSceneDelegate {
+    /**
+     Indicates that the game just finished (player ran out of lives)
+     - Parameter score: The score achieved by the player
+     
+     Note that the scene is still running using post-game annimations.
+     */
     func gameOver( score: Int )
+    
+    /**
+     Indicates that a new game should begin
+     */
     func newGame()
 }
 
+/**
+ Main game scene
+ */
 class GameScene: SKScene {
     
     private var settings: GameSettings = GameSettings.standard
@@ -178,6 +197,10 @@ class GameScene: SKScene {
                 fire(currentTime: event.timestamp)
             case settings.keyPause:
                 self.isPaused = true
+                //
+                // We don't fade in the curtains, since we are reacting
+                // to a keypress and want to give the user immediate feedback.
+                //
                 curtains?.alpha = 0.5
                 curtains?.isHidden = false
             default:
@@ -228,7 +251,7 @@ class GameScene: SKScene {
             // Check for foe and player collision
             //
             for f in foes {
-                if player.active() && f.hitsPlayer(player: player) {
+                if player.active() && f.hitsPlayer() {
                     player.oops(when: currentTime)
                     if lives!.decrement() > 0 {
                         player.spawn(when: currentTime+3)

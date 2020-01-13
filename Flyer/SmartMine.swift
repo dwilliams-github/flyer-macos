@@ -5,9 +5,11 @@
 //  Created by David Williams on 11/29/19.
 //  Copyright © 2019 David Williams. All rights reserved.
 //
-
 import SpriteKit
 
+/**
+ A more aggressive version of a blocking type foe
+ */
 class SmartMine: BlockFoe {
     
     init( scene: SKScene ) {

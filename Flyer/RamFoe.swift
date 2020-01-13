@@ -1,11 +1,18 @@
 //
 //  RamFoe.swift
-//  
+//  Flyer
 //
 //  Created by David Williams on 11/28/19.
+//  Copyright © 2019 David Williams. All rights reserved.
 //
 import SpriteKit
 
+/**
+ A foe that attempts to collide head-on with the player.
+ 
+ Note that this behavior is relatively weak beause the velocity
+ of the player is not accounted for.
+ */
 class RamFoe: SpriteFoe {
     private let baseSpeed: CGFloat
     private let turn_speed: CGFloat

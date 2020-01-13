@@ -5,13 +5,21 @@
 //  Created by David Williams on 11/30/19.
 //  Copyright © 2019 David Williams. All rights reserved.
 //
-
 import SpriteKit
 
+/**
+ Store and present current number of player lives
+ */
 class Lives: NSObject {
     var markers : [SKSpriteNode] = []
     var value: Int
 
+    /**
+     Constructor
+     - Parameter scene: The main game scene
+     - Parameter startAt: Beginning number of lives
+     - Parameter max: Maximum number of lives
+     */
     init( scene: SKScene, startAt: Int, max: Int ) {
         value = startAt
         let coastTexture = SKTexture(imageNamed: "Player000")
@@ -32,6 +40,13 @@ class Lives: NSObject {
         }
     }
     
+    /**
+     Attempt to increment number of lives
+     - Returns: True if successful
+     
+     It is not always possible to increment the number of lives because there
+     is an explicit maximum.
+     */
     @discardableResult func increment() -> Bool {
         if value < markers.count {
             markers[value].isHidden = false
@@ -41,12 +56,20 @@ class Lives: NSObject {
         return false
     }
     
+    /**
+     Decrement lives
+     - Returns: The number of remaining lives
+     */
     func decrement() -> Int {
         value -= 1
         markers[value].isHidden = true
         return value
     }
     
+    /**
+     Returns true if there any more lives remaining
+     - Returns: True if there is still hope!
+     */
     func anyLeft() -> Bool {
         return value > 0
     }

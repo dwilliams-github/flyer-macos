@@ -1,12 +1,15 @@
 //
 //  Box.swift
-//  
+//  Flyer
 //
 //  Created by David Williams on 11/28/19.
+//  Copyright © 2019 David Williams. All rights reserved.
 //
-
 import SpriteKit
 
+/**
+ The basic foe with relatively relaxed ramming behavior
+ */
 class Box: RamFoe {
     init( scene: SKScene ) {
         //

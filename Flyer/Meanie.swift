@@ -1,12 +1,15 @@
 //
 //  Meanie.swift
-//  
+//  Flyer
 //
 //  Created by David Williams on 11/22/19.
+//  Copyright © 2019 David Williams. All rights reserved.
 //
-
 import SpriteKit
 
+/**
+ The stronger version of a ramming type foe
+ */
 class Meanie: RamFoe {
     init( scene: SKScene ) {
         //

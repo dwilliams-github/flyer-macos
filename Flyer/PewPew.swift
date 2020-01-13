@@ -5,9 +5,11 @@
 //  Created by David Williams on 11/17/19.
 //  Copyright © 2019 David Williams. All rights reserved.
 //
-
 import SpriteKit
 
+/**
+ The player's missle
+ */
 class PewPew: NSObject {
     private var sprite: FoldingSprite
     private var launchSound: SKAudioNode
@@ -20,6 +22,10 @@ class PewPew: NSObject {
     private var velocity: CGPoint?
     private var remaining: TimeInterval = 0
     
+    /**
+     Constructor
+     - Parameter scene: The main game scene
+     */
     init( scene: SKScene ) {
         let baseSprite = SKSpriteNode(imageNamed: "pew")
         baseSprite.scale(to: CGSize(width: 8, height: 8))
@@ -33,6 +39,14 @@ class PewPew: NSObject {
         scene.addChild(launchSound)
     }
     
+    /**
+     Launch a missle with given parameters
+     - Parameter start: The start point
+     - Parameter velocity: The velocity
+     - Parameter duration: The lifetime
+     
+     Once launched, the missle will handle its animations and lifetime internally.
+     */
     func launch( start: CGPoint, velocity: CGPoint, duration: TimeInterval ) {
         self.sprite.position = start
         self.velocity = velocity
@@ -45,25 +59,46 @@ class PewPew: NSObject {
         ]))
     }
     
+    /**
+     True, if a missle is not currently active
+     - Returns: True if available for launch
+     */
     func available() -> Bool {
         return self.velocity == nil
     }
     
+    /**
+     Current position of the missle
+     */
     var position: CGPoint? {
         get {
             self.velocity == nil ? nil : self.sprite.position
         }
     }
     
+    /**
+     Halt the missle early
+     
+     This is useful to end the flight of the missle in case it contacted something.
+     */
     func halt() {
         self.velocity = nil
         self.sprite.hide()
     }
     
+    /**
+    Wake up from a pause
+    - Parameter currentTime: Current game time
+    To be invoked after a pause is lifted
+    */
     func pausedTime( currentTime: TimeInterval ) {
         self.lastUpdate = currentTime
     }
     
+    /**
+    Update animation
+    - Parameter currentTime: Current game time
+    */
     func update( currentTime: TimeInterval ) {
         if let last = self.lastUpdate, let vel = velocity {
             let deltaTime = currentTime - last

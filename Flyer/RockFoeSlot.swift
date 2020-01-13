@@ -7,6 +7,12 @@
 //
 import SpriteKit
 
+/**
+ Allocation of a drifting foe
+ 
+ All drifting foes have the same generic behavior (random
+ constant motion) but the appearance is randomly selected at wakup.
+ */
 class RockFoeSlot: FoeSlot {
     private var rocks: [DriftFoe]
 

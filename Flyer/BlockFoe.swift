@@ -5,20 +5,35 @@
 //  Created by David Williams on 11/29/19.
 //  Copyright © 2019 David Williams. All rights reserved.
 //
-
 import SpriteKit
 
+/**
+ A foe that attempts to place itself in the player path
+ */
 class BlockFoe: SpriteFoe {
     private let baseThrust: CGFloat
     private var thrust: CGFloat = 0
     private var active: Bool
     
+    /**
+     Constructor
+     - Parameter scene: The game scene in which to place the foe
+     - Parameter sprite: The sprite used to represent the foe
+     - Parameter baseThrust: Base value of sprite's thrust, to be modified by difficulty on spawn
+     - Note: Animations for the sprite should be setup outside this class
+     */
     init( scene: SKScene, sprite: FoldingSprite, baseThrust: CGFloat ) {
         self.baseThrust = baseThrust
         self.active = false
         super.init(scene: scene, sprite: sprite)
     }
     
+    /**
+    Spawn the foe at given point and direction
+    - Parameter start: Starting point
+    - Parameter direction: Starting direction
+    - Parameter difficulty: Current difficulty setting
+    */
     override func spawn( start: CGPoint, direction: CGPoint, difficulty: Difficulty ) {
         super.launch( start: start, velocity: CGPoint(x: 0, y: 0 ))
         self.active = true
@@ -26,11 +41,17 @@ class BlockFoe: SpriteFoe {
         self.sprite.fadeIn( duration: 1 )
     }
     
-    override func hide( currentTime: TimeInterval ) {
+    /**
+    Reset, in preparation for respawning
+    */
+    override func reset() {
         self.active = false
-        super.hide(currentTime: currentTime)
+        super.reset()
     }
 
+    //
+    // Return thrust vector
+    //
     private func aim( targetPosition: CGPoint, targetVelocity: CGPoint ) -> CGPoint {
         //
         // Fetch relative velocity
@@ -64,6 +85,11 @@ class BlockFoe: SpriteFoe {
         )
     }
     
+    /**
+     Update animation
+     - Parameter currentTime: Current game time
+     - Parameter player: Current player
+     */
     override func update( currentTime: TimeInterval, player: Player? ) {
         if let p = player, let last = self.lastUpdate, player!.active(), active {
             let delta = CGFloat(currentTime - last)

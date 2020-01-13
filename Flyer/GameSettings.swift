@@ -62,6 +62,9 @@ class GameSettings: NSObject {
      */
     static let standard = GameSettings()
     
+    //
+    // Default values. We load them on construction.
+    //
     static private var defaultValues: [String:Any] = [
         GameSettings.Keys.difficulty.rawValue: DifficultyKeys.Hacker.rawValue,
         GameSettings.Keys.keyLeft.rawValue:    0x7b as UInt16,
@@ -82,18 +85,38 @@ class GameSettings: NSObject {
         DifficultyKeys.Expert.rawValue: Expert()
     ]
     
+    //
+    // For the sake of modularity, we'll access the system level
+    // UserDefaults singleton via this property variable.
+    //
     private var defaults: UserDefaults = UserDefaults.standard
     
+    
+    /**
+     Constructor
+     */
     override init() {
         self.defaults.register(defaults: GameSettings.defaultValues)
     }
     
+    /**
+     Current game difficulty setting
+     
+     Note that the user can alter the setting at any point in the game, so that difficulty
+     setting values should not be cached. This method is designed to impose a minimum
+     overhead of resources.
+     
+     - ToDo: It might be wise to protect against corrupted settings
+     */
     var difficulty: Difficulty {
         get {
             return GameSettings.difficultyStore[UserDefaults.standard.object(forKey: GameSettings.Keys.difficulty.rawValue) as! Int]!
         }
     }
     
+    /**
+     The difficulty key
+     */
     var difficultyKey: Int {
         get {
             return defaults.object(forKey: GameSettings.Keys.difficulty.rawValue) as! Int
@@ -103,6 +126,9 @@ class GameSettings: NSObject {
         }
     }
     
+    /**
+     Keycode used by the player to indicate a counter-clockwise turn
+     */
     var keyLeft: CGKeyCode {
         get {
             return defaults.object(forKey: GameSettings.Keys.keyLeft.rawValue) as! CGKeyCode
@@ -112,6 +138,9 @@ class GameSettings: NSObject {
         }
     }
     
+    /**
+     Keycode used by the player to indicate a clockwise turn
+     */
     var keyRight: CGKeyCode {
         get {
             return defaults.object(forKey: GameSettings.Keys.keyRight.rawValue) as! CGKeyCode
@@ -121,6 +150,9 @@ class GameSettings: NSObject {
         }
     }
     
+    /**
+     Keycode used by the player to indicate thrusting
+     */
     var keyThrust: CGKeyCode {
         get {
             return defaults.object(forKey: GameSettings.Keys.keyThrust.rawValue) as! CGKeyCode
@@ -130,6 +162,9 @@ class GameSettings: NSObject {
         }
     }
     
+    /**
+     Keycode used by the player to indicate a the firing of a missle
+     */
     var keyFire: CGKeyCode {
         get {
             return defaults.object(forKey: GameSettings.Keys.keyFire.rawValue) as! CGKeyCode
@@ -139,6 +174,9 @@ class GameSettings: NSObject {
         }
     }
     
+    /**
+     Keycode used by the player to pause the game
+     */
     var keyPause: CGKeyCode {
         get {
             return defaults.object(forKey: GameSettings.Keys.keyPause.rawValue) as! CGKeyCode
@@ -149,12 +187,22 @@ class GameSettings: NSObject {
     }
     
     
+    /**
+     Number of keycode bindings used by the game
+     */
     var numberKeyBindings: Int {
         get {
             return 5
         }
     }
     
+    /**
+     Description of given key binding
+     - Parameter seq: The key binding sequence (counting from zero)
+     - Returns: The description
+     
+     This method is useful for user settings interfaces (i.e. the preferences pane)
+     */
     func keyDescription( seq: Int ) -> String? {
         switch seq {
         case 0:
@@ -172,6 +220,13 @@ class GameSettings: NSObject {
         }
     }
     
+    /**
+     Return the given keycode value
+     - Parameter seq:The key binding sequence (counting from zero)
+     - Returns: The keycode
+     
+     This method is useful for user settings interfaces (i.e. the preferences pane)
+     */
     func keyValue( seq: Int ) -> CGKeyCode? {
         switch seq {
         case 0:
@@ -189,6 +244,13 @@ class GameSettings: NSObject {
         }
     }
     
+    /**
+     Set given keycode value
+     - Parameter seq: The key binding sequence (counting from zero)
+     - Parameter keycode: The new value for the key binding
+     
+     This method is useful for user settings interfaces (i.e. the preferences pane)
+     */
     func setKeyValue( seq: Int, keycode: CGKeyCode? ) {
         switch seq {
         case 0:
@@ -206,6 +268,11 @@ class GameSettings: NSObject {
         }
     }
 
+    /**
+     Current game volume.
+     
+     We only have one overall volume for all sounds.
+     */
     var volume : Float {
         get {
             return defaults.float(forKey: GameSettings.Keys.volume.rawValue)

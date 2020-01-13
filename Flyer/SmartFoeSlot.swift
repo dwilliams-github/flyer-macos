@@ -5,9 +5,19 @@
 //  Created by David Williams on 1/5/20.
 //  Copyright © 2020 David Williams. All rights reserved.
 //
-
 import SpriteKit
 
+/**
+ Allocation of a smart foe
+ 
+ On wakeup, a random selection of foe type is spawned.
+ 
+ Four type of possible foes are included (and preallocated)
+ * Box: a generic foe with ramming behavior
+ * Mine:  a generic foe with blocking behavior
+ * Meanie: more aggressive ramming
+ * SmartMine: more aggressive blocking
+ */
 class SmartFoeSlot: FoeSlot {
     private var meanie: Meanie
     private var box: Box
@@ -16,7 +26,6 @@ class SmartFoeSlot: FoeSlot {
     private var generation: Int
 
     override init( scene: SKScene, player: Player, delay: TimeInterval ) {
-        
         //
         // Preallocate potential animations
         //

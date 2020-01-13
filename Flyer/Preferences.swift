@@ -5,9 +5,11 @@
 //  Created by David Williams on 1/1/20.
 //  Copyright © 2020 David Williams. All rights reserved.
 //
-
 import Cocoa
 
+/**
+ Handle game preference pane
+ */
 class Preferences: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
 
     @IBOutlet var difficultyPopup: NSPopUpButton!
@@ -44,7 +46,13 @@ class Preferences: NSViewController, NSTableViewDelegate, NSTableViewDataSource 
         keyBindingTable.dataSource = self
     }
     
+    /**
+     Action associated with pushing the "Okay" button on the preference pane.
+     */
     @IBAction func okayPressed(_ sender: Any) {
+        //
+        // Read controls and save settings
+        //
         settings.difficultyKey = difficultyPopup.indexOfSelectedItem
         
         for (seq, view) in self.keyViewDict {
@@ -57,6 +65,9 @@ class Preferences: NSViewController, NSTableViewDelegate, NSTableViewDataSource 
             settings.volume = volumeSlider.floatValue * 0.01
         }
         
+        //
+        // Make the model dialog go away
+        //
         dismiss(self)
     }
     

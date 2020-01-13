@@ -5,9 +5,11 @@
 //  Created by David Williams on 11/15/19.
 //  Copyright © 2019 David Williams. All rights reserved.
 //
-
 import SpriteKit
 
+/**
+ The player
+ */
 class Player: NSObject {
     var sprite: FoldingSprite
     var thrust: FoldingSprite
@@ -49,6 +51,10 @@ class Player: NSObject {
 
     private(set) var velocity: CGPoint = CGPoint(x:0, y:0)
     
+    /**
+     Constructor
+     - Parameter scene: The game scene
+     */
     init( scene: SKScene ) {
 
         //
@@ -98,7 +104,7 @@ class Player: NSObject {
         //
         // Boom!
         //
-        boom = Boom( scene: scene, name: "Kapow", sound: "oops", number: 7, size: 30 )
+        boom = Boom( scene: scene, name: "Kapow", number: 7, sound: "oops", size: 30 )
         
         //
         // Vrooom!
@@ -119,20 +125,35 @@ class Player: NSObject {
         sprite.hide()
     }
     
+    /**
+     The position of the player
+     */
     var position : CGPoint {
         get {
             sprite.position
         }
     }
     
+    /**
+     Check if the player is active
+     - Returns: True if the player is active
+     */
     func active() -> Bool {
         return state == State.ACTIVE
     }
     
+    /**
+     Check if the player is (currently) dead
+     - Returns: True if the player is dead
+     */
     func dead() -> Bool {
         return state == State.DEAD
     }
 
+    /**
+     Spawn the player
+     - Parameter when: Interval in the future in which to spawn
+     */
     func spawn( when: TimeInterval ) {
         if state != State.WAITING {
             self.state = State.WAITING
@@ -140,6 +161,11 @@ class Player: NSObject {
         }
     }
     
+    /**
+     Indicate player death
+     - Parameter when: Current game time
+     - Note: Ignored if the player is not currently active
+     */
     func oops( when: TimeInterval ) {
         if state == State.ACTIVE {
             state = State.DEAD
@@ -169,6 +195,7 @@ class Player: NSObject {
     
     /**
      Position in which a foe should not appear.
+     - Returns: The safe point
      
      Nominally the player position, unless the player is dying or waiting to be reborn,
      in which case, the spawn location is returned
@@ -179,6 +206,10 @@ class Player: NSObject {
             FoldingPoint(value: spawnPoint, bounds: sprite.sceneSize)
     }
     
+    /**
+     Missle launch starting point
+     - Returns: The point
+     */
     func missleLaunchPosition() -> CGPoint {
         return CGPoint(
             x: sprite.position.x - 10*sin(sprite.zRotation),
@@ -186,6 +217,11 @@ class Player: NSObject {
         )
     }
     
+    /**
+     Missle launch velocity
+     - Returns: The velocity
+     - Note: Dependent on the velocity of the player
+     */
     func missleLaunchVelocity() -> CGPoint {
         return CGPoint(
             x: velocity.x - 250*sin(sprite.zRotation),
@@ -195,6 +231,7 @@ class Player: NSObject {
     
     /**
      Decide if we are going too fast
+     - Returns: True if we are going too fast
      
      This is just to prevent the user from constantly accelerating willy nilly
      */
@@ -202,6 +239,11 @@ class Player: NSObject {
         return state == State.ACTIVE && velocity.magnitude() > 1000
     }
     
+    /**
+     Begin left turn
+     - Parameter currentTime: Current game time
+     - Note: Turn will continue until stopTurn is invoked
+     */
     func startLeft( currentTime: TimeInterval ) {
         if checkActive() {
             update(currentTime: currentTime)
@@ -209,6 +251,11 @@ class Player: NSObject {
         }
     }
     
+    /**
+     Begin right turn
+     - Parameter currentTime: Current game time
+     - Note: Turn will continue until stopTurn is invoked
+     */
     func startRight( currentTime: TimeInterval ) {
         if checkActive() {
             update(currentTime: currentTime)
@@ -216,6 +263,10 @@ class Player: NSObject {
         }
     }
     
+    /**
+    Stop turning
+    - Parameter currentTime: Current game time
+    */
     func stopTurn( currentTime: TimeInterval ) {
         if checkActive() && turning != Turning.COAST {
             update(currentTime: currentTime)
@@ -223,6 +274,11 @@ class Player: NSObject {
         }
     }
     
+    /**
+     Begin thrusting
+     - Parameter currentTime: Current game time
+     - Note: Thrusting will continue until stopThrust is invoked
+     */
     func startThrust( currentTime: TimeInterval ) {
         if checkActive() {
             update(currentTime: currentTime)
@@ -237,6 +293,10 @@ class Player: NSObject {
         }
     }
     
+    /**
+    Stop thrusting
+    - Parameter currentTime: Current game time
+    */
     func stopThrust( currentTime: TimeInterval ) {
         if state == State.ACTIVE && thrusting {
             update(currentTime: currentTime)
@@ -251,10 +311,19 @@ class Player: NSObject {
         }
     }
     
+    /**
+    Wake up from a pause
+    - Parameter currentTime: Current game time
+    To be invoked after a pause is lifted
+    */
     func pausedTime( currentTime: TimeInterval ) {
         lastUpdate = currentTime
     }
     
+    /**
+     Check if active, and become active if appropriate
+     - Returns: True if active
+     */
     func checkActive() -> Bool {
         if state == State.HOLDING {
             state = State.ACTIVE
@@ -266,6 +335,10 @@ class Player: NSObject {
         return state == State.ACTIVE
     }
 
+    /**
+    Update animation
+    - Parameter currentTime: Current game time
+    */
     func update( currentTime: TimeInterval ) {
         if state == State.INITIALIZED {
             spawn( when: currentTime )
@@ -273,7 +346,7 @@ class Player: NSObject {
         
         if state == State.WAITING {
             //
-            // We are between lives, waiting to respawn
+            // We are between lives, waiting to respawn.
             // When we respawn, we are in a "held" state,
             // until an action is received, to avoid untimely
             // death in case we are spawned in a bad place.

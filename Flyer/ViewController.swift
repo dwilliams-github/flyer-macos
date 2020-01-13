@@ -5,7 +5,6 @@
 //  Created by David Williams on 10/29/19.
 //  Copyright © 2019 David Williams. All rights reserved.
 //
-
 import Cocoa
 import SpriteKit
 import GameplayKit

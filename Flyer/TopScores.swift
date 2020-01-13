@@ -1,11 +1,10 @@
 //
-//  TopScoreView.swift
+//  TopScores.swift
 //  Flyer
 //
 //  Created by David Williams on 12/26/19.
 //  Copyright © 2019 David Williams. All rights reserved.
 //
-
 import Cocoa
 
 /**
@@ -34,8 +33,8 @@ class TopScores : NSObject, NSTableViewDataSource {
     var tableView: NSTableView?
 
     /**
-     Initialize
-     -param table Parent table view
+     Constructor
+     - Parameter table: Parent table view
      */
     init( table: NSTableView? ) {
         if let encoded = UserDefaults.standard.value(forKey: TopScores.defaultsKey) as? Data {
@@ -69,8 +68,8 @@ class TopScores : NSObject, NSTableViewDataSource {
     
     /**
      Check if given score would be in the top five
-     -param score The score to check
-     -returns True if the score would be in the top five
+     - Parameter score: The score to check
+     - Returns: True if the score would be in the top five
      */
     func scoreInTopFive( score: Int ) -> Bool {
         return score > 0 && (scores.count < 5 || score > scores.last!.score)
@@ -78,8 +77,8 @@ class TopScores : NSObject, NSTableViewDataSource {
     
     /**
      Register a new high score
-     -param initials Player's identification in the top five
-     -param score The score
+     - Parameter initials: Player's identification in the top five
+     - Parameter score: The score
      
      Updates the table view.
      */

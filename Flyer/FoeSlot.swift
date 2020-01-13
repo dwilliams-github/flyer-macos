@@ -1,11 +1,20 @@
 //
-//  Foe.swift
-//  
+//  FoeSlot.swift
+//  Flyer
 //
 //  Created by David Williams on 11/23/19.
+//  Copyright © 2019 David Williams. All rights reserved.
 //
 import SpriteKit
 
+/**
+ Generic allocation of a set of foes
+ 
+ All sprite animations are loaded at the start of the game, for performance
+ reasons. This class is used to store a collection of foes, only one of which
+ will be active at a time. The collection allows each instance to represent
+ a possible variety of foe types that could be activated during game play.
+ */
 class FoeSlot: NSObject {
     static private let DORMANT_DURATION = 4.0   // seconds
     static private let APPEAR_DURATION  = 1.0
@@ -18,6 +27,13 @@ class FoeSlot: NSObject {
     
     var active: Foe?
     
+    /**
+     Current foe state
+     - DORMANT: Not doing anything and not in the game scene, perhaps waiting to be spawned
+     - APPEARING: In the process of spawning, cannot hurt the player yet
+     - ACTIVE: Active (and dangerous)
+     - DYING: In the process of being destroyed
+     */
     enum State {
         case DORMANT
         case APPEARING
@@ -31,11 +47,17 @@ class FoeSlot: NSObject {
     private var lastState: TimeInterval?
     private var startDelay: TimeInterval
     
+    /**
+     Constructor
+     - Parameter scene: Main game scene
+     - Parameter player: The player object
+     - Parameter delay: Delay in initial spawn
+     */
     init( scene: SKScene, player: Player, delay: TimeInterval ) {
         //
         // Everything blows up
         //
-        boom = Boom( scene: scene, name: "Boom", sound: "boom", number: 4, size: 18 )
+        boom = Boom( scene: scene, name: "Boom", number: 4, sound: "boom", size: 18 )
 
         //
         // We'll need to keep track of the player and scene
@@ -50,6 +72,10 @@ class FoeSlot: NSObject {
         startDelay = delay
     }
     
+    /**
+     Find a fair place to wake up
+     - Returns: The place
+     */
     func wakeUpPoint() -> CGPoint {
         //
         // Find a random point in space that isn't
@@ -75,6 +101,13 @@ class FoeSlot: NSObject {
         return CGPoint()
     }
     
+    /**
+     Establish a random wakeup direction
+     - Returns: The direction
+     
+     It is up to subclasses to decide how to use the direction (i.e. what initial velocity,
+     if any, to give the foe).
+     */
     func wakeUpDirection() -> CGPoint {
         let rotation = CGFloat.random( in: -CGFloat.pi ... CGFloat.pi )
         
@@ -84,12 +117,21 @@ class FoeSlot: NSObject {
         )
     }
     
+    /**
+     Wake up
+     
+     Subclasses should override this function to handle their assets on foe activation.
+     */
     func wakeUp() {
     }
     
-    func hitsPlayer( player: Player ) -> Bool {
+    /**
+     Decide if a player has been hit
+     - Returns: True if the player has been hit
+     */
+    func hitsPlayer() -> Bool {
         if let active = self.active, state == State.ACTIVE {
-            return active.hitsPlayer(target: player.position)
+            return active.hitsPlayer(target: self.player.position)
         }
         else {
             return false
@@ -111,7 +153,7 @@ class FoeSlot: NSObject {
         if let active = self.active, let mis = missle, state == .ACTIVE {
             if active.position.smallestSquareDistance(target: mis) < 300 {
                 changeState( newState: .DYING, currentTime: currentTime )
-                active.fade( currentTime: currentTime )
+                active.beginFading( currentTime: currentTime )
                 boom.overlay( at: active.position, velocity: active.velocity!, currentTime: currentTime )
                 return active.value(difficulty: difficulty)
             }
@@ -119,12 +161,21 @@ class FoeSlot: NSObject {
         return nil
     }
     
+    /**
+    Wake up from a pause
+    - Parameter currentTime: Current game time
+    To be invoked after a pause is lifted
+    */
     func pausedTime( currentTime: TimeInterval ) {
         lastUpdate = currentTime
         active?.pausedTime( currentTime: currentTime )
         boom.pausedTime( currentTime: currentTime )
     }
 
+    /**
+    Update animation
+    - Parameter currentTime: Current game time
+    */
     func update( currentTime: TimeInterval ) {
         if lastUpdate == nil {
             //
@@ -170,7 +221,7 @@ class FoeSlot: NSObject {
                 
                 if currentTime - lastState! > FoeSlot.DYING_DURATION {
                     changeState( newState: .DORMANT, currentTime: currentTime )
-                    active.hide( currentTime: currentTime )
+                    active.reset()
                 }
             }
         }

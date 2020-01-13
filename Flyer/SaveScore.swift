@@ -1,11 +1,10 @@
 //
-//  InitialsView.swift
+//  SaveScore.swift
 //  Flyer
 //
 //  Created by David Williams on 12/29/19.
 //  Copyright © 2019 David Williams. All rights reserved.
 //
-
 import Cocoa
 
 /**

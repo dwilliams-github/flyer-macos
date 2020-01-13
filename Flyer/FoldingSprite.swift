@@ -11,8 +11,8 @@ import SpriteKit
 /**
  A sprite that is contained within the scene.
  
- * Reflections are added as necessary if the sprite is near a scene boundary.
- * Modifications to the sprite are restricted to provided setters.
+ - Reflections are added as necessary if the sprite is near a scene boundary.
+ - Modifications to the sprite are restricted to provided setters.
  */
 class FoldingSprite: NSObject {
     private var primary: SKSpriteNode
@@ -23,11 +23,11 @@ class FoldingSprite: NSObject {
     /**
      Initializer
      
-     - Parameter scene The scene in which the sprite will be drawn
-     - Parameter sprite The sprite to draw
+     - Parameter scene: The scene in which the sprite will be drawn
+     - Parameter sprite: The sprite to draw
      
-     # Notes
-     * Assumes that the scene size does not change
+     - Notes:
+      - Assumes that the scene size does not change
      */
     init( scene: SKScene, sprite: SKSpriteNode ) {
         self.primary = sprite;
@@ -54,6 +54,10 @@ class FoldingSprite: NSObject {
         self.sceneSize = scene.size
     }
     
+    /**
+     Run the given sprite animation action
+     - Parameter action: The action to run
+     */
     func run(_ action: SKAction ) {
         primary.run(action)
         for r in reflections {
@@ -61,6 +65,9 @@ class FoldingSprite: NSObject {
         }
     }
     
+    /**
+     Hide the sprite
+     */
     func hide() {
         primary.isHidden = true
         for r in reflections {
@@ -69,9 +76,9 @@ class FoldingSprite: NSObject {
     }
     
     /**
-     Fade from nothing
-     - Parameter duration Time to fade in
-     - Parameter to Target alpha at end of fade
+     Fade in from nothing
+     - Parameter duration: Time to fade in
+     - Parameter to: Target alpha at end of fade
      
      Alpha is set to zero immediately.
      */
@@ -80,10 +87,18 @@ class FoldingSprite: NSObject {
         run(SKAction.fadeAlpha(to: to, duration: duration))
     }
     
+    /**
+     Fade to given alpha value
+     - Parameter to: The alpha to fade to
+     - Parameter duration: Time to perform the fade
+     */
     func fadeAlpha( to: CGFloat, duration: TimeInterval ) {
         run(SKAction.fadeAlpha(to: to, duration: duration))
     }
 
+    /**
+     Current alpha level
+     */
     var alpha: CGFloat {
         get {
             primary.alpha
@@ -112,17 +127,27 @@ class FoldingSprite: NSObject {
         current.isHidden   = false
     }
     
-    
+    /**
+     Return closest linear path to given target
+     - Parameter target: Target position of interest
+     - Returns: The path
+     */
     func closestLine( target: CGPoint ) -> CGPoint {
         return FoldingPoint( value: primary.position, bounds: sceneSize ).closestLine(target: target)
     }
     
+    /**
+     Return wrapped folded position of sprite
+     - Returns: The position
+     */
     func foldedPosition() -> FoldingPoint {
         return FoldingPoint( value: primary.position, bounds: sceneSize )
     }
     
 
-    /// The position of the object, which will be folded into the scene
+    /**
+     The position of the object, which will be folded into the scene
+     */
     var position: CGPoint {
         get {
             primary.position
@@ -170,6 +195,9 @@ class FoldingSprite: NSObject {
         }
     }
     
+    /**
+     The rotation of the sprite
+     */
     var zRotation: CGFloat {
         get {
             primary.zRotation
@@ -179,6 +207,9 @@ class FoldingSprite: NSObject {
         }
     }
     
+    /**
+     The texture of the sprite
+     */
     var texture: SKTexture? {
         get {
             primary.texture
