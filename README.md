@@ -18,4 +18,4 @@ This is a recreation of the "flyer" game I wrote many years ago. See:
   [[https://github.com/dwilliams-github/flyer|GitHub]]
 
 Ironically, that old version, which ran under classic MacOS, was much simplier with only five source files,
-even though it has basically the same functionality.
+even though it has basically the same game play.
