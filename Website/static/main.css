@@ -1,0 +1,87 @@
+@font-face {
+    font-family: 'Futura';
+    src: local('Futura Modern'), url('./Futura.woff') format('woff');
+}
+body {
+    font-family: 'Futura', sans-serif;
+    font-size: 0.8em;
+    color: #444;
+    background: #EEEEEE;
+}
+a {
+    text-decoration: underline;
+    color: inherit;
+}
+a:hover {
+    text-decoration: underline;
+}
+div.banner {
+    background: #212121;
+    text-align: center;
+}
+div.banner img {
+    margin-left: auto;
+    margin-right: auto;
+}
+div.content {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+div.title {
+    font-size: 3em;
+    margin-top: 0.8em;
+    margin-bottom: 0.2em;
+}
+div.subtitle {
+    font-size: 1.2em;
+    color:#888;
+    margin-bottom: 1.4em;
+}
+div.header {
+    font-size: 1.2em;
+}
+div.quote {
+    margin-left: 2em;
+}
+img.insert {
+    float: left;
+    margin-top: 0.2em;
+    margin-right: 0.6em;
+    background: #666;
+}
+div.menu {
+    margin-top: 5em;
+    margin-left: 1em;
+    float: left;
+}
+div.menu li {
+    font-size: 1.1em;
+    margin-bottom: 0.4em;
+    list-style: none;
+}
+div.menu a {
+    text-decoration: none;
+}
+div.menu a:hover {
+    text-decoration: underline;
+}
+div.menu li.current {
+    font-size: 1.4em;
+}
+div.menu li.current:before {
+    content: '';
+    float: left;
+    height: 1.2em;
+    width: 1.3em;
+    margin-left: -1.3em;
+    background-image: url('mine.png');
+    background-size: 1em;
+    background-repeat: no-repeat;
+	background-position: 0 0.2em;
+}
+div.footer {
+    margin-top: 2em;
+    font-size: 0.8em;
+    color:#888;
+}
