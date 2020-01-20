@@ -11,90 +11,104 @@
 <div class="banner">
     <img src="static/title.png" alt="whoosh" width="600px">
 </div>
-<div class="menu">
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="how.html">How to play</a></li>
-        <li class="current">About this game</li>
-        <li><a href="contact.html">Contact Us</a></li>
-        <li><a href="terms.html">Terms of use</a></li>
-    </ul>
-</div>
-<div class="content">
-    <div class="title">About this game</div>
-    <div class="header">History</div>
-    <div>
-        <p>
-            I wrote the original Flyer in the 1980s on an IBM PC XT using
-            <a href="https://en.wikipedia.org/wiki/Turbo_Pascal">Turbo Pascal.</a>
-            It was much simpler than the current
-            iteration of the game (with low resolution black 
-            and white graphics with no sound). Inspired by the
-            <a href="https://en.wikipedia.org/wiki/Asteroids_(video_game)">Asteroids</a> 
-            arcade game by Atari, I wanted to program something
-            that could demonstrate the simple physics of traveling
-            in space. 
-        </p>
-        <p>
-            I wrote the second version of this game for the
-            <a href="https://en.wikipedia.org/wiki/Classic_Mac_OS">Classic Mac OS</a>
-            in 1990 using the Think C compiler. At the time I was experimenting with
-            several software projects in my spare time
-            and I thought
-            it would be fund to recreate the game I wrote years earlier.
-            To obtain the necessary performance required some creative
-            programming. You can find the source code for the
-            second version of Flyer archived on 
-            <a href="https://github.com/dwilliams-github/flyer">github</a>.
-        </p>
+<div class="frame">
+    <div class="menu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="how.html">How to play</a></li>
+            <li class="current">About this game</li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="terms.html">Terms of use</a></li>
+        </ul>
     </div>
-    <div class="header">Current version</div>
-    <div>
-        <p>
-            Finding the original code for the second version Flyer
-            inspired me to write a new one, this time for the
-            Mac OS. I decided that an updated version of the game
-            would be a fun way to learn the
-            <a href="https://developer.apple.com/swift/">Swift</a>
-            programming language, the 
-            <a href="https://developer.apple.com/xcode/">Xcode</a> development environment,
-            and also to demonstrate that I have not forgotten how
-            to code.
-        </p>
-        <p>
-            I also figured it would be fun to formally publish
-            an application on Apple's App Store, something I've
-            never done before. Which is probably
-            why you are here reading this.
-        </p>
-    </div>
-    <div class="header">Open source</div>
-        <p>
-            I wrote the code for this game from scratch using the 
-            SpriteKit starting project provided by Xcode.
-            With the notable exception of the sound effects, 
-            I also created all of the game assets, including the graphics
-            and this web site. You can find all the source code
-        </p>
-    </div>    
-    <div class="header">A little encouragement</div>
-    <div>
-        <p>
-            Some of the software
-            <a href="https://developer.apple.com/documentation/spritekit">libraries</a> 
-            provided by Apple make
-            writing sprite-based games shocking easy.
-            For those of you interesting in programming, the
-            <a href="https://developer.apple.com/swift/">Swift</a>
-            programming language is also
-            <a href="https://www.apple.com/swift/playgrounds/">very approachable</a>. 
-            So, if you want to learn some
-            programming and have a little fun in the process, I encourage
-            you dive in and write a simple Mac OS or iPhone application.
-        </p>
-    </div>
+    <div class="content">
+        <div class="title">About this game</div>
+        <div class="header">History</div>
+        <div>
+            <p>
+                I wrote the original Flyer in the 1980s on an IBM PC XT using
+                <a href="https://en.wikipedia.org/wiki/Turbo_Pascal">Turbo Pascal.</a>
+                With low resolution black and white graphics,
+                it was much simpler than the current
+                iteration of the game. Inspired by the
+                <a href="https://en.wikipedia.org/wiki/Asteroids_(video_game)">Asteroids</a> 
+                arcade game by Atari, I wanted to program something
+                that could demonstrate the simple Physics of traveling
+                in space. 
+            </p>
+            <div class="oldabout">
+                <img src="static/oldabout.png" width="100%">
+            </div>
+            <p>
+                I wrote the second version of this game for the
+                <a href="https://en.wikipedia.org/wiki/Classic_Mac_OS">Classic Mac OS</a>
+                in 1990 using the Think C compiler. At the time I was experimenting with
+                several software projects in my spare time
+                and I thought
+                it would be fund to recreate the game I wrote years earlier.
+                I used some creative programming to support faster framerates
+                on the higher resolution screens of the Macintosh computers of the time.
+                You can find the source code for the
+                second version of Flyer archived on 
+                <a href="https://github.com/dwilliams-github/flyer">github</a>.
+            </p>
+        </div>
+        <div class="header">Current version</div>
+        <div>
+            <p>
+                Uncovering the original code for the second version Flyer
+                recently inspired me to write a new one, this time for the
+                modern Mac OS. I decided that an updated version of the game
+                would be a fun way to learn the
+                <a href="https://developer.apple.com/swift/">Swift</a>
+                programming language, the 
+                <a href="https://developer.apple.com/xcode/">Xcode</a> development environment,
+                and also to demonstrate that I have not forgotten how
+                to code.
+            </p>
+            <p>
+                I also figured it would be fun to formally publish
+                an application on Apple's App Store, something I've
+                never done before. Which is probably
+                why you are here reading this.
+            </p>
+        </div>
+        <div class="header">Open source</div>
+        <div>
+            <p>
+                I wrote the code for this game from scratch using the 
+                SpriteKit starting project provided by Xcode.
+                With the notable exception of the sound effects, 
+                I also created all of the game assets, including the graphics
+                and this web site.
+            </p>
+            <p>
+                You can find the code on
+                <a href="https://github.com/dwilliams-github/flyer-macos">github</a>.
+                I have released it under an 
+                <a href="https://en.wikipedia.org/wiki/MIT_License">MIT License</a>, 
+                so feel free to browse and borrow.
+            </p>
+        </div>    
+        <div class="header">An encouraging word</div>
+        <div>
+            <p>
+                Some of the software
+                <a href="https://developer.apple.com/documentation/spritekit">libraries</a> 
+                provided by Apple make
+                writing beautiful looking sprite-based games shockingly easy.
+                For those of you interesting in programming, the
+                <a href="https://developer.apple.com/swift/">Swift</a>
+                programming language is also
+                <a href="https://www.apple.com/swift/playgrounds/">very approachable</a>. 
+                So, if you want to learn some
+                programming and have a little fun in the process, I encourage
+                you dive in and write a simple Mac OS or iPhone application.
+            </p>
+        </div>
 
-    <div class="footer">Copyright © 2020 David C. Williams</div>
+        <div class="footer">Copyright © 2020 David C. Williams</div>
+    </div>
 </div>
 </body>
 </html>
