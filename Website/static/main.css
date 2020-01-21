@@ -34,7 +34,7 @@ div.content div.oldabout {
     margin-top: 0.3em;
     margin-bottom: 1em;
     background: white;
-    width: 40%;
+    width: 50%;
     padding: 4px;
     border: 1px solid rgb(117, 117, 117);
 }
@@ -94,8 +94,53 @@ div.menu li.current:before {
     background-repeat: no-repeat;
 	background-position: 0 0.2em;
 }
+button.menu-icon {
+    display: none;
+}
 div.footer {
     margin-top: 2em;
     font-size: 0.8em;
     color:#888;
+}
+@media only screen and (max-width: 960px) {
+    div.content {
+        margin-right: 4em;
+    }
+}
+@media only screen and (max-width: 767px) {
+    div.content {
+        width: auto;
+        margin-left: 1em;
+        margin-right: 1em;
+    }
+    div.banner img {
+        width: 100%;
+        margin: 0 0;
+    }
+    div.menu {
+        display: none;
+        position: absolute;
+        top: -4em;
+        right: 1em;
+        background: #CCC;
+        border: 1px solid black;
+        width: 14em;
+    }
+    button.menu-icon {
+        background-color: #212121;
+        display: block;
+        position: absolute;
+        top: -7em;
+        right: 2em;
+        padding: 1px;
+        border: 1px solid #CCC;
+    }
+    button.menu-icon .bar {
+        display: block;
+        background-color: #CCC;
+        width: 2em;
+        height: 4px;
+        border: 2px solid #212121;
+        border-radius: 2px;
+    }
 }

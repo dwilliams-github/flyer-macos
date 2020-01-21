@@ -5,6 +5,7 @@
     <meta name="description" content="About Flyer App" />
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
     <link rel="stylesheet" href="static/main.css">
+    <script type="text/javascript" src="static/main.js"></script>
     <title>Flyer</title>
 </head>
 <body>
@@ -12,7 +13,12 @@
     <img src="static/title.png" alt="whoosh" width="600px">
 </div>
 <div class="frame">
-    <div class="menu">
+    <button class="menu-icon" type="button" onclick="ShowMenu()">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+    <div id="menu" class="menu">
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="how.html">How to play</a></li>
@@ -46,10 +52,9 @@
                 several software projects in my spare time
                 and I thought
                 it would be fund to recreate the game I wrote years earlier.
-                I used some creative programming to support faster framerates
+                Some creative programming was needed to support a decent framerate
                 on the higher resolution screens of the Macintosh computers of the time.
-                You can find the source code for the
-                second version of Flyer archived on 
+                You can find the source code for this version of Flyer archived on 
                 <a href="https://github.com/dwilliams-github/flyer">github</a>.
             </p>
         </div>

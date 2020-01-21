@@ -5,6 +5,7 @@
     <meta name="description" content="About Flyer App" />
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
     <link rel="stylesheet" href="static/main.css">
+    <script type="text/javascript" src="static/main.js"></script>
     <title>Flyer</title>
 </head>
 <body>
@@ -12,7 +13,12 @@
     <img src="static/title.png" alt="whoosh" width="600px">
 </div>
 <div class="frame">
-    <div class="menu">
+    <button class="menu-icon" type="button" onclick="ShowMenu()">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+    <div id="menu" class="menu">
         <ul>
             <li class="current">Home</li>
             <li><a href="how.html">How to play</a></li>
@@ -27,7 +33,7 @@
         <div>
             <img class="insert" src="static/ship.png" width="64"/>
             <p>
-                You nervously study your scanners as you
+                You triple check your displays as you
                 approach the target coordinates in the local asteroid belt. 
                 The reports
                 were vague: descriptions of strange, alien devices harassing

@@ -5,6 +5,7 @@
     <meta name="description" content="About Flyer App" />
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
     <link rel="stylesheet" href="static/main.css">
+    <script type="text/javascript" src="static/main.js"></script>
     <title>Flyer</title>
 </head>
 <body>
@@ -12,7 +13,12 @@
     <img src="static/title.png" alt="whoosh" width="600px">
 </div>
 <div class="frame">
-    <div class="menu">
+    <button class="menu-icon" type="button" onclick="ShowMenu()">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+    <div id="menu" class="menu">
         <ul>
             <li><a href="index.html">Home</a></li>
             <li class="current">How to play</li>
@@ -38,7 +44,7 @@
                 You may spin left (counter clockwise), spin right
                 (clockwise), or apply thrust. These actions start
                 when the assigned keyboard key is pressed down,
-                and end with the key is released. With practice,
+                and continue until the key is released. With practice,
                 navigation will become natural.
             </p>
             <p>
