@@ -94,6 +94,10 @@ div.menu li.current:before {
     background-repeat: no-repeat;
 	background-position: 0 0.2em;
 }
+div.menu .badge {
+    margin-left: 3em;
+    margin-top: 3em;
+}
 button.menu-icon {
     display: none;
 }
