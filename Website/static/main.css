@@ -74,10 +74,10 @@ div.menu li {
     margin-bottom: 0.4em;
     list-style: none;
 }
-div.menu a {
+div.menu ul a {
     text-decoration: none;
 }
-div.menu a:hover {
+div.menu ul a:hover {
     text-decoration: underline;
 }
 div.menu li.current {
@@ -97,6 +97,10 @@ div.menu li.current:before {
 div.menu .badge {
     margin-left: 3em;
     margin-top: 3em;
+}
+div.menu .featured {
+    margin-top: 0.5em;
+    margin-left: 3em;
 }
 button.menu-icon {
     display: none;
