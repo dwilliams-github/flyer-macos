@@ -10,6 +10,7 @@ import SpriteKit
 /**
  Death animation
  */
+@MainActor
 class Boom: NSObject {
     private var boom: FoldingSprite
     private var sound: SKAudioNode

@@ -60,7 +60,7 @@ public extension CGKeyCode {
         return error == noErr ? NSString(characters: &chars, length: length).lowercased : "�"
     }
     
-    private static var specialKeyStrings: [Int: String] = [
+    private static let specialKeyStrings: [Int: String] = [
         kVK_F1:  "F1",
         kVK_F2:  "F2",
         kVK_F3:  "F3",

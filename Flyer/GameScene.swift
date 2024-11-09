@@ -48,7 +48,7 @@ class GameScene: SKScene {
     var gameDelegate: GameSceneDelegate?
     
     override func didMove(to view: SKView) {
-        self.score = Score(scene: self, bonusThreshold: 50000 )
+        self.score = Score(scene: self, bonusThreshold: 50000)
         self.lives = Lives(scene: self, startAt: 4, max: 8)
         self.isPaused = false
 
@@ -60,10 +60,7 @@ class GameScene: SKScene {
         //
         // Our missles
         //
-        self.pews = []
-        for _ in 0..<8 {
-            self.pews!.append(PewPew(scene: self))
-        }
+        self.pews = (1..<8).map({_ in PewPew(scene: self)})
         
         //
         // The baddies

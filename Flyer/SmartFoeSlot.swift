@@ -23,6 +23,7 @@ class SmartFoeSlot: FoeSlot {
     private var box: Box
     private var mine: Mine
     private var smartMine: SmartMine
+    private var miniBoss: MiniBoss
     private var generation: Int
 
     override init( scene: SKScene, player: Player, delay: TimeInterval ) {
@@ -33,6 +34,7 @@ class SmartFoeSlot: FoeSlot {
         box = Box( scene: scene )
         mine = Mine( scene: scene)
         smartMine = SmartMine( scene: scene )
+        miniBoss = MiniBoss( scene: scene )
         
         generation = 0
 
@@ -54,7 +56,11 @@ class SmartFoeSlot: FoeSlot {
         
         let badder = CGFloat.random(in: 0 ..< 1) < badderFraction
 
-        if CGFloat.random(in: 0 ..< 1) < 0.25 {
+        let toss = CGFloat.random(in: 0 ..< 1)
+        if toss < 0.5 {
+            active = miniBoss
+        }
+        else if toss < 0.25 {
             active = badder ? smartMine : mine
         }
         else {

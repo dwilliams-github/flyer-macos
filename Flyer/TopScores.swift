@@ -13,6 +13,7 @@ import Cocoa
  This could have been implemented as a subclass of NSTableView.
  Instead, contains the tableview as a property.
  */
+@MainActor
 class TopScores : NSObject, NSTableViewDataSource {
     static private var defaultsKey = "topScores"
     

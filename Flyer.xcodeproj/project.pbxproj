@@ -1,0 +1,769 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B605030E237FCE7A008D1119 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = B605030D237FCE7A008D1119 /* Player.swift */; };
+		B60503102380C968008D1119 /* FoldingSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B605030F2380C968008D1119 /* FoldingSprite.swift */; };
+		B6050312238273BA008D1119 /* PewPew.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6050311238273BA008D1119 /* PewPew.swift */; };
+		B605031423851DDE008D1119 /* Art in Resources */ = {isa = PBXBuildFile; fileRef = B605031323851DDE008D1119 /* Art */; };
+		B648744F23BC02A10096D58C /* FlyerHelp in Resources */ = {isa = PBXBuildFile; fileRef = B648744E23BC02A10096D58C /* FlyerHelp */; };
+		B648745123BD38620096D58C /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = B648745023BD38620096D58C /* Preferences.swift */; };
+		B648745323BD48810096D58C /* CGKeyCode+characters.swift in Sources */ = {isa = PBXBuildFile; fileRef = B648745223BD48810096D58C /* CGKeyCode+characters.swift */; };
+		B648745523C061F30096D58C /* KeyCodeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B648745423C061F30096D58C /* KeyCodeTextView.swift */; };
+		B648745C23C15D360096D58C /* pew.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B648745B23C15D360096D58C /* pew.m4a */; };
+		B648745E23C160580096D58C /* rocket-engine.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B648745D23C160580096D58C /* rocket-engine.m4a */; };
+		B648746223C19E370096D58C /* boom.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B648746123C19E370096D58C /* boom.m4a */; };
+		B648746423C1A1AA0096D58C /* oops.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B648746323C1A1AA0096D58C /* oops.m4a */; };
+		B648746623C2B0D00096D58C /* SmartFoeSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B648746523C2B0D00096D58C /* SmartFoeSlot.swift */; };
+		B648746823C2B6EE0096D58C /* SpriteFoe.swift in Sources */ = {isa = PBXBuildFile; fileRef = B648746723C2B6EE0096D58C /* SpriteFoe.swift */; };
+		B648746A23C2B94E0096D58C /* DriftFoe.swift in Sources */ = {isa = PBXBuildFile; fileRef = B648746923C2B94E0096D58C /* DriftFoe.swift */; };
+		B648746C23C2D3400096D58C /* RockFoeSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B648746B23C2D3400096D58C /* RockFoeSlot.swift */; };
+		B648747023CA56480096D58C /* newlife.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B648746F23CA56480096D58C /* newlife.m4a */; };
+		B670BF952CDDE6AB00FB39D2 /* PewFoe.swift in Sources */ = {isa = PBXBuildFile; fileRef = B670BF942CDDE6AB00FB39D2 /* PewFoe.swift */; };
+		B670BF972CDE93BA00FB39D2 /* FiringFoe.swift in Sources */ = {isa = PBXBuildFile; fileRef = B670BF962CDE93BA00FB39D2 /* FiringFoe.swift */; };
+		B670BF992CDE9CE400FB39D2 /* MiniBoss.swift in Sources */ = {isa = PBXBuildFile; fileRef = B670BF982CDE9CE400FB39D2 /* MiniBoss.swift */; };
+		B673BA792389029200FC2E9C /* Meanie.swift in Sources */ = {isa = PBXBuildFile; fileRef = B673BA782389029200FC2E9C /* Meanie.swift */; };
+		B673BA8E2389F40D00FC2E9C /* FoeSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B673BA8D2389F40D00FC2E9C /* FoeSlot.swift */; };
+		B673BA90238A20BB00FC2E9C /* Foe.swift in Sources */ = {isa = PBXBuildFile; fileRef = B673BA8F238A20BB00FC2E9C /* Foe.swift */; };
+		B673BA92238B77D500FC2E9C /* Boom.swift in Sources */ = {isa = PBXBuildFile; fileRef = B673BA91238B77D500FC2E9C /* Boom.swift */; };
+		B673BA94238FAB9400FC2E9C /* FoldingPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B673BA93238FAB9400FC2E9C /* FoldingPoint.swift */; };
+		B673BA962390449F00FC2E9C /* RamFoe.swift in Sources */ = {isa = PBXBuildFile; fileRef = B673BA952390449F00FC2E9C /* RamFoe.swift */; };
+		B673BA9C2391DB4800FC2E9C /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = B673BA9B2391DB4800FC2E9C /* Box.swift */; };
+		B67C60B523B2E24300D167F1 /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67C60B423B2E24300D167F1 /* GameSettings.swift */; };
+		B686C37C23B9680A00B6235E /* SaveScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B686C37B23B9680A00B6235E /* SaveScore.swift */; };
+		B6B08BE223B528E100117F2A /* IntroScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B6B08BE123B528E100117F2A /* IntroScene.sks */; };
+		B6B08BE423B5332600117F2A /* IntroScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B08BE323B5332600117F2A /* IntroScene.swift */; };
+		B6B08BE823B594E700117F2A /* TopScores.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B08BE723B594E700117F2A /* TopScores.swift */; };
+		B6BCA7592391E29800D1DB24 /* BlockFoe.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BCA7582391E29800D1DB24 /* BlockFoe.swift */; };
+		B6BCA75B2391E7B700D1DB24 /* Mine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BCA75A2391E7B700D1DB24 /* Mine.swift */; };
+		B6BCA75D2391F85800D1DB24 /* CGPoint+magnitude.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BCA75C2391F85800D1DB24 /* CGPoint+magnitude.swift */; };
+		B6BCA75F23922DEB00D1DB24 /* SmartMine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BCA75E23922DEB00D1DB24 /* SmartMine.swift */; };
+		B6BCA7612393359A00D1DB24 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BCA7602393359A00D1DB24 /* Score.swift */; };
+		B6BCA76523933F3200D1DB24 /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BCA76423933F3200D1DB24 /* Difficulty.swift */; };
+		B6BCA76723934BD200D1DB24 /* Lives.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BCA76623934BD200D1DB24 /* Lives.swift */; };
+		B6E4772B2369539B00AEFAA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E4772A2369539B00AEFAA0 /* AppDelegate.swift */; };
+		B6E4772D2369539B00AEFAA0 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B6E4772C2369539B00AEFAA0 /* GameScene.sks */; };
+		B6E477312369539B00AEFAA0 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E477302369539B00AEFAA0 /* GameScene.swift */; };
+		B6E477332369539B00AEFAA0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E477322369539B00AEFAA0 /* ViewController.swift */; };
+		B6E477352369539D00AEFAA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6E477342369539D00AEFAA0 /* Assets.xcassets */; };
+		B6E477382369539D00AEFAA0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6E477362369539D00AEFAA0 /* Main.storyboard */; };
+		B6E477442369539D00AEFAA0 /* FlyerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E477432369539D00AEFAA0 /* FlyerTests.swift */; };
+		B6E4774F2369539D00AEFAA0 /* FlyerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E4774E2369539D00AEFAA0 /* FlyerUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B6E477402369539D00AEFAA0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B6E4771F2369539B00AEFAA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B6E477262369539B00AEFAA0;
+			remoteInfo = Flyer;
+		};
+		B6E4774B2369539D00AEFAA0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B6E4771F2369539B00AEFAA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B6E477262369539B00AEFAA0;
+			remoteInfo = Flyer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B605030D237FCE7A008D1119 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		B605030F2380C968008D1119 /* FoldingSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldingSprite.swift; sourceTree = "<group>"; };
+		B6050311238273BA008D1119 /* PewPew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PewPew.swift; sourceTree = "<group>"; };
+		B605031323851DDE008D1119 /* Art */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Art; sourceTree = "<group>"; };
+		B648744E23BC02A10096D58C /* FlyerHelp */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FlyerHelp; sourceTree = "<group>"; };
+		B648745023BD38620096D58C /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		B648745223BD48810096D58C /* CGKeyCode+characters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGKeyCode+characters.swift"; sourceTree = "<group>"; };
+		B648745423C061F30096D58C /* KeyCodeTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCodeTextView.swift; sourceTree = "<group>"; };
+		B648745B23C15D360096D58C /* pew.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = pew.m4a; sourceTree = "<group>"; };
+		B648745D23C160580096D58C /* rocket-engine.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "rocket-engine.m4a"; sourceTree = "<group>"; };
+		B648746123C19E370096D58C /* boom.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = boom.m4a; sourceTree = "<group>"; };
+		B648746323C1A1AA0096D58C /* oops.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = oops.m4a; sourceTree = "<group>"; };
+		B648746523C2B0D00096D58C /* SmartFoeSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartFoeSlot.swift; sourceTree = "<group>"; };
+		B648746723C2B6EE0096D58C /* SpriteFoe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteFoe.swift; sourceTree = "<group>"; };
+		B648746923C2B94E0096D58C /* DriftFoe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriftFoe.swift; sourceTree = "<group>"; };
+		B648746B23C2D3400096D58C /* RockFoeSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockFoeSlot.swift; sourceTree = "<group>"; };
+		B648746F23CA56480096D58C /* newlife.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = newlife.m4a; sourceTree = "<group>"; };
+		B648747123CADCFB0096D58C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B648747223CBEF7C0096D58C /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		B670BF942CDDE6AB00FB39D2 /* PewFoe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PewFoe.swift; sourceTree = "<group>"; };
+		B670BF962CDE93BA00FB39D2 /* FiringFoe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiringFoe.swift; sourceTree = "<group>"; };
+		B670BF982CDE9CE400FB39D2 /* MiniBoss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniBoss.swift; sourceTree = "<group>"; };
+		B673BA782389029200FC2E9C /* Meanie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meanie.swift; sourceTree = "<group>"; };
+		B673BA8D2389F40D00FC2E9C /* FoeSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FoeSlot.swift; path = /Users/dwilliams/Documents/Development/Flyer/Flyer/Flyer/FoeSlot.swift; sourceTree = "<absolute>"; };
+		B673BA8F238A20BB00FC2E9C /* Foe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Foe.swift; path = /Users/dwilliams/Documents/Development/Flyer/Flyer/Flyer/Foe.swift; sourceTree = "<absolute>"; };
+		B673BA91238B77D500FC2E9C /* Boom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boom.swift; sourceTree = "<group>"; };
+		B673BA93238FAB9400FC2E9C /* FoldingPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FoldingPoint.swift; path = /Users/dwilliams/Documents/Development/Flyer/Flyer/Flyer/FoldingPoint.swift; sourceTree = "<absolute>"; };
+		B673BA952390449F00FC2E9C /* RamFoe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RamFoe.swift; path = /Users/dwilliams/Documents/Development/Flyer/Flyer/Flyer/RamFoe.swift; sourceTree = "<absolute>"; };
+		B673BA9B2391DB4800FC2E9C /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Box.swift; path = /Users/dwilliams/Documents/Development/Flyer/Flyer/Flyer/Box.swift; sourceTree = "<absolute>"; };
+		B67C60B423B2E24300D167F1 /* GameSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettings.swift; sourceTree = "<group>"; };
+		B686C37B23B9680A00B6235E /* SaveScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveScore.swift; sourceTree = "<group>"; };
+		B6B08BE123B528E100117F2A /* IntroScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = IntroScene.sks; sourceTree = "<group>"; };
+		B6B08BE323B5332600117F2A /* IntroScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroScene.swift; sourceTree = "<group>"; };
+		B6B08BE723B594E700117F2A /* TopScores.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopScores.swift; sourceTree = "<group>"; };
+		B6BCA7582391E29800D1DB24 /* BlockFoe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFoe.swift; sourceTree = "<group>"; };
+		B6BCA75A2391E7B700D1DB24 /* Mine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mine.swift; sourceTree = "<group>"; };
+		B6BCA75C2391F85800D1DB24 /* CGPoint+magnitude.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+magnitude.swift"; sourceTree = "<group>"; };
+		B6BCA75E23922DEB00D1DB24 /* SmartMine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartMine.swift; sourceTree = "<group>"; };
+		B6BCA7602393359A00D1DB24 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
+		B6BCA76423933F3200D1DB24 /* Difficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Difficulty.swift; sourceTree = "<group>"; };
+		B6BCA76623934BD200D1DB24 /* Lives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lives.swift; sourceTree = "<group>"; };
+		B6BD118923D9704200831552 /* FlyerRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlyerRelease.entitlements; sourceTree = "<group>"; };
+		B6E477272369539B00AEFAA0 /* Flyer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flyer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6E4772A2369539B00AEFAA0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B6E4772C2369539B00AEFAA0 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		B6E477302369539B00AEFAA0 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		B6E477322369539B00AEFAA0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B6E477342369539D00AEFAA0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B6E477372369539D00AEFAA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B6E477392369539D00AEFAA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B6E4773A2369539D00AEFAA0 /* Flyer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Flyer.entitlements; sourceTree = "<group>"; };
+		B6E4773F2369539D00AEFAA0 /* FlyerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlyerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6E477432369539D00AEFAA0 /* FlyerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyerTests.swift; sourceTree = "<group>"; };
+		B6E477452369539D00AEFAA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B6E4774A2369539D00AEFAA0 /* FlyerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlyerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6E4774E2369539D00AEFAA0 /* FlyerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyerUITests.swift; sourceTree = "<group>"; };
+		B6E477502369539D00AEFAA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B6E477242369539B00AEFAA0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6E4773C2369539D00AEFAA0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6E477472369539D00AEFAA0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B648745623C14E810096D58C /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				B648746F23CA56480096D58C /* newlife.m4a */,
+				B648746323C1A1AA0096D58C /* oops.m4a */,
+				B648746123C19E370096D58C /* boom.m4a */,
+				B648745D23C160580096D58C /* rocket-engine.m4a */,
+				B648745B23C15D360096D58C /* pew.m4a */,
+			);
+			path = Sound;
+			sourceTree = "<group>";
+		};
+		B6E4771E2369539B00AEFAA0 = {
+			isa = PBXGroup;
+			children = (
+				B648747223CBEF7C0096D58C /* LICENSE.md */,
+				B648747123CADCFB0096D58C /* README.md */,
+				B648745623C14E810096D58C /* Sound */,
+				B648744E23BC02A10096D58C /* FlyerHelp */,
+				B605031323851DDE008D1119 /* Art */,
+				B6E477292369539B00AEFAA0 /* Flyer */,
+				B6E477422369539D00AEFAA0 /* FlyerTests */,
+				B6E4774D2369539D00AEFAA0 /* FlyerUITests */,
+				B6E477282369539B00AEFAA0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B6E477282369539B00AEFAA0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B6E477272369539B00AEFAA0 /* Flyer.app */,
+				B6E4773F2369539D00AEFAA0 /* FlyerTests.xctest */,
+				B6E4774A2369539D00AEFAA0 /* FlyerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B6E477292369539B00AEFAA0 /* Flyer */ = {
+			isa = PBXGroup;
+			children = (
+				B6BD118923D9704200831552 /* FlyerRelease.entitlements */,
+				B6E4772A2369539B00AEFAA0 /* AppDelegate.swift */,
+				B6E477342369539D00AEFAA0 /* Assets.xcassets */,
+				B6BCA7582391E29800D1DB24 /* BlockFoe.swift */,
+				B673BA91238B77D500FC2E9C /* Boom.swift */,
+				B673BA9B2391DB4800FC2E9C /* Box.swift */,
+				B648745223BD48810096D58C /* CGKeyCode+characters.swift */,
+				B6BCA75C2391F85800D1DB24 /* CGPoint+magnitude.swift */,
+				B6BCA76423933F3200D1DB24 /* Difficulty.swift */,
+				B648746923C2B94E0096D58C /* DriftFoe.swift */,
+				B6E4773A2369539D00AEFAA0 /* Flyer.entitlements */,
+				B673BA8F238A20BB00FC2E9C /* Foe.swift */,
+				B673BA8D2389F40D00FC2E9C /* FoeSlot.swift */,
+				B673BA93238FAB9400FC2E9C /* FoldingPoint.swift */,
+				B605030F2380C968008D1119 /* FoldingSprite.swift */,
+				B6E4772C2369539B00AEFAA0 /* GameScene.sks */,
+				B6E477302369539B00AEFAA0 /* GameScene.swift */,
+				B67C60B423B2E24300D167F1 /* GameSettings.swift */,
+				B6E477392369539D00AEFAA0 /* Info.plist */,
+				B6B08BE123B528E100117F2A /* IntroScene.sks */,
+				B6B08BE323B5332600117F2A /* IntroScene.swift */,
+				B648745423C061F30096D58C /* KeyCodeTextView.swift */,
+				B6BCA76623934BD200D1DB24 /* Lives.swift */,
+				B6E477362369539D00AEFAA0 /* Main.storyboard */,
+				B673BA782389029200FC2E9C /* Meanie.swift */,
+				B6BCA75A2391E7B700D1DB24 /* Mine.swift */,
+				B6050311238273BA008D1119 /* PewPew.swift */,
+				B605030D237FCE7A008D1119 /* Player.swift */,
+				B648745023BD38620096D58C /* Preferences.swift */,
+				B673BA952390449F00FC2E9C /* RamFoe.swift */,
+				B670BF962CDE93BA00FB39D2 /* FiringFoe.swift */,
+				B670BF982CDE9CE400FB39D2 /* MiniBoss.swift */,
+				B648746B23C2D3400096D58C /* RockFoeSlot.swift */,
+				B686C37B23B9680A00B6235E /* SaveScore.swift */,
+				B6BCA7602393359A00D1DB24 /* Score.swift */,
+				B648746523C2B0D00096D58C /* SmartFoeSlot.swift */,
+				B6BCA75E23922DEB00D1DB24 /* SmartMine.swift */,
+				B648746723C2B6EE0096D58C /* SpriteFoe.swift */,
+				B670BF942CDDE6AB00FB39D2 /* PewFoe.swift */,
+				B6B08BE723B594E700117F2A /* TopScores.swift */,
+				B6E477322369539B00AEFAA0 /* ViewController.swift */,
+			);
+			path = Flyer;
+			sourceTree = "<group>";
+		};
+		B6E477422369539D00AEFAA0 /* FlyerTests */ = {
+			isa = PBXGroup;
+			children = (
+				B6E477432369539D00AEFAA0 /* FlyerTests.swift */,
+				B6E477452369539D00AEFAA0 /* Info.plist */,
+			);
+			path = FlyerTests;
+			sourceTree = "<group>";
+		};
+		B6E4774D2369539D00AEFAA0 /* FlyerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B6E4774E2369539D00AEFAA0 /* FlyerUITests.swift */,
+				B6E477502369539D00AEFAA0 /* Info.plist */,
+			);
+			path = FlyerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B6E477262369539B00AEFAA0 /* Flyer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B6E477532369539D00AEFAA0 /* Build configuration list for PBXNativeTarget "Flyer" */;
+			buildPhases = (
+				B6E477232369539B00AEFAA0 /* Sources */,
+				B6E477242369539B00AEFAA0 /* Frameworks */,
+				B6E477252369539B00AEFAA0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Flyer;
+			productName = Flyer;
+			productReference = B6E477272369539B00AEFAA0 /* Flyer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B6E4773E2369539D00AEFAA0 /* FlyerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B6E477562369539D00AEFAA0 /* Build configuration list for PBXNativeTarget "FlyerTests" */;
+			buildPhases = (
+				B6E4773B2369539D00AEFAA0 /* Sources */,
+				B6E4773C2369539D00AEFAA0 /* Frameworks */,
+				B6E4773D2369539D00AEFAA0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B6E477412369539D00AEFAA0 /* PBXTargetDependency */,
+			);
+			name = FlyerTests;
+			productName = FlyerTests;
+			productReference = B6E4773F2369539D00AEFAA0 /* FlyerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B6E477492369539D00AEFAA0 /* FlyerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B6E477592369539D00AEFAA0 /* Build configuration list for PBXNativeTarget "FlyerUITests" */;
+			buildPhases = (
+				B6E477462369539D00AEFAA0 /* Sources */,
+				B6E477472369539D00AEFAA0 /* Frameworks */,
+				B6E477482369539D00AEFAA0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B6E4774C2369539D00AEFAA0 /* PBXTargetDependency */,
+			);
+			name = FlyerUITests;
+			productName = FlyerUITests;
+			productReference = B6E4774A2369539D00AEFAA0 /* FlyerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B6E4771F2369539B00AEFAA0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 1110;
+				LastUpgradeCheck = 1610;
+				ORGANIZATIONNAME = "David Williams";
+				TargetAttributes = {
+					B6E477262369539B00AEFAA0 = {
+						CreatedOnToolsVersion = 11.1;
+					};
+					B6E4773E2369539D00AEFAA0 = {
+						CreatedOnToolsVersion = 11.1;
+						TestTargetID = B6E477262369539B00AEFAA0;
+					};
+					B6E477492369539D00AEFAA0 = {
+						CreatedOnToolsVersion = 11.1;
+						TestTargetID = B6E477262369539B00AEFAA0;
+					};
+				};
+			};
+			buildConfigurationList = B6E477222369539B00AEFAA0 /* Build configuration list for PBXProject "Flyer" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B6E4771E2369539B00AEFAA0;
+			productRefGroup = B6E477282369539B00AEFAA0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B6E477262369539B00AEFAA0 /* Flyer */,
+				B6E4773E2369539D00AEFAA0 /* FlyerTests */,
+				B6E477492369539D00AEFAA0 /* FlyerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B6E477252369539B00AEFAA0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B648744F23BC02A10096D58C /* FlyerHelp in Resources */,
+				B648746223C19E370096D58C /* boom.m4a in Resources */,
+				B6E4772D2369539B00AEFAA0 /* GameScene.sks in Resources */,
+				B648747023CA56480096D58C /* newlife.m4a in Resources */,
+				B648746423C1A1AA0096D58C /* oops.m4a in Resources */,
+				B6E477352369539D00AEFAA0 /* Assets.xcassets in Resources */,
+				B648745C23C15D360096D58C /* pew.m4a in Resources */,
+				B648745E23C160580096D58C /* rocket-engine.m4a in Resources */,
+				B605031423851DDE008D1119 /* Art in Resources */,
+				B6B08BE223B528E100117F2A /* IntroScene.sks in Resources */,
+				B6E477382369539D00AEFAA0 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6E4773D2369539D00AEFAA0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6E477482369539D00AEFAA0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B6E477232369539B00AEFAA0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B605030E237FCE7A008D1119 /* Player.swift in Sources */,
+				B673BA90238A20BB00FC2E9C /* Foe.swift in Sources */,
+				B6BCA76523933F3200D1DB24 /* Difficulty.swift in Sources */,
+				B6050312238273BA008D1119 /* PewPew.swift in Sources */,
+				B648745523C061F30096D58C /* KeyCodeTextView.swift in Sources */,
+				B6B08BE823B594E700117F2A /* TopScores.swift in Sources */,
+				B648745323BD48810096D58C /* CGKeyCode+characters.swift in Sources */,
+				B6BCA75B2391E7B700D1DB24 /* Mine.swift in Sources */,
+				B6B08BE423B5332600117F2A /* IntroScene.swift in Sources */,
+				B648745123BD38620096D58C /* Preferences.swift in Sources */,
+				B673BA94238FAB9400FC2E9C /* FoldingPoint.swift in Sources */,
+				B6BCA75F23922DEB00D1DB24 /* SmartMine.swift in Sources */,
+				B6E477332369539B00AEFAA0 /* ViewController.swift in Sources */,
+				B670BF952CDDE6AB00FB39D2 /* PewFoe.swift in Sources */,
+				B670BF972CDE93BA00FB39D2 /* FiringFoe.swift in Sources */,
+				B673BA962390449F00FC2E9C /* RamFoe.swift in Sources */,
+				B6BCA76723934BD200D1DB24 /* Lives.swift in Sources */,
+				B673BA9C2391DB4800FC2E9C /* Box.swift in Sources */,
+				B648746623C2B0D00096D58C /* SmartFoeSlot.swift in Sources */,
+				B686C37C23B9680A00B6235E /* SaveScore.swift in Sources */,
+				B6E477312369539B00AEFAA0 /* GameScene.swift in Sources */,
+				B6BCA7592391E29800D1DB24 /* BlockFoe.swift in Sources */,
+				B60503102380C968008D1119 /* FoldingSprite.swift in Sources */,
+				B6E4772B2369539B00AEFAA0 /* AppDelegate.swift in Sources */,
+				B648746C23C2D3400096D58C /* RockFoeSlot.swift in Sources */,
+				B673BA8E2389F40D00FC2E9C /* FoeSlot.swift in Sources */,
+				B648746823C2B6EE0096D58C /* SpriteFoe.swift in Sources */,
+				B670BF992CDE9CE400FB39D2 /* MiniBoss.swift in Sources */,
+				B673BA92238B77D500FC2E9C /* Boom.swift in Sources */,
+				B673BA792389029200FC2E9C /* Meanie.swift in Sources */,
+				B648746A23C2B94E0096D58C /* DriftFoe.swift in Sources */,
+				B67C60B523B2E24300D167F1 /* GameSettings.swift in Sources */,
+				B6BCA7612393359A00D1DB24 /* Score.swift in Sources */,
+				B6BCA75D2391F85800D1DB24 /* CGPoint+magnitude.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6E4773B2369539D00AEFAA0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6E477442369539D00AEFAA0 /* FlyerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6E477462369539D00AEFAA0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6E4774F2369539D00AEFAA0 /* FlyerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B6E477412369539D00AEFAA0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B6E477262369539B00AEFAA0 /* Flyer */;
+			targetProxy = B6E477402369539D00AEFAA0 /* PBXContainerItemProxy */;
+		};
+		B6E4774C2369539D00AEFAA0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B6E477262369539B00AEFAA0 /* Flyer */;
+			targetProxy = B6E4774B2369539D00AEFAA0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B6E477362369539D00AEFAA0 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B6E477372369539D00AEFAA0 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B6E477512369539D00AEFAA0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B6E477522369539D00AEFAA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		B6E477542369539D00AEFAA0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Flyer/Flyer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = U62T444BU5;
+				INFOPLIST_FILE = Flyer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.slashdave.flyer.macos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B6E477552369539D00AEFAA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Flyer/FlyerRelease.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = U62T444BU5;
+				INFOPLIST_FILE = Flyer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.slashdave.flyer.macos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B6E477572369539D00AEFAA0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				INFOPLIST_FILE = FlyerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Slashdave.FlyerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flyer.app/Contents/MacOS/Flyer";
+			};
+			name = Debug;
+		};
+		B6E477582369539D00AEFAA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				INFOPLIST_FILE = FlyerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Slashdave.FlyerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flyer.app/Contents/MacOS/Flyer";
+			};
+			name = Release;
+		};
+		B6E4775A2369539D00AEFAA0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				INFOPLIST_FILE = FlyerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Slashdave.FlyerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Flyer;
+			};
+			name = Debug;
+		};
+		B6E4775B2369539D00AEFAA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				INFOPLIST_FILE = FlyerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Slashdave.FlyerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Flyer;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B6E477222369539B00AEFAA0 /* Build configuration list for PBXProject "Flyer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6E477512369539D00AEFAA0 /* Debug */,
+				B6E477522369539D00AEFAA0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B6E477532369539D00AEFAA0 /* Build configuration list for PBXNativeTarget "Flyer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6E477542369539D00AEFAA0 /* Debug */,
+				B6E477552369539D00AEFAA0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B6E477562369539D00AEFAA0 /* Build configuration list for PBXNativeTarget "FlyerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6E477572369539D00AEFAA0 /* Debug */,
+				B6E477582369539D00AEFAA0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B6E477592369539D00AEFAA0 /* Build configuration list for PBXNativeTarget "FlyerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6E4775A2369539D00AEFAA0 /* Debug */,
+				B6E4775B2369539D00AEFAA0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B6E4771F2369539B00AEFAA0 /* Project object */;
+}

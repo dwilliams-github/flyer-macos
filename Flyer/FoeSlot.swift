@@ -15,6 +15,7 @@ import SpriteKit
  will be active at a time. The collection allows each instance to represent
  a possible variety of foe types that could be activated during game play.
  */
+@MainActor
 class FoeSlot: NSObject {
     static private let DORMANT_DURATION = 4.0   // seconds
     static private let APPEAR_DURATION  = 1.0

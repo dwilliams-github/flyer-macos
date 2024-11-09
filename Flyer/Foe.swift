@@ -10,6 +10,7 @@ import Cocoa
 /**
  Base class for all opponents in the game.
  */
+@MainActor
 class Foe: NSObject {
     var lastUpdate: TimeInterval?
     var velocity: CGPoint?

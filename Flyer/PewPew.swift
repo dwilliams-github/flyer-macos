@@ -10,6 +10,7 @@ import SpriteKit
 /**
  The player's missle
  */
+@MainActor
 class PewPew: NSObject {
     private var sprite: FoldingSprite
     private var launchSound: SKAudioNode
@@ -26,8 +27,8 @@ class PewPew: NSObject {
      Constructor
      - Parameter scene: The main game scene
      */
-    init( scene: SKScene ) {
-        let baseSprite = SKSpriteNode(imageNamed: "pew")
+    init( scene: SKScene, imageNamed: String = "pew" ) {
+        let baseSprite = SKSpriteNode(imageNamed: imageNamed)
         baseSprite.scale(to: CGSize(width: 8, height: 8))
         baseSprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
@@ -75,7 +76,15 @@ class PewPew: NSObject {
             self.velocity == nil ? nil : self.sprite.position
         }
     }
-    
+
+    /**
+     Decide if a player is hit
+     - Parameter target: Player target position
+     */
+    func hitsPlayer( target: CGPoint ) -> Bool {
+        return self.velocity != nil && self.sprite.foldedPosition().smallestSquareDistance(target: target) < 300
+    }
+
     /**
      Halt the missle early
      

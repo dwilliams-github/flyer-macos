@@ -13,6 +13,7 @@ import SpriteKit
  Includes a label and sound to indicate the current
  score state.
  */
+@MainActor
 class Score: NSObject {
     private var label: SKLabelNode?
     private var tada: SKAudioNode

@@ -10,6 +10,7 @@ import SpriteKit
 /**
  The player
  */
+@MainActor
 class Player: NSObject {
     var sprite: FoldingSprite
     var thrust: FoldingSprite
@@ -160,7 +161,7 @@ class Player: NSObject {
             self.spawnTime = when
         }
     }
-    
+
     /**
      Indicate player death
      - Parameter when: Current game time
