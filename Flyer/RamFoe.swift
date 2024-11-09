@@ -54,8 +54,8 @@ class RamFoe: SpriteFoe {
         }
     }
     
-    override func update( currentTime: TimeInterval, player: Player? ) {
-        if let p = player, let last = self.lastUpdate, player!.active() {
+    override func update( currentTime: TimeInterval, player: Player?, responsive: Bool ) {
+        if let p = player, let last = self.lastUpdate, player!.active(), responsive {
             aim( target: p.position, max_turn: turn_speed*CGFloat(currentTime - last) )
         }
 

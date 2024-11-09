@@ -14,12 +14,14 @@ class FiringFoe: PewFoe {
     private let baseSpeed: CGFloat
     private let range: CGFloat
     private let rate: CGFloat
+    private let missleSpeed: CGFloat
     private var lastShot: TimeInterval?
 
-    init( scene: SKScene, sprite: FoldingSprite, speed: CGFloat, range: CGFloat, rate: CGFloat ) {
+    init( scene: SKScene, sprite: FoldingSprite, speed: CGFloat, range: CGFloat, rate: CGFloat, missleSpeed: CGFloat = 125.0 ) {
         self.baseSpeed = speed
         self.range = range
         self.rate = rate
+        self.missleSpeed = missleSpeed
         self.lastShot = nil
         super.init(scene: scene, sprite: sprite, arsenal: (Int)(2.0*rate+1.5))
     }
@@ -47,18 +49,18 @@ class FiringFoe: PewFoe {
         let lineDistance = line.magnitude()
         
         return CGPoint(
-            x: (250.0 / lineDistance) * line.x,
-            y: (250.0 / lineDistance) * line.y
+            x: (self.missleSpeed / lineDistance) * line.x,
+            y: (self.missleSpeed / lineDistance) * line.y
         )
     }
 
-    override func update( currentTime: TimeInterval, player: Player? ) {
+    override func update( currentTime: TimeInterval, player: Player?, responsive: Bool ) {
         updatePosition( currentTime: currentTime )
         updatePews( currentTime: currentTime )
         
         self.sprite.position = self.position.position
         
-        if let p = player, player!.active() {
+        if let p = player, player!.active(), responsive {
             if sprite.foldedPosition().smallestSquareDistance(target: p.position) < self.range*self.range {
                 if self.lastShot == nil || currentTime - self.lastShot! > 1/self.rate {
                     fire(

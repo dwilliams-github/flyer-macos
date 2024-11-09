@@ -41,6 +41,10 @@ class SmartFoeSlot: FoeSlot {
         super.init(scene: scene, player: player, delay: delay)
     }
     
+    override func updateBackground(currentTime: TimeInterval) {
+        miniBoss.updatePews(currentTime: currentTime)
+    }
+    
     override func wakeUp() {
         //
         // Select foe from our four foe types
@@ -53,15 +57,18 @@ class SmartFoeSlot: FoeSlot {
         //
         let floatGeneration = CGFloat(self.generation)
         let badderFraction = 0.75 * floatGeneration / (50.0 + floatGeneration)
-        
-        let badder = CGFloat.random(in: 0 ..< 1) < badderFraction
+//        let bossLikelihood = 0.05 * floatGeneration / (100.0 + floatGeneration)
+        let bossLikelihood = 0.2 * floatGeneration / (2.0 + floatGeneration)
 
+        let badder = CGFloat.random(in: 0 ..< 1) < badderFraction
+        
         let toss = CGFloat.random(in: 0 ..< 1)
-        if toss < 0.5 {
-            active = miniBoss
-        }
-        else if toss < 0.25 {
+
+        if toss < 0.25 {
             active = badder ? smartMine : mine
+        }
+        else if toss < 0.25 + bossLikelihood {
+            active = miniBoss
         }
         else {
             active = badder ? meanie : box

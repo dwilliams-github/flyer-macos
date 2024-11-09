@@ -47,7 +47,7 @@ class DriftFoe: SpriteFoe {
         sprite.fadeIn( duration: 1 )
     }
     
-    override func update( currentTime: TimeInterval, player: Player? ) {
+    override func update( currentTime: TimeInterval, player: Player?, responsive: Bool ) {
         updatePosition( currentTime: currentTime )
         self.sprite.position = self.position.position
     }

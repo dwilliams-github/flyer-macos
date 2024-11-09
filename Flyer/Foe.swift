@@ -76,10 +76,11 @@ class Foe: NSObject {
      Update at each animation frame
      - Parameter currentTime: Current play time
      - Parameter player: Player
+     - Parameter responsive: true if the foe is responsive
      - Note:Must be computationally simple.
      */
-    func update( currentTime: TimeInterval, player: Player? ) {}
-    
+    func update( currentTime: TimeInterval, player: Player?, responsive: Bool = true ) {}
+
     /**
      Begin fade, to prepare to disappear (die)
      - Parameter currentTime current game time

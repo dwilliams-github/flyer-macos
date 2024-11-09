@@ -90,8 +90,8 @@ class BlockFoe: SpriteFoe {
      - Parameter currentTime: Current game time
      - Parameter player: Current player
      */
-    override func update( currentTime: TimeInterval, player: Player? ) {
-        if let p = player, let last = self.lastUpdate, player!.active(), active {
+    override func update( currentTime: TimeInterval, player: Player?, responsive: Bool ) {
+        if let p = player, let last = self.lastUpdate, player!.active(), self.active, responsive {
             let delta = CGFloat(currentTime - last)
             let accel = aim( targetPosition: p.position, targetVelocity: p.velocity )
         

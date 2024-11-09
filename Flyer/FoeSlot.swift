@@ -172,12 +172,16 @@ class FoeSlot: NSObject {
         active?.pausedTime( currentTime: currentTime )
         boom.pausedTime( currentTime: currentTime )
     }
+    
+    func updateBackground( currentTime: TimeInterval ) {}
 
     /**
     Update animation
     - Parameter currentTime: Current game time
     */
     func update( currentTime: TimeInterval ) {
+        updateBackground(currentTime: currentTime)
+        
         if lastUpdate == nil {
             //
             // First update. Set beginning of current state, and do nothing else
@@ -198,7 +202,7 @@ class FoeSlot: NSObject {
             // Methought I heard a voice cry 'Sleep no more!'
             //
             if let active = self.active {
-                active.update( currentTime: currentTime, player: self.player )
+                active.update( currentTime: currentTime, player: self.player, responsive: false )
             }
             
             if currentTime - lastState! > FoeSlot.APPEAR_DURATION {
@@ -210,7 +214,7 @@ class FoeSlot: NSObject {
             // Suit the action to the word, the word to the action
             //
             if let active = self.active {
-                active.update( currentTime: currentTime, player: self.player )
+                active.update( currentTime: currentTime, player: self.player, responsive: true )
             }
         }
         else if (state == .DYING) {
@@ -218,7 +222,7 @@ class FoeSlot: NSObject {
             // Alas, poor Yorick! I knew him
             //
             if let active = self.active {
-                active.update( currentTime: currentTime, player: self.player )
+                active.update( currentTime: currentTime, player: self.player, responsive: false )
                 
                 if currentTime - lastState! > FoeSlot.DYING_DURATION {
                     changeState( newState: .DORMANT, currentTime: currentTime )
