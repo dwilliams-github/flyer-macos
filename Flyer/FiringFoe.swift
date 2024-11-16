@@ -53,10 +53,13 @@ class FiringFoe: PewFoe {
             y: (self.missleSpeed / lineDistance) * line.y
         )
     }
+    
+    func updateBackground( currentTime: TimeInterval ) {
+        updatePews( currentTime: currentTime )
+    }
 
     override func update( currentTime: TimeInterval, player: Player?, responsive: Bool ) {
         updatePosition( currentTime: currentTime )
-        updatePews( currentTime: currentTime )
         
         self.sprite.position = self.position.position
         

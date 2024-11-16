@@ -42,7 +42,7 @@ class SmartFoeSlot: FoeSlot {
     }
     
     override func updateBackground(currentTime: TimeInterval) {
-        miniBoss.updatePews(currentTime: currentTime)
+        miniBoss.updateBackground(currentTime: currentTime)
     }
     
     override func wakeUp() {

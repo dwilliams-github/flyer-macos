@@ -29,14 +29,14 @@ class Preferences: NSViewController, NSTableViewDelegate, NSTableViewDataSource 
         // (except keycodes, which we set as a delegate)
         //
         switch(settings.difficultyKey) {
-        case 0:
-            difficultyPopup.selectItem(at:0)
-        case 1:
-            difficultyPopup.selectItem(at:1)
-        case 2:
-            difficultyPopup.selectItem(at:2)
-        default:
-            difficultyPopup.selectItem(at:1)
+            case 0:
+                difficultyPopup.selectItem(at:0)
+            case 1:
+                difficultyPopup.selectItem(at:1)
+            case 2:
+                difficultyPopup.selectItem(at:2)
+            default:
+                difficultyPopup.selectItem(at:1)
         }
         
         volumeSlider.floatValue = settings.volume * 100.0

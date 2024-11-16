@@ -16,7 +16,7 @@ class MiniBoss: FiringFoe {
         // Fetch animation frames
         //
         let atlas = SKTextureAtlas(named: "Sprites")
-        let frames: [SKTexture] = (0..<3).map({i in atlas.textureNamed(String(format:"MiniBoss%03d", arguments:[i]))})
+        let frames: [SKTexture] = (0..<8).map({i in atlas.textureNamed(String(format:"MiniBoss%03d", arguments:[i]))})
 
         //
         // Create base image
@@ -33,7 +33,7 @@ class MiniBoss: FiringFoe {
             SKAction.sequence([
                 SKAction.wait(forDuration: TimeInterval.random(in:0...1)),
                 SKAction.repeatForever(
-                    SKAction.animate( with: frames, timePerFrame: 0.1 )
+                    SKAction.animate( with: frames, timePerFrame: 0.08 )
                 )
             ])
         )
