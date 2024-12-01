@@ -267,11 +267,11 @@ All rights reserved</string>
             <objects>
                 <viewController title="Preferences" id="Gy7-R8-y2I" customClass="Preferences" customModule="Flyer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="oaa-pb-Im1">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="332"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="376"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z7f-dP-1IE">
-                                <rect key="frame" x="395" y="13" width="71" height="32"/>
+                                <rect key="frame" x="395" y="22" width="71" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Okay" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2tx-TF-87V">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -285,7 +285,7 @@ DQ
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dCx-Pw-GOv">
-                                <rect key="frame" x="307" y="13" width="82" height="32"/>
+                                <rect key="frame" x="307" y="22" width="82" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Z1p-LZ-cJv">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -299,7 +299,7 @@ Gw
                                 </connections>
                             </button>
                             <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PXG-5w-WpT">
-                                <rect key="frame" x="75" y="61" width="331" height="161"/>
+                                <rect key="frame" x="75" y="70" width="331" height="161"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <clipView key="contentView" drawsBackground="NO" id="DjX-OM-Qd1">
                                     <rect key="frame" x="1" y="1" width="329" height="159"/>
@@ -392,16 +392,16 @@ Gw
                                 </tableHeaderView>
                             </scrollView>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8ZN-N3-925">
-                                <rect key="frame" x="73" y="284" width="63" height="16"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Difficulty:" id="yeP-eZ-6Oo">
+                                <rect key="frame" x="73" y="328" width="63" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" title="Difficulty:" id="yeP-eZ-6Oo">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H75-UT-qX7">
-                                <rect key="frame" x="140" y="278" width="118" height="25"/>
+                                <rect key="frame" x="140" y="322" width="118" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="Trainie" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="a1q-rr-3LI" id="gZ1-97-ICE">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -416,8 +416,8 @@ Gw
                                 </popUpButtonCell>
                             </popUpButton>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Chv-t4-Abg">
-                                <rect key="frame" x="73" y="248" width="93" height="16"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <rect key="frame" x="73" y="292" width="93" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Sound effects:" id="2f9-hN-vuA">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -425,35 +425,47 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hcc-xa-OnQ">
-                                <rect key="frame" x="199" y="240" width="127" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="199" y="286" width="127" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="1" tickMarkPosition="below" numberOfTickMarks="5" sliderType="linear" id="aHZ-1a-nwW"/>
                                 <connections>
                                     <action selector="setVolume:" target="Gy7-R8-y2I" id="ON1-1G-9I3"/>
                                 </connections>
                             </slider>
                             <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dPo-hN-wrd">
-                                <rect key="frame" x="332" y="241" width="23" height="30"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <rect key="frame" x="332" y="285" width="23" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="NSTouchBarAudioOutputVolumeHighTemplate" id="UKl-lZ-uCI"/>
                             </imageView>
-                            <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tRB-cd-pSf">
-                                <rect key="frame" x="178" y="241" width="15" height="30"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="NSTouchBarVolumeDownTemplate" id="DgA-W1-GEv"/>
-                            </imageView>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dLL-lN-dbA">
-                                <rect key="frame" x="361" y="246" width="53" height="18"/>
+                                <rect key="frame" x="361" y="291" width="53" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Mute" bezelStyle="regularSquare" imagePosition="left" inset="2" id="YYN-Yq-S70">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zxi-mF-PFc">
+                                <rect key="frame" x="73" y="256" width="158" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Full screen on startup" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="dok-dm-oAe">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <connections>
+                                        <action selector="fullScreen:" target="Gy7-R8-y2I" id="7Zh-kh-yKW"/>
+                                    </connections>
+                                </buttonCell>
+                            </button>
+                            <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tRB-cd-pSf">
+                                <rect key="frame" x="178" y="285" width="15" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="NSTouchBarVolumeDownTemplate" id="DgA-W1-GEv"/>
+                            </imageView>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="difficultyPopup" destination="H75-UT-qX7" id="wDz-yW-EjS"/>
+                        <outlet property="fullScreenButton" destination="zxi-mF-PFc" id="2Ip-Zo-BY3"/>
                         <outlet property="keyBindingTable" destination="kdR-wc-ZCh" id="Knb-01-9QT"/>
                         <outlet property="muteSwitch" destination="dLL-lN-dbA" id="z90-zV-7nl"/>
                         <outlet property="volumeSlider" destination="hcc-xa-OnQ" id="IQp-qe-gFx"/>
@@ -461,7 +473,7 @@ Gw
                 </viewController>
                 <customObject id="NaN-AX-38w" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1320" y="259"/>
+            <point key="canvasLocation" x="1320" y="281"/>
         </scene>
         <!--Save Score-->
         <scene sceneID="izB-Vl-nza">

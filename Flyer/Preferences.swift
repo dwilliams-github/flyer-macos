@@ -16,6 +16,7 @@ class Preferences: NSViewController, NSTableViewDelegate, NSTableViewDataSource 
     @IBOutlet var keyBindingTable: NSTableView!
     @IBOutlet var volumeSlider: NSSlider!
     @IBOutlet var muteSwitch: NSButton!
+    @IBOutlet var fullScreenButton: NSButton!
     
     private var settings: GameSettings = GameSettings.standard
     private var keyViewDict: [Int: KeyCodeTextView] = [:]
@@ -41,6 +42,7 @@ class Preferences: NSViewController, NSTableViewDelegate, NSTableViewDataSource 
         
         volumeSlider.floatValue = settings.volume * 100.0
         muteSwitch.state = settings.volume == 0 ? .on : .off
+        fullScreenButton.state = settings.fullScreen ? .on : .off
         
         keyBindingTable.delegate = self
         keyBindingTable.dataSource = self
@@ -79,6 +81,12 @@ class Preferences: NSViewController, NSTableViewDelegate, NSTableViewDataSource 
             // In contrast, setting mute on leaves the volume slider unchanged.
             //
             muteSwitch.state = slider.doubleValue == 0 ? .on : .off
+        }
+    }
+    
+    @IBAction func fullScreen(_ sender: Any) {
+        if let button = sender as? NSButton {
+            settings.fullScreen = button.state == .on
         }
     }
     

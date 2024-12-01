@@ -49,7 +49,7 @@ class Expert: Difficulty {
 @MainActor
 class GameSettings: NSObject {
     enum Keys : String {
-        case difficulty, keyLeft, keyRight, keyThrust, keyFire, keyPause, volume
+        case difficulty, keyLeft, keyRight, keyThrust, keyFire, keyPause, volume, fullScreen
     }
     
     enum DifficultyKeys : Int {
@@ -76,7 +76,8 @@ class GameSettings: NSObject {
         GameSettings.Keys.keyThrust.rawValue:  0x7e as UInt16,
         GameSettings.Keys.keyFire.rawValue:    0x06 as UInt16,
         GameSettings.Keys.keyPause.rawValue:   0x31 as UInt16,
-        GameSettings.Keys.volume.rawValue:     0.5 as Float
+        GameSettings.Keys.volume.rawValue:     0.5 as Float,
+        GameSettings.Keys.fullScreen.rawValue: false
     ]
 
     //
@@ -283,6 +284,20 @@ class GameSettings: NSObject {
         }
         set {
             defaults.set(newValue, forKey: GameSettings.Keys.volume.rawValue)
+        }
+    }
+    
+    /**
+     Full screen setting.
+     
+     This controls the default window state on startup only.
+     */
+    var fullScreen : Bool {
+        get {
+            return defaults.bool(forKey: GameSettings.Keys.fullScreen.rawValue)
+        }
+        set {
+            defaults.set(newValue, forKey: GameSettings.Keys.fullScreen.rawValue)
         }
     }
 }

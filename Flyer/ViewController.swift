@@ -19,6 +19,8 @@ class ViewController: NSViewController, GameSceneDelegate, IntroSceneDelegate {
     @IBOutlet var scoreTable: NSTableView!
     
     private var topScores: TopScores?
+    private var settings: GameSettings = GameSettings.standard
+
     
     //
     // View loads: setup assets, play intro scene
@@ -44,6 +46,14 @@ class ViewController: NSViewController, GameSceneDelegate, IntroSceneDelegate {
             }
             
             view.ignoresSiblingOrder = true
+        }
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear();
+
+        if settings.fullScreen {
+            view.window?.toggleFullScreen(self)
         }
     }
     
