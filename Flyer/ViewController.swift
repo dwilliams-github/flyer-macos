@@ -49,8 +49,12 @@ class ViewController: NSViewController, GameSceneDelegate, IntroSceneDelegate {
         }
     }
     
-    override func viewDidAppear() {
-        super.viewDidAppear();
+    //
+    // View will appear.
+    // Override to handle full screen option
+    //
+    override func viewWillAppear() {
+        super.viewWillAppear();
 
         if settings.fullScreen {
             view.window?.toggleFullScreen(self)
