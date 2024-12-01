@@ -16,13 +16,13 @@ class MiniBoss: FiringFoe {
         // Fetch animation frames
         //
         let atlas = SKTextureAtlas(named: "Sprites")
-        let frames: [SKTexture] = (0..<8).map({i in atlas.textureNamed(String(format:"MiniBoss%03d", arguments:[i]))})
+        let frames: [SKTexture] = (0..<16).map({i in atlas.textureNamed(String(format:"MiniBoss%03d", arguments:[i]))})
 
         //
         // Create base image
         //
         let baseSprite = SKSpriteNode(texture: frames[0])
-        baseSprite.scale(to: CGSize(width: 42, height: 42))
+        baseSprite.scale(to: CGSize(width: 36, height: 36))
         baseSprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
 
         //
@@ -33,7 +33,7 @@ class MiniBoss: FiringFoe {
             SKAction.sequence([
                 SKAction.wait(forDuration: TimeInterval.random(in:0...1)),
                 SKAction.repeatForever(
-                    SKAction.animate( with: frames, timePerFrame: 0.08 )
+                    SKAction.animate( with: frames, timePerFrame: 1.0/30.0 )
                 )
             ])
         )
@@ -41,8 +41,8 @@ class MiniBoss: FiringFoe {
         super.init(
             scene: scene,
             sprite: FoldingSprite( scene: scene, sprite: baseSprite ),
-            speed: 400,
-            range: 250,
+            speed: 120,
+            range: 300,
             rate: 1.0
         )
     }

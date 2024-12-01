@@ -40,4 +40,4 @@ def make_one(i, n, num):
 
 for i in range(0,8):
     print("--- {} ---".format(i))
-    print(et.tostring(make_one(i,8,6)).decode())
+    print(et.tostring(make_one(i,8,3)).decode())

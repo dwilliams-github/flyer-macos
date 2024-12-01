@@ -180,8 +180,6 @@ class FoeSlot: NSObject {
     - Parameter currentTime: Current game time
     */
     func update( currentTime: TimeInterval ) {
-        updateBackground(currentTime: currentTime)
-        
         if lastUpdate == nil {
             //
             // First update. Set beginning of current state, and do nothing else
@@ -231,6 +229,7 @@ class FoeSlot: NSObject {
             }
         }
 
+        updateBackground( currentTime: currentTime )
         boom.update( currentTime: currentTime )
         lastUpdate = currentTime
     }

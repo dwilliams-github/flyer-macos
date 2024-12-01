@@ -38,7 +38,7 @@ class FiringFoe: PewFoe {
     }
     
     override func spawn( start: CGPoint, direction: CGPoint, difficulty: Difficulty ) {
-        let speed = abs(cheezyGaus() * self.baseSpeed / 2)
+        let speed = self.baseSpeed
 
         super.launch( start: start, velocity: CGPoint(x: speed*direction.x, y: speed*direction.y ))
         sprite.fadeIn( duration: 1 )
