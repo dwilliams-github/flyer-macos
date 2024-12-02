@@ -84,7 +84,7 @@ class Preferences: NSViewController, NSTableViewDelegate, NSTableViewDataSource 
         }
     }
     
-    @IBAction func fullScreen(_ sender: Any) {
+    @IBAction func setFullScreen(_ sender: Any) {
         if let button = sender as? NSButton {
             settings.fullScreen = button.state == .on
         }

@@ -41,9 +41,10 @@ class MiniBoss: FiringFoe {
         super.init(
             scene: scene,
             sprite: FoldingSprite( scene: scene, sprite: baseSprite ),
-            speed: 120,
+            speed: 100,
             range: 300,
-            rate: 1.0
+            rate: 1.0,
+            missleSpeed: 150
         )
     }
     

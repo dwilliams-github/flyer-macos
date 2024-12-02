@@ -248,7 +248,7 @@ class GameScene: SKScene {
             // Check for foe and player collision
             //
             for f in foes {
-                if player.active() && f.hitsPlayer() {
+                if player.active() && false && f.hitsPlayer() {
                     player.oops(when: currentTime)
                     if lives!.decrement() > 0 {
                         player.spawn(when: currentTime+3)

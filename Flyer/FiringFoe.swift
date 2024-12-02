@@ -17,7 +17,7 @@ class FiringFoe: PewFoe {
     private let missleSpeed: CGFloat
     private var lastShot: TimeInterval?
 
-    init( scene: SKScene, sprite: FoldingSprite, speed: CGFloat, range: CGFloat, rate: CGFloat, missleSpeed: CGFloat = 125.0 ) {
+    init( scene: SKScene, sprite: FoldingSprite, speed: CGFloat, range: CGFloat, rate: CGFloat, missleSpeed: CGFloat ) {
         self.baseSpeed = speed
         self.range = range
         self.rate = rate
@@ -26,31 +26,30 @@ class FiringFoe: PewFoe {
         super.init(scene: scene, sprite: sprite, arsenal: (Int)(2.0*rate+1.5))
     }
     
-    //
-    // Aproximate Gaussian
-    //
-    private func cheezyGaus() -> CGFloat {
-        var answer = CGFloat(0)
-        for _ in 0...9 {
-            answer += CGFloat.random( in: -1 ... 1 )
-        }
-        return answer / 2
-    }
-    
     override func spawn( start: CGPoint, direction: CGPoint, difficulty: Difficulty ) {
-        let speed = self.baseSpeed
+        let speed = self.baseSpeed * CGFloat.random( in: 0.5 ... 1.5 )
 
         super.launch( start: start, velocity: CGPoint(x: speed*direction.x, y: speed*direction.y ))
         sprite.fadeIn( duration: 1 )
     }
 
     private func leadingDirection( targetPosition: CGPoint, targetVelocity: CGPoint ) -> CGPoint {
+        // First approximation: target at rest
         let line = sprite.closestLine( target: targetPosition )
         let lineDistance = line.magnitude()
         
+        // First order correction: where target will be
+        let flightTime = lineDistance / self.missleSpeed
+        let leadingPosition = CGPoint(
+            x: targetPosition.x + flightTime * targetVelocity.x,
+            y: targetPosition.y + flightTime * targetVelocity.y
+        )
+        let leadingLine = sprite.closestLine( target: leadingPosition )
+        let leadingDistance = leadingLine.magnitude()
+        
         return CGPoint(
-            x: (self.missleSpeed / lineDistance) * line.x,
-            y: (self.missleSpeed / lineDistance) * line.y
+            x: (self.missleSpeed / leadingDistance) * leadingLine.x,
+            y: (self.missleSpeed / leadingDistance) * leadingLine.y
         )
     }
     
