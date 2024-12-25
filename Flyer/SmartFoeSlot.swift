@@ -55,10 +55,11 @@ class SmartFoeSlot: FoeSlot {
         // to 1/4 at n = 50, and asymptotically approaches 3/4
         // at n = infinity
         //
+        // Mini boss fraction is at best 5%, and much smaller initially
+        //
         let floatGeneration = CGFloat(self.generation)
         let badderFraction = 0.75 * floatGeneration / (50.0 + floatGeneration)
-//        let bossLikelihood = 0.05 * floatGeneration / (100.0 + floatGeneration)
-        let bossLikelihood = 0.2 * floatGeneration / (2.0 + floatGeneration)
+        let bossLikelihood = 0.05 * floatGeneration / (400.0 + floatGeneration)
 
         let badder = CGFloat.random(in: 0 ..< 1) < badderFraction
         
@@ -66,15 +67,15 @@ class SmartFoeSlot: FoeSlot {
 
         if toss < 0.25 {
             active = badder ? smartMine : mine
-            makeNormalBoom()
+            useNormalBoom()
         }
         else if toss < 0.25 + bossLikelihood {
             active = miniBoss
-            makeBigBoom()
+            useBigBoom()
         }
         else {
             active = badder ? meanie : box
-            makeNormalBoom()
+            useNormalBoom()
         }
         
         self.generation += 1

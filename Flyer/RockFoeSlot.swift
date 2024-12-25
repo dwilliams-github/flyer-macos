@@ -3,7 +3,7 @@
 //  Flyer
 //
 //  Created by David Williams on 1/5/20.
-//  Copyright © 2020 David Williams. All rights reserved.
+//  Copyright © 2024 David Williams. All rights reserved.
 //
 import SpriteKit
 
@@ -17,7 +17,6 @@ class RockFoeSlot: FoeSlot {
     private var rocks: [DriftFoe]
 
     override init( scene: SKScene, player: Player, delay: TimeInterval ) {
-
         //
         // Preallocate our rocks
         //
@@ -43,7 +42,7 @@ class RockFoeSlot: FoeSlot {
     
     override func wakeUp() {
         active = rocks.randomElement()
-        makeNormalBoom()
+        useNormalBoom()
         active!.spawn( start: wakeUpPoint(), direction: wakeUpDirection(), difficulty: settings.difficulty )
     }
 }

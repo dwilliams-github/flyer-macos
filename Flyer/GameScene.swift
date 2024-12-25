@@ -3,7 +3,7 @@
 //  Flyer
 //
 //  Created by David Williams on 10/29/19.
-//  Copyright © 2019 David Williams. All rights reserved.
+//  Copyright © 2024 David Williams. All rights reserved.
 //
 
 import SpriteKit
@@ -248,7 +248,7 @@ class GameScene: SKScene {
             // Check for foe and player collision
             //
             for f in foes {
-                if player.active() && false && f.hitsPlayer() {
+                if player.active() && f.hitsPlayer() {
                     player.oops(when: currentTime)
                     if lives!.decrement() > 0 {
                         player.spawn(when: currentTime+3)

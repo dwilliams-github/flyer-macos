@@ -44,7 +44,7 @@ class MiniBoss: FiringFoe {
             speed: 100,
             range: 300,
             rate: 1.0,
-            missleSpeed: 150
+            missleSpeed: 200
         )
     }
     

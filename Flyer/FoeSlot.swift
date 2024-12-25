@@ -3,7 +3,7 @@
 //  Flyer
 //
 //  Created by David Williams on 11/23/19.
-//  Copyright © 2019 David Williams. All rights reserved.
+//  Copyright © 2024 David Williams. All rights reserved.
 //
 import SpriteKit
 
@@ -125,14 +125,14 @@ class FoeSlot: NSObject {
     /**
      Use a big baboom
      */
-    func makeBigBoom() {
+    func useBigBoom() {
         boom = bigBoom
     }
 
     /**
      Use a normal baboom
      */
-    func makeNormalBoom() {
+    func useNormalBoom() {
         boom = defaultBoom
     }
 
@@ -142,7 +142,7 @@ class FoeSlot: NSObject {
      Subclasses should override this function to handle their assets on foe activation.
      */
     func wakeUp() {
-        makeNormalBoom()
+        useNormalBoom()
     }
     
     /**

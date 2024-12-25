@@ -13,7 +13,7 @@ class Beginner: Difficulty {
     var mineAward: Int = 100
     var meanieAward: Int = 200
     var smartMineAward: Int = 300
-    var miniBossAward: Int = 2000
+    var miniBossAward: Int = 5000
     var rockAward: Int = 50
     
     var foeSpeedFactor: Float = 0.8
@@ -24,7 +24,7 @@ class Hacker: Difficulty {
     var mineAward: Int = 200
     var meanieAward: Int = 300
     var smartMineAward: Int = 500
-    var miniBossAward: Int = 2800
+    var miniBossAward: Int = 8000
     var rockAward: Int = 50
 
     var foeSpeedFactor: Float = 1.0
@@ -35,10 +35,10 @@ class Expert: Difficulty {
     var mineAward: Int = 400
     var meanieAward: Int = 600
     var smartMineAward: Int = 900
-    var miniBossAward: Int = 7500
+    var miniBossAward: Int = 20000
     var rockAward: Int = 50
 
-    var foeSpeedFactor: Float = 2
+    var foeSpeedFactor: Float = 2.0
 }
 
 /**

@@ -19,7 +19,7 @@ Art files are organized in the Art directory. These were created for this game u
 Sounds files are stored in the Sound directory. They are taken from [freesound.org](https://freesound.org/)
 and are all under the creative commons license.
 
-## History
+## Background
 
 This is a recreation of the "flyer" game I wrote many years ago. See: [github](https://github.com/dwilliams-github/flyer|GitHub)
 
@@ -29,3 +29,13 @@ even though it has roughly the same game play. The number of source files in the
 price of modularity.
 
 The somewhat playful intro screen artwork is a reproduction of the art I used in this earlier version.
+
+## Revision history
+
+v1.2 Jan 5, 2020
+ * Initial release
+
+v1.3 
+ * Now arm64 native 
+ * Add new mini boss
+ * Add option to start full screen
