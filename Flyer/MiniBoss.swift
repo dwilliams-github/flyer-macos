@@ -49,6 +49,6 @@ class MiniBoss: FiringFoe {
     }
     
     override func value( difficulty: Difficulty ) -> Int? {
-        return difficulty.smartMineAward
+        return difficulty.miniBossAward
     }
 }

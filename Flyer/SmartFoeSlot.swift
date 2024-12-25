@@ -66,12 +66,15 @@ class SmartFoeSlot: FoeSlot {
 
         if toss < 0.25 {
             active = badder ? smartMine : mine
+            makeNormalBoom()
         }
         else if toss < 0.25 + bossLikelihood {
             active = miniBoss
+            makeBigBoom()
         }
         else {
             active = badder ? meanie : box
+            makeNormalBoom()
         }
         
         self.generation += 1

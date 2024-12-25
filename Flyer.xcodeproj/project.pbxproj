@@ -46,6 +46,7 @@
 		B6BCA7612393359A00D1DB24 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BCA7602393359A00D1DB24 /* Score.swift */; };
 		B6BCA76523933F3200D1DB24 /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BCA76423933F3200D1DB24 /* Difficulty.swift */; };
 		B6BCA76723934BD200D1DB24 /* Lives.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BCA76623934BD200D1DB24 /* Lives.swift */; };
+		B6C478A22D1B66DB00752732 /* crunchy.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B6C478A12D1B66DB00752732 /* crunchy.m4a */; };
 		B6E4772B2369539B00AEFAA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E4772A2369539B00AEFAA0 /* AppDelegate.swift */; };
 		B6E4772D2369539B00AEFAA0 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B6E4772C2369539B00AEFAA0 /* GameScene.sks */; };
 		B6E477312369539B00AEFAA0 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E477302369539B00AEFAA0 /* GameScene.swift */; };
@@ -116,6 +117,7 @@
 		B6BCA76423933F3200D1DB24 /* Difficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Difficulty.swift; sourceTree = "<group>"; };
 		B6BCA76623934BD200D1DB24 /* Lives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lives.swift; sourceTree = "<group>"; };
 		B6BD118923D9704200831552 /* FlyerRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlyerRelease.entitlements; sourceTree = "<group>"; };
+		B6C478A12D1B66DB00752732 /* crunchy.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = crunchy.m4a; sourceTree = "<group>"; };
 		B6E477272369539B00AEFAA0 /* Flyer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flyer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6E4772A2369539B00AEFAA0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B6E4772C2369539B00AEFAA0 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				B648746F23CA56480096D58C /* newlife.m4a */,
 				B648746323C1A1AA0096D58C /* oops.m4a */,
 				B648746123C19E370096D58C /* boom.m4a */,
+				B6C478A12D1B66DB00752732 /* crunchy.m4a */,
 				B648745D23C160580096D58C /* rocket-engine.m4a */,
 				B648745B23C15D360096D58C /* pew.m4a */,
 			);
@@ -377,6 +380,7 @@
 				B605031423851DDE008D1119 /* Art in Resources */,
 				B6B08BE223B528E100117F2A /* IntroScene.sks in Resources */,
 				B6E477382369539D00AEFAA0 /* Main.storyboard in Resources */,
+				B6C478A22D1B66DB00752732 /* crunchy.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

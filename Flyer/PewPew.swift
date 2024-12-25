@@ -55,7 +55,7 @@ class PewPew: NSObject {
         
         launchSound.position = start
         launchSound.run(SKAction.sequence([
-            SKAction.changeVolume( to: 0.2*settings.volume, duration: 0 ),
+            SKAction.changeVolume( to: 0.1*settings.volume, duration: 0 ),
             SKAction.play()
         ]))
     }

@@ -70,7 +70,7 @@ class Boom: NSObject {
         
         sound.position = at.position
         sound.run(SKAction.sequence([
-            SKAction.changeVolume( to: 0.2*settings.volume, duration: 0 ),
+            SKAction.changeVolume( to: 0.4*settings.volume, duration: 0 ),
             SKAction.play()
         ]))
     }

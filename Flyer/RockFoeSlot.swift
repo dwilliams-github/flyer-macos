@@ -43,6 +43,7 @@ class RockFoeSlot: FoeSlot {
     
     override func wakeUp() {
         active = rocks.randomElement()
+        makeNormalBoom()
         active!.spawn( start: wakeUpPoint(), direction: wakeUpDirection(), difficulty: settings.difficulty )
     }
 }

@@ -23,6 +23,8 @@ class FoeSlot: NSObject {
     
     let settings: GameSettings = GameSettings.standard
     private var player: Player
+    private let defaultBoom: Boom
+    private let bigBoom: Boom
     private var boom: Boom
     private var scene: SKScene
     
@@ -58,7 +60,9 @@ class FoeSlot: NSObject {
         //
         // Everything blows up
         //
-        boom = Boom( scene: scene, name: "Boom", number: 4, sound: "boom", size: 18 )
+        defaultBoom = Boom( scene: scene, name: "Boom", number: 4, sound: "boom", size: 18 )
+        bigBoom = Boom( scene: scene, name: "BigBoom", number: 6, sound: "crunchy", size: 24 )
+        boom = defaultBoom
 
         //
         // We'll need to keep track of the player and scene
@@ -117,13 +121,28 @@ class FoeSlot: NSObject {
             y: sin(rotation)
         )
     }
-    
+
+    /**
+     Use a big baboom
+     */
+    func makeBigBoom() {
+        boom = bigBoom
+    }
+
+    /**
+     Use a normal baboom
+     */
+    func makeNormalBoom() {
+        boom = defaultBoom
+    }
+
     /**
      Wake up
      
      Subclasses should override this function to handle their assets on foe activation.
      */
     func wakeUp() {
+        makeNormalBoom()
     }
     
     /**

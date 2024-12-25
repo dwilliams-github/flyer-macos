@@ -14,21 +14,24 @@ class FiringFoe: PewFoe {
     private let baseSpeed: CGFloat
     private let range: CGFloat
     private let rate: CGFloat
-    private let missleSpeed: CGFloat
+    private let baseMissleSpeed: CGFloat
+    private var missleSpeed: CGFloat?
     private var lastShot: TimeInterval?
 
     init( scene: SKScene, sprite: FoldingSprite, speed: CGFloat, range: CGFloat, rate: CGFloat, missleSpeed: CGFloat ) {
         self.baseSpeed = speed
         self.range = range
         self.rate = rate
-        self.missleSpeed = missleSpeed
+        self.baseMissleSpeed = missleSpeed
+        self.missleSpeed = nil
         self.lastShot = nil
         super.init(scene: scene, sprite: sprite, arsenal: (Int)(2.0*rate+1.5))
     }
     
     override func spawn( start: CGPoint, direction: CGPoint, difficulty: Difficulty ) {
         let speed = self.baseSpeed * CGFloat.random( in: 0.5 ... 1.5 )
-
+        self.missleSpeed = CGFloat(difficulty.foeSpeedFactor) * self.baseMissleSpeed
+        
         super.launch( start: start, velocity: CGPoint(x: speed*direction.x, y: speed*direction.y ))
         sprite.fadeIn( duration: 1 )
     }
@@ -39,7 +42,7 @@ class FiringFoe: PewFoe {
         let lineDistance = line.magnitude()
         
         // First order correction: where target will be
-        let flightTime = lineDistance / self.missleSpeed
+        let flightTime = lineDistance / self.missleSpeed!
         let leadingPosition = CGPoint(
             x: targetPosition.x + flightTime * targetVelocity.x,
             y: targetPosition.y + flightTime * targetVelocity.y
@@ -48,8 +51,8 @@ class FiringFoe: PewFoe {
         let leadingDistance = leadingLine.magnitude()
         
         return CGPoint(
-            x: (self.missleSpeed / leadingDistance) * leadingLine.x,
-            y: (self.missleSpeed / leadingDistance) * leadingLine.y
+            x: (self.missleSpeed! / leadingDistance) * leadingLine.x,
+            y: (self.missleSpeed! / leadingDistance) * leadingLine.y
         )
     }
     
