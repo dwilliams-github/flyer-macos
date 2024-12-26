@@ -13,14 +13,14 @@ import GameplayKit
 The main player view
  */
 class ViewController: NSViewController, GameSceneDelegate, IntroSceneDelegate {
-
+    
     @IBOutlet var skView: SKView!
     @IBOutlet var gameOverView: NSView!
     @IBOutlet var scoreTable: NSTableView!
     
     private var topScores: TopScores?
     private var settings: GameSettings = GameSettings.standard
-
+    
     
     //
     // View loads: setup assets, play intro scene
@@ -29,7 +29,7 @@ class ViewController: NSViewController, GameSceneDelegate, IntroSceneDelegate {
         super.viewDidLoad()
         
         topScores = TopScores(table: scoreTable)
-
+        
         if let view = self.skView {
             //
             // Bring up introductory scene
@@ -55,7 +55,7 @@ class ViewController: NSViewController, GameSceneDelegate, IntroSceneDelegate {
     //
     override func viewWillAppear() {
         super.viewWillAppear();
-
+        
         if settings.fullScreen {
             view.window?.toggleFullScreen(self)
         }

@@ -59,7 +59,7 @@ class SmartFoeSlot: FoeSlot {
         //
         let floatGeneration = CGFloat(self.generation)
         let badderFraction = 0.75 * floatGeneration / (50.0 + floatGeneration)
-        let bossLikelihood = 0.05 * floatGeneration / (400.0 + floatGeneration)
+        let bossLikelihood = 0.05 * floatGeneration / (100.0 + floatGeneration)
 
         let badder = CGFloat.random(in: 0 ..< 1) < badderFraction
         

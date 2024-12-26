@@ -34,7 +34,6 @@ protocol GameSceneDelegate {
  Main game scene
  */
 class GameScene: SKScene {
-    
     private var settings: GameSettings = GameSettings.standard
     private var score: Score?
     private var lives: Lives?
@@ -51,6 +50,7 @@ class GameScene: SKScene {
         self.score = Score(scene: self, bonusThreshold: 50000)
         self.lives = Lives(scene: self, startAt: 4, max: 8)
         self.isPaused = false
+        NSCursor.hide()
 
         //
         // Our hero!
@@ -107,7 +107,7 @@ class GameScene: SKScene {
             }
         }
     }
-    
+
     //
     // Oops.
     //
@@ -178,10 +178,11 @@ class GameScene: SKScene {
             if event.keyCode == settings.keyPause {
                 unpause( currentTime: event.timestamp )
                 self.isPaused = false
+                NSCursor.hide()
             }
             return
         }
-        
+
         if let player = self.player {
             switch event.keyCode {
             case settings.keyLeft:
@@ -194,6 +195,8 @@ class GameScene: SKScene {
                 fire(currentTime: event.timestamp)
             case settings.keyPause:
                 self.isPaused = true
+                NSCursor.unhide()
+
                 //
                 // We don't fade in the curtains, since we are reacting
                 // to a keypress and want to give the user immediate feedback.
